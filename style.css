@@ -1,0 +1,11 @@
+.post-content {
+  max-width: 500px;
+  
+  max-height: 6em;
+  min-height: 6em; /* this ensures no funninness when i have to contract to 6 later */
+
+  line-height: 1em; /* this is an important line because it means that we always size the box by a whole number of lines. */
+  overflow: hidden;
+}
+/* then simply increase max-height by 1 em until it is at correct length*/ 
+
