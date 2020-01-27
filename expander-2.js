@@ -8,17 +8,15 @@ let posts = Array.from(document.querySelectorAll('.post')).map((post) => {
 
 posts.forEach(post => {
   if (post.button) {
-    post.button.addEventListener('click', () => expandOrContract(post))
-  };
-})
-
-function expandOrContract(post) {
-  if (post.button.innerText == 'Read more +') {
-    expand(post);
-  } else if (post.button.innerText == "Read less -") {
-    contract(post);
+    post.button.addEventListener('click', () => {
+      if (post.button.innerText == "Read more +") {
+        expand(post);
+      } else if (post.button.innerText == "Read less -") {
+        contract(post);
+      }
+    })
   }
-}
+})
 
 function expand(post) {
   let recordedHeight = post.content.offsetHeight;
