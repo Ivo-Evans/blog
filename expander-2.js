@@ -1,47 +1,47 @@
-let posts = Array.from(document.querySelectorAll('.post')).map((post) => 
-    [
-      6, // starting lineheight - see CSS
-      post.querySelector('.post-content'), // this strategy relies on having only one p element - actually quite implausible. Better, I think, to target the div with the class post-content
-      post.querySelector('.expandContractButton')
-    ]  
-)
+let posts = Array.from(document.querySelectorAll('.post')).map((post) => {
+  return {
+    height: 6,
+    content: post.querySelector('.post-content'),
+    button: post.querySelector('.expandContractButton')
+  }
+})
 
 posts.forEach(post => {
-  if (post[2]) {
-    post[2].addEventListener('click', () => expandOrContract(post))
+  if (post.button) {
+    post.button.addEventListener('click', () => expandOrContract(post))
   };
 })
 
 function expandOrContract(post) {
-  if (post[2].innerText == 'Read more +') {
+  if (post.button.innerText == 'Read more +') {
     expand(post);
-  } else if (post[2].innerText == "Read less -") {
+  } else if (post.button.innerText == "Read less -") {
     contract(post);
   }
 }
 
 function expand(post) {
-  let recordedHeight = post[1].offsetHeight;
+  let recordedHeight = post.content.offsetHeight;
 
   let expansion = setInterval(() => {
-    post[0]++;
-    post[1].style.maxHeight = post[0] + "em";
-    if (post[1].offsetHeight == recordedHeight) {
+    post.height++;
+    post.content.style.maxHeight = post.height + "em";
+    if (post.content.offsetHeight == recordedHeight) {
       clearInterval(expansion);
-      post[2].innerText = "Read less -"; // could put a setTImeout to change this in expand
+      post.button.innerText = "Read less -"; 
     } else {
-      recordedHeight = post[1].offsetHeight;
+      recordedHeight = post.content.offsetHeight;
     }
   }, 20);
 }
 
 function contract(post) {
   let contraction = setInterval(() => {
-    post[0]--;
-    post[1].style.maxHeight = post[0] + "em";
-    if (post[0] <= 6) {
+    post.height--;
+    post.content.style.maxHeight = post.height + "em";
+    if (post.height <= 6) {
       clearInterval(contraction);
-      post[2].innerText = "Read more +";
+      post.button.innerText = "Read more +";
     }
   }, 20)
 }
