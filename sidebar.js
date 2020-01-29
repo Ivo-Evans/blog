@@ -1,8 +1,16 @@
 const sideBar = document.querySelector('.sidebar');
-const hamburger = document.querySelector('.sidebar-button');
+const blackHamburger = document.querySelector('.black-hamburger');
+const whiteHamburger = document.querySelector('.white-hamburger');
+const titles = document.body.querySelectorAll('.post-title');
 
-sideBar.addEventListener('click', openClose);
-hamburger.addEventListener('click', openClose);
+titles.forEach(title => {
+  let item = document.createElement('p');
+  item.innerText = title.innerText;
+  sideBar.appendChild(item);
+})
+
+whiteHamburger.addEventListener('click', openClose);
+blackHamburger.addEventListener('click', openClose);
 
 function openClose() {
   if (sideBar.offsetWidth) {

@@ -8,19 +8,37 @@
   <title>Document</title>
 </head>
 <body>
-  <header></header>
-  <aside class='sidebar'></aside>
-  <svg class = 'sidebar-button' width="25" height="30">
+  <header>
+    <h1>What the fuck is this blog going to be called?</h1>
+  </header>
+  <aside class='sidebar'>
+    <svg class = 'white-hamburger' width="25" height="30">
+      <path d="M0,5 25,5" stroke="#FFF" stroke-width="5"/>
+      <path d="M0,14 25,14" stroke="#FFF" stroke-width="5"/>
+      <path d="M0,23 25,23" stroke="#FFF" stroke-width="5"/>
+    </svg>  
+  </aside>
+  <svg class = 'black-hamburger' width="25" height="30">
     <path d="M0,5 25,5" stroke="#000" stroke-width="5"/>
     <path d="M0,14 25,14" stroke="#000" stroke-width="5"/>
     <path d="M0,23 25,23" stroke="#000" stroke-width="5"/>
   </svg>
 
   <main>
-    
+    <article class="post"> 
+      <h2 class="post-title">A title</h2>
+      <div class="post-content">
+        <p>Some lorem ipsum text. orem ipsum dolor sit amet, consectetur adipiscing elit. Donec efficitur vel ipsum a egestas. Aliquam mi ante, vulputate a diam sed, ultrices aliquam arcu. Duis finibus velit lorem. Phasellus at tortor pharetra, molestie sem sit amet, vestibulum orci. Integer facilisis rutrum purus eget commodo. Phasellus et gravida sem. Sed rhoncus lorem leo, vel tincidunt est elementum et. Suspendisse mollis libero a tortor dignissim, ac mollis lorem bibendum. Donec consequat, elit sed volutpat volutpat, mauris leo consequat dolor, id fermentum ante ex nec purus. Mauris vestibulum cursus finibus. Maecenas sapien dui, lobortis ultricies semper quis, posuere pellentesque ipsum. Nam dignissim dui eu nisi pharetra pulvinar. Vestibulum et nisi vel augue accumsan euismod. Nunc eleifend eros sed lectus feugiat, vehicula dignissim nulla venenatis.Fusce finibus placerat dui ut mattis. Nam ullamcorper tellus ac turpis dictum dapibus. Nunc vestibulum auctor est. Donec vel tortor et mauris convallis iaculis quis condimentum libero. Morbi odio nibh, tempus a massa non, dignissim fermentum lacus. Duis sed aliquam neque. Aenean ultricies magna sit amet purus ullamcorper, accumsan interdum mauris</p>
+        <!--put other elements in here, like p, section, img etc.-->
+        <img class="fade" src="./bottom-fade.png" alt="an image that adds a fade effect to the bottom layer">
+      </div>
+      <h3 class="expandContractButton">Read more +</h3>
+    </article>
   </main>
-  
+
+
   <script src="./sidebar.js"></script>
-  <script src="./expander-2.js"></script>
+  <script src="./text-expander.js"></script>
+
 </body>
 </html>
