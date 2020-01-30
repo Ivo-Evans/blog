@@ -1,11 +1,13 @@
 # although this does some syntax formatting, you should rely on prettier
+# Do you know what you should really do Ivo? You should make this into a web form that uses Sinatra
+
 
 @article = []
 
 def run
   title = get_title
   @article.push("  <div class=\"post-content\">")
-  decide_headings
+  create_post_content
   @article.push("  </div>")
   @article.push("  <h3 class=\"expandContractButton\">Read more +</h3>")
   make_article(title)
@@ -18,7 +20,7 @@ def get_title
   title
 end
 
-def decide_headings
+def create_post_content
   puts 'preamble/article text.'
   get_content
   puts 'headings? (y/n)'
@@ -29,7 +31,7 @@ def decide_headings
   elsif answer.include?('n')
     return
   else
-    decide_headings
+    create_post_content
   end
 end
 
@@ -37,7 +39,7 @@ def get_content
   puts "please copy text in here, and end it with the word finish on a newline"
   
   until (text = gets.chomp) == 'finish'
-    @article.push("    <p>#{text}</p>") ## this could be a switch where the user enters p, l or c for paragraph, list or code... Or there could be some shorthand for entering one or the other...
+    @article.push("    <p>#{text}</p>") ## this could be a switch where the user enters p, l or c for paragraph, list or code... Or there could be some shorthand for entering one or the other, like if entry begins with <l> it will be recorded as a list, if <c> code, etc. 
   end
 end
 
@@ -66,7 +68,6 @@ def make_article(title)
   @article.unshift('<article>')
   @article.push('</article>')
   file = File.open("./articles/#{title[0..13]}", 'w')
-  # I really don't understand, but this comment needs to be here for the program to run lol
   @article.each do |tag| 
     file.write(tag) 
     file.write("\n")

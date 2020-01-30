@@ -1,5 +1,5 @@
-const startHeight = 6 // number of lines - sync to maxHeight and minHeight ems in CSS
-const scrollSpeed = 20 // approx ms between each line being added/removed
+const startHeight = 4; // number of lines - sync to maxHeight and minHeight ems in CSS
+const scrollSpeed = 20; // approx ms between each line being added/removed
 
 let posts = Array.from(document.querySelectorAll('.post')).map((post) => {
   return {
