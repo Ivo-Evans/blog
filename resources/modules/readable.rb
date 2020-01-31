@@ -41,6 +41,7 @@ module Readable
     lines.push(tab + tab + "<span class=\"post-title-bar\"><h2 id=\"#{title}\" class=\"post-title\">#{title}</h2><p class=\"meta-info\">#{date}<br>#{tags.join(", ")}</p></span>")
     lines.push(tab + tab + "<div class=\"post-content\">")
     content.each {|element| lines.push(tab + tab + tab + element)}
+    lines.push(tab + tab + tab + "<img class=\"fade\" src=\"./resources/bottom-fade.png\" alt=\"an image that adds a fade effect to the bottom layer\">")
     lines.push(tab + tab + "</div>")
     lines.push(tab + tab + "<h3 class=\"expandContractButton\">Read more +</h3>")
     lines.push(tab + "</article>")
