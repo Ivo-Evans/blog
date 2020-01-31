@@ -1,0 +1,19 @@
+A basic project plan:
+
+A 'structure.html' file, which is where I do changes to HTML other than articles
+JavaScript files
+A stylesheet
+
+A directory containing plaintext files formatted in a certain way so that they can be compiled. Filenames should begin with 000 - 999, and then you can follow them with titles
+
+A ruby script called content-management.rb - maybe .rbw, which avails itself of two modules
+readable.rb, which parses a text file and returns an array
+writable.rb, which writes every element of an array to a text file on a new line
+
+content-management.rb itself, then, will 
+- get all the articles in the articles directory, and reverse the array so newer articles come first
+- map each one of these articles, passing each filename to readable.rb, which will return an array of lines for the new html file
+- open structure.html
+- if articles array < 10, create new html file, 'index-1.html', a copy of structure.html, and write each element of articles to index-1.html. Else if articles < 20, etc... this specific bit of the system needs some rethinking but you get the gist. 
+	- try something like, currentpage = 1, while articles > 0, 10.times write article to index-#{current_page} and shift article (or pop and never reverse at beginning). Only problem is I don't know what will happen if it tries to write a nonexistent file. I could just include a conditional break statement i guess.  
+

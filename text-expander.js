@@ -21,6 +21,7 @@ posts.forEach(post => {
   }
 })
 
+
 function expand(post) {
   let recordedHeight = post.content.offsetHeight;
 

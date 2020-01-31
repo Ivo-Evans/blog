@@ -1,0 +1,37 @@
+:root {
+  position: relative;
+}
+
+header {
+  /* #0700bf */
+  background-color:#56f556;
+  /* color: #ffb0f3; */
+  font-size: 42px;
+  box-shadow: 20px 20px 30px white inset;
+}
+
+header h1 {
+  margin-left: 10%;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-bottom: 5px;
+}
+
+.line {
+  position: absolute;
+  background-color: #ffb0f3;
+  /* box-shadow: -5px -5px 5px #0700bf inset; */
+}
+
+.horizontal {
+  height: 5px;
+  width: 90%;
+  margin: 0 5%;
+}
+
+.vertical {
+  width: 5px;
+  height: 1000px;
+  margin-left: 8%;
+  top: 10%;
+}
