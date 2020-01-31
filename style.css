@@ -3,7 +3,15 @@ body {
   font-family: sans-serif;
   position: relative;
 }
-  
+ 
+footer {
+  text-align: center;
+}
+
+footer a {
+  color: black;
+}
+
 header {
   margin: 10px;
   font-style: italic;
@@ -13,6 +21,11 @@ header {
 header h1 {
   margin: 0 5%;
   font-family: serif;
+}
+
+header h1 a {
+  text-decoration: none;
+  color: black;
 }
 
 article {

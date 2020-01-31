@@ -37,7 +37,7 @@ module Readable
 
   def compile(title, tags, date, content)
     tab = "  "
-    lines = [tab + "<article>"]
+    lines = [tab + "<article class=\"post\">"]
     lines.push(tab + tab + "<span class=\"post-title-bar\"><h2 id=\"#{title}\" class=\"post-title\">#{title}</h2><p class=\"meta-info\">#{date}<br>#{tags.join(", ")}</p></span>")
     lines.push(tab + tab + "<div class=\"post-content\">")
     content.each {|element| lines.push(tab + tab + tab + element)}
