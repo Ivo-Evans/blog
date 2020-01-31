@@ -36,12 +36,13 @@ module Readable
   end
 
   def compile(title, tags, date, content)
-    lines = ["  <article>"]
-    lines.push("    <span class=\"post-title-bar\"><h2 id=\"#{title}\" class=\"post-title\">#{title}</h2><p class=\"meta-info\">#{date}<br>#{tags.join(", ")}</p></span>")
-    lines.push("    <div class=\"post-content\">")
+    tab = "  "
+    lines = [tab + "<article>"]
+    lines.push(tab + tab + "<span class=\"post-title-bar\"><h2 id=\"#{title}\" class=\"post-title\">#{title}</h2><p class=\"meta-info\">#{date}<br>#{tags.join(", ")}</p></span>")
+    lines.push(tab + tab + "<div class=\"post-content\">")
     content.each {|element| lines.push("      " + element)}
-    lines.push("   </div>")
-    lines.push("    <h3 class=\"expandContractButton\">Read more +</h3>")
-    lines.push("  </article>")
+    lines.push(tab + tab + "</div>")
+    lines.push(tab + tab + "<h3 class=\"expandContractButton\">Read more +</h3>")
+    lines.push(tab + "</article>")
   end
 end

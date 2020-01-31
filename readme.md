@@ -18,16 +18,28 @@ date: nn/nn/nn or in fact any text you like
 CONTENT
 <p> this is where you place the article contents</p>
 
-<p>You should manually write the html tags inside the CONTENT markers, due to the variability in tags you might want to use to make your article text. The first layer of indentation, like these p tags, should be flush with the margin. My tabbing style is two spaces.</p>
+<p>Write valid html here</p>
 CONTENT
 ```
 
 "title: ", "tag: " and "date: " must start a line and be lower case. Matching will occur from the ": " to the end of that line.
 
-content matching works differently. For CONTENT markers to be matched they need to be on their own lines. Matching is greedy: it matches all text between the first and last valid CONTENT marker, so you may use the word CONTENT freely within the first and the last valid marker. Distinct HTML tags should be separated by one empty line, as above.
+content matching works differently. 
+* For CONTENT markers to be matched they need to be on their own lines. 
+* Matching is greedy: it matches all text between the first and last valid CONTENT marker, so you may use the word CONTENT freely within the first and the last valid marker. 
+* You should manually write the html tags inside the CONTENT markers, due to the variability in tags you might want to use to make your article text. 
+* Distinct HTML tags should be separated by one empty line, as above.
+* The first layer of indentation, like these p tags, should be flush with the margin. 
+* The tabbing style applied by content-management.rb is two spaces. This can be changed by changing the tab variable in the method compile(), inside ./resources/modules/readable.rb
 
 ### making changes to the rest of the page
 
-content-management.rb uses a template for the rest of the page, ./resources/website-template.html
+content-management.rb uses a template to generate page elements other than articles, ./resources/website-template.html
 
-Therefore, If you want to make a change to the website other than adding an article, you should make it here, then compile the website again with content-management.rb
+Therefore, If you want to make a change to the website other than adding an article, you should make it here, then compile the website again with content-management.rb. Make sure not to change the line that says
+
+```
+        <!-- INSERT ARTICLES HERE -->
+```
+
+content-management.rb needs it!
