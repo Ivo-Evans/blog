@@ -2,12 +2,12 @@
 
 Rather than writing new articles directly to any html, you should add plaintext files to ./articles, and then run content-management.rb. This will generate new html files named index-n.html. index-0.html will always be the homepage.
 
-### naming articles
+### Naming articles
 By convention, articles begin with a number from 000 to 999, followed by the title of the article, where 000 is the first-written article and 999 is the last-written article. Starting with the numbers lets content-management.rb retain the order in which articles were written, but you can use any notation you want. 
 
 The program is not picky about filetypes for the articles. html files, txt files, and files with no extension at all are all acceptable. It is important, however, that you format their contents correctly.
 
-### formatting articles
+### Formatting articles
 Plaintext article files shoud be formatted as so
 
 ```
@@ -18,7 +18,7 @@ date: nn/nn/nn or in fact any text you like
 CONTENT
 <p> this is where you place the article contents</p>
 
-<p>Write valid html here</p>
+<p>You should write valid HTML</p>
 CONTENT
 ```
 
@@ -32,7 +32,7 @@ content matching works differently.
 * The first layer of indentation, like these p tags, should be flush with the margin. 
 * The tabbing style applied by content-management.rb is two spaces. This can be changed by changing the tab variable in the method compile(), inside ./resources/modules/readable.rb
 
-### making changes to the rest of the page
+### Making changes to the rest of the page
 
 content-management.rb uses a template to generate page elements other than articles, ./resources/website-template.html
 
