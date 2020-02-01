@@ -1,18 +1,18 @@
 module Readable
-  def read(filepath)
+  def read_article(filepath)
     file = open(filepath, 'r')
     file_contents = file.read
-    html = parse(file_contents)
+    html = parse_article(file_contents)
     file.close
     html
   end
 
-  def parse(string)
+  def parse_article(string)
     title = parse_title(string)
     tags = parse_tags(string)
     date = parse_date(string)
     content = parse_content(string)
-    compile(title, tags, date, content)
+    compile_article(title, tags, date, content)
   end
 
   def parse_title(string)
@@ -35,7 +35,7 @@ module Readable
     content ? content.split("\n\n") : ""
   end
 
-  def compile(title, tags, date, content)
+  def compile_article(title, tags, date, content)
     tab = "  "
 
     lines = [tab * 2 + "<article class=\"post\">"]
@@ -46,5 +46,12 @@ module Readable
     lines.push(tab * 3 + "</div>")
     lines.push(tab * 3 + "<h3 class=\"expandContractButton\">Read more +</h3>")
     lines.push(tab * 2 + "</article>")
+  end
+
+  def read_about(filepath)
+    file = open(filepath, 'r')
+    file_contents = file.read.chomp
+    file.close
+    file_contents
   end
 end
