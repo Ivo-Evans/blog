@@ -6,7 +6,10 @@ include Writable
 def parse_articles
   articles = Dir.entries("./articles/").reject { |f| f == '.' || f == ".."}.sort
   articles.map! { |article| Readable.read("./articles/" + article)}
-  Writable.write(articles, 0) # feed it an array articles no longer than 10 so that the page loads fast 
+  this_page = 0
+  total_pages = articles.length / 10
+  puts total_pages
+  Writable.write(articles, this_page, total_pages) # feed it an array articles no longer than 10 so that the page loads fast 
 end
 
 parse_articles
