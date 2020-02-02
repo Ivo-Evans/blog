@@ -12,8 +12,9 @@ module Writable
   end
 
   def write_articles(array_of_articles, to_file, of_n)
+    to_file = name_index_page(to_file)
     new_text = array_of_articles.flatten.join("\n")
-    write_to_main(name_index_page(to_file), new_text)
+    write_to_main(to_file, new_text)
   end
 
   # def write_about_page(to_file, text)
@@ -21,7 +22,7 @@ module Writable
   # end
 
   def name_index_page(n)
-    n == 0 ? "./pages/index.html" : "/pages/index-#{n}"
+    n == 0 ? "./pages/index.html" : "./pages/index-#{n}.html"
   end
 end
 

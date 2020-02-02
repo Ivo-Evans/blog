@@ -1,3 +1,5 @@
+require './resources/modules/writable.rb'
+
 module Compilable
   @tab = "  "
 
@@ -13,13 +15,9 @@ module Compilable
     lines.push(@tab * 2 + "</article>")
   end
   
-  def name_index_page(n)
-    n == 0 ? "./pages/index.html" : "/pages/index-#{n}"
-  end
-  
   def compile_archive(titles)
     titles.each_with_index do |e, i|
-      titles[i] = @tab * 2 + "<p><a href=\"./#{name_index_page(i / 10)}##{e}\">#{e}</a></p>"
+      titles[i] = @tab * 2 + "<p><a class=\"archive-link\"href=\"./#{name_index_page(i / 10)}##{e}\">#{e}</a></p>"
     end
   end  
 end

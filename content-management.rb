@@ -14,7 +14,6 @@ end
 
 def parse_articles(articles)
   articles = articles.map do |article| 
-    # Readable.parse_article("./content/articles/" + article)
     string = Readable.read_article("./content/articles/" + article)
     title = Readable.parse_title(string)
     tags = Readable.parse_tags(string)
@@ -23,9 +22,9 @@ def parse_articles(articles)
     Compilable.compile_article(title, tags, date, content)
   end
 
-  this_page = 0
-  total_pages = articles.length / 10
-  Writable.write_articles(articles, this_page, total_pages) # feed it an array articles no longer than 10 so that the page loads fast 
+  pages = []
+  articles.each_slice(10) { |s| pages.push(s)}
+  pages.each_with_index { |e, i| Writable.write_articles(e, i, pages.length)}
 end
 
 def parse_about
