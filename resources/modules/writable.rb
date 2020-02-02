@@ -17,12 +17,8 @@ module Writable
     write_to_main(to_file, new_text)
   end
 
-  # def write_about_page(to_file, text)
-  #   write_to_main(to_file, text)
-  # end
-
   def name_index_page(n)
-    n == 0 ? "./docs/index.html" : "./docs/index-#{n}.html"
+    n == 0 ? "./index.html" : "./index-#{n}.html"
     # maybe this should be in content_management for continuity, where other destination filepaths are. Bear in mind, though, that it is used in compile_archive in Compilable.
   end
 end

@@ -29,14 +29,14 @@ end
 
 def make_about
   about = read_article('./content/about.txt')
-  Writable.write_to_main('./docs/about.html', about)
+  Writable.write_to_main('./about.html', about)
   # write_about_page('about.html', about)
 end
 
 def make_archive(articles)
   titles = articles.map { |a| Readable.parse_title(Readable.read_article("./content/articles/" + a)) }
   archive_text = Compilable.compile_archive(titles)
-  Writable.write_to_main('./docs/archive.html', archive_text.join("\n"))
+  Writable.write_to_main('./archive.html', archive_text.join("\n"))
   # puts titles # You can then render articles on archive.html. You can use index / 10 to work out which page to link to, availing yoursel of write_to_main. The title of each element should be its id - the thing that links to it on the page. 
 end
 
