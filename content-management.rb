@@ -6,7 +6,7 @@ include Compilable
 include Writable
 
 def make_website
-  article_paths = Dir.entries("./content/articles/").reject { |f| f == '.' || f == ".."}.sort
+  article_paths = Dir.entries("./content/articles/").reject { |f| f == '.' || f == ".."}.sort.reverse
   make_main_pages(article_paths)
   make_archive(article_paths)
   make_about
