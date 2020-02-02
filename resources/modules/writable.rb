@@ -22,7 +22,8 @@ module Writable
   # end
 
   def name_index_page(n)
-    n == 0 ? "./pages/index.html" : "./pages/index-#{n}.html"
+    n == 0 ? "./docs/index.html" : "./docs/index-#{n}.html"
+    # maybe this should be in content_management for continuity, where other destination filepaths are. Bear in mind, though, that it is used in compile_archive in Compilable.
   end
 end
 

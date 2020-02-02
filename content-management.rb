@@ -7,12 +7,12 @@ include Writable
 
 def make_website
   article_paths = Dir.entries("./content/articles/").reject { |f| f == '.' || f == ".."}.sort
-  parse_articles(article_paths)
-  parse_titles(article_paths)
-  parse_about
+  make_main_pages(article_paths)
+  make_archive(article_paths)
+  make_about
 end
 
-def parse_articles(articles)
+def make_main_pages(articles)
   articles = articles.map do |article| 
     string = Readable.read_article("./content/articles/" + article)
     title = Readable.parse_title(string)
@@ -27,22 +27,20 @@ def parse_articles(articles)
   pages.each_with_index { |e, i| Writable.write_articles(e, i, pages.length)}
 end
 
-def parse_about
+def make_about
   about = read_article('./content/about.txt')
-  Writable.write_to_main('./pages/about.html', about)
+  Writable.write_to_main('./docs/about.html', about)
   # write_about_page('about.html', about)
 end
 
-def parse_titles(articles)
+def make_archive(articles)
   titles = articles.map { |a| Readable.parse_title(Readable.read_article("./content/articles/" + a)) }
   archive_text = Compilable.compile_archive(titles)
-  Writable.write_to_main('./pages/archive.html', archive_text.join("\n"))
+  Writable.write_to_main('./docs/archive.html', archive_text.join("\n"))
   # puts titles # You can then render articles on archive.html. You can use index / 10 to work out which page to link to, availing yoursel of write_to_main. The title of each element should be its id - the thing that links to it on the page. 
 end
 
 
 make_website
 
-# TODO: different page generation
-# TODO: if page number == 0, don't name it index-0.html, name it index.html
-# TODO: implement automatic page-number navigation. Rename Writable.write to Writable.write_content. Add Writable.write_pagination which opens the file just created by Writable.write_content, and performs another operation on it, adding page numbers and links.
+# TODO: implement automatic page-number navigation. Add another formfield into the html template, and in writable another method, write_pagination, called in write_articles after write_to_main. 
