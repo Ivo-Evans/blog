@@ -4,7 +4,7 @@ body {
   position: relative;
 }
  
-footer {
+footer nav {
   text-align: center;
   display: flex;
   justify-content: center;

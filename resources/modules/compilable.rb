@@ -24,7 +24,16 @@ module Compilable
     titles.each_with_index do |e, i|
       titles[i] = @tab * 2 + "<p><a class=\"archive-link\"href=\"./#{name_index_page(i / 10)}##{e}\">#{e}</a></p>"
     end
-  end  
+  end
+  
+  def compile_pagination(this_n, total_n)
+    (0..total_n - 1).map do |e| 
+      address = name_index_page(e)
+      if e == this_n 
+        @tab * 3 + "<h3><a class=\"current-page\"href=\"#{address}\">#{e}</a></h3>"
+      else
+        @tab * 3 + "<h3><a class=\"non-current-page\"href=\"#{address}\">#{e}</a></h3>"
+      end
+    end
+  end
 end
-
-# TODO: fix archive links - they currently go to docs/docs

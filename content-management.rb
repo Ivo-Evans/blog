@@ -24,11 +24,16 @@ def make_main_pages(articles)
 
   pages = []
   articles.each_slice(10) { |s| pages.push(s)}
-  pages.each_with_index { |e, i| Writable.write_articles(e, i, pages.length)}
+  pages.each_with_index do |content, slice_number| 
+    Writable.write_articles(content, slice_number)
+    
+    pagination = Compilable.compile_pagination(slice_number, pages.length)
+    Writable.write_pagination(pagination, slice_number)
+  end
 end
 
 def make_about
-  about = read_article('./content/about.txt')
+  about = Readable.read_article('./content/about.txt')
   Writable.write_to_main('./about.html', about)
   # write_about_page('about.html', about)
 end
@@ -37,10 +42,8 @@ def make_archive(articles)
   titles = articles.map { |a| Readable.parse_title(Readable.read_article("./content/articles/" + a)) }
   archive_text = Compilable.compile_archive(titles)
   Writable.write_to_main('./archive.html', archive_text.join("\n"))
-  # puts titles # You can then render articles on archive.html. You can use index / 10 to work out which page to link to, availing yoursel of write_to_main. The title of each element should be its id - the thing that links to it on the page. 
 end
 
 
 make_website
 
-# TODO: implement automatic page-number navigation. Add another formfield into the html template, and in writable another method, write_pagination, called in write_articles after write_to_main. 
