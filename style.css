@@ -8,6 +8,7 @@ footer nav {
   text-align: center;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 footer a {
@@ -32,7 +33,7 @@ header h1 a {
 }
 
 article {
-  margin: 0 5%;
+  margin: 10% 5%;
 }
 
 aside {
@@ -55,7 +56,7 @@ aside a {
   color: grey;
   font-style: italic;
   text-align: right;
- margin: 0 5%;
+  margin: 0 5%;
 }
 
 article h2 {
@@ -79,8 +80,8 @@ article h2 {
 }
 
 .post-content {  
-  max-height: 4em;
-  min-height: 4em; /* this ensures no funninness when i have to contract to 6 later */
+  max-height: 6em;
+  min-height: 6em; /* this ensures no funninness when i have to contract to 6 later */
 
   line-height: 1em; /* this is an important line because it means that we always size the box by a whole number of lines. It has a side-effect that low-hanging letters like g can be partially cut off before expansion - expansion adds an extra line's worth of space to the box, thus solving that problem. You should subtly blur out the bottom of the div, to obscure this problem*/
   overflow: hidden;
@@ -110,12 +111,5 @@ article h2 {
 
   main {
     margin: 0 130px;
-  }
-
-  aside {
-    display: block;
-    max-width: 120px;
-    position: fixed;
-    padding-left: 20px
   }
 }

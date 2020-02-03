@@ -13,7 +13,7 @@ The blog is updated via the content management system. Therefore, to make any ch
 
 ### Adding articles
 
-Rather than writing new articles directly to any html, you should add plaintext files to ./content/articles and then run content-management.rb. This will generate new html files representing the pages of the blog. index.html will always be the homepage. Adding an article in this way ensures that the archive is kept up to date, that the most recent article appears first on the blog, and that no more than ten articles appear per html document.
+Add plaintext files to ./content/articles and then run content-management.rb. This will generate new html files representing the pages of the blog. index.html will always be the homepage. Adding an article in this way ensures that the archive is kept up to date, that the most recent article appears first on the blog, and that no more than ten articles appear per page.
 
 You do not need to delete old pages before generating new ones.
 
@@ -21,7 +21,7 @@ You do not need to delete old pages before generating new ones.
 
 Article files begin with a number from 000 to 999, followed by the title of the article, where 000 is the first-written article and 999 is the last-written article. This convention lets content-management.rb sort the articles to display in reverse-chronological order. That said, you can use any article name you want and articles will still be written into html pages.
 
-The program is not picky about article filetypes. .html files, .txt files, and files with no extension at all are all acceptable. It _is_ important, however, that you format their contents correctly.
+The program is not picky about article filetypes either. .html files, .txt files, and files with no extension at all are all acceptable. It _is_ important, however, that you format their contents correctly.
 
 ### Formatting article files
 
@@ -45,7 +45,8 @@ content matching works differently.
 * For CONTENT markers to be matched they need to be on their own lines.
 * content markers must be upper-case.
 * Matching is greedy: it matches all text between the first and last valid content marker, so you may use the word CONTENT freely within the first and the last valid marker. 
-* You should manually write the html tags inside the content markers. This gives you freedom to customise your articles.  * Distinct HTML lines should be separated by one empty line, as above. When compiled, these two p tags will be touching.
+* You should manually write the html tags inside the content markers. This gives you freedom to customise your articles.  
+* Distinct HTML lines should be separated by one empty line, as above. When compiled, these two p tags will be touching.
 * The first layer of indentation, like these p tags, should be flush with the margin. 
 * The tabbing style applied by content-management.rb is two spaces. This can be changed by changing the value of @tab in Compilable, ./resources/modules/compilable.rb
 
@@ -63,9 +64,13 @@ Therefore, If you want to make a change to the website other than adding an arti
 ```
         <!-- INSERT ARTICLES HERE -->
 ```
+or
+```
+        <!-- INSERT PAGINATION HERE -->
+```
 
-content-management.rb needs it!
+content-management.rb needs them!
 
 ### Making changes to HTML markup for articles
 
-The system is designed to automate the addition of articles. The markup applied to these articles is found inside Ruby scripts. Of particular interest will be Compilable, found in ./resources/modules/compilable.rb, which takes data, harvested by Readable, from ./content/, and returns arrays of valid HTML lines for Writable to write to .html files.
+The system is designed to automate the addition of articles. The markup applied to these articles is found inside Ruby scripts. Of particular interest will be Compilable, found in ./resources/modules/compilable.rb, which takes data, harvested by Readable, from ./content/, and returns arrays of valid HTML lines for Writable.
