@@ -1,5 +1,3 @@
-require './resources/modules/writable.rb'
-
 module Compilable
   @tab = "  "
 
@@ -20,15 +18,15 @@ module Compilable
     ]
   end
   
-  def compile_archive(titles)
+  def compile_archive(titles, namer)
     titles.each_with_index do |e, i|
-      titles[i] = @tab * 2 + "<p><a class=\"archive-link\"href=\"./#{name_index_page(i / 10)}##{e}\">#{e}</a></p>"
+      titles[i] = @tab * 2 + "<p><a class=\"archive-link\"href=\"./#{namer[i / 10]}##{e}\">#{e}</a></p>"
     end
   end
   
-  def compile_pagination(this_n, total_n)
+  def compile_pagination(this_n, total_n, namer)
     (0..total_n - 1).map do |e| 
-      address = name_index_page(e)
+      address = namer[e]
       if e == this_n 
         @tab * 3 + "<h3><a class=\"current-page\"href=\"#{address}\">#{e}</a></h3>"
       else

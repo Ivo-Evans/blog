@@ -11,25 +11,20 @@ module Writable
     file.close
   end
 
-  def write_articles(array_of_articles, to_file)
-    to_file = name_index_page(to_file)
+  def write_articles(array_of_articles, to_file, namer)
+    to_file = namer[to_file]
     new_text = array_of_articles.flatten.join("\n")
     write_to_main(to_file, new_text)
   end
 
-  def write_pagination(pagination, this_page)
+  def write_pagination(pagination, this_page, namer)
     numbers = pagination.join("\n")
-    page = open("./" + name_index_page(this_page), 'r+:UTF-8')
+    page = open("./" + namer[this_page], 'r+:UTF-8')
     new_content = page.read.sub(/^\s*<!-- INSERT PAGINATION HERE -->/, numbers)
     page.truncate(0)
     page.rewind
     page.write(new_content)
     page.close
-  end
-
-  def name_index_page(n)
-    n == 0 ? "./index.html" : "./index-#{n}.html"
-    # maybe this should be in content_management for continuity, where other destination filepaths are. Bear in mind, though, that it is used in compile_archive in Compilable.
   end
 end
 
