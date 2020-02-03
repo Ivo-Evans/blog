@@ -12,6 +12,12 @@ date: 01/02/2019
 CONTENT
 <p>somecontent</p>
 
+<p>now for some very very long article text. All About Floats
+Chris Coyier has always been my favorite author when it comes to CSS related topics and his introduction to floats doesn’t disappoint. If you’re looking for a brief but straightforward discussion on how to work with floats, this piece has you covered. I particularly like the simple, attractive illustrations used throughout the article.
+
+The Mystery Of The CSS Float Property
+While Chris Coyier’s pieces are typically brief and to the point, the content on Smashing Magazine is usually quite expansive with tons of examples and relevant discussion. This article introduces the concept of floats, tells you all about how to use and clear them and then launches into a discussion of where you typically see floats being used in real world sites. If you need to see the theory come alive, this one is for you.</p>
+
 <h5>and more content CONTENT</h5>
 
 <p>CONTENT this is content</p>

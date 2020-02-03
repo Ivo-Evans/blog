@@ -1,11 +1,14 @@
 const startHeight = 6; // number of lines - sync to maxHeight and minHeight ems in CSS
 const scrollSpeed = 20; // approx ms between each line being added/removed
+const lineInterval = 1.5;
+const loadURL = window.location.href;
 
 let posts = Array.from(document.querySelectorAll('.post')).map((post) => {
   return {
     height: startHeight,
     content: post.querySelector('.post-content'),
-    button: post.querySelector('.expandContractButton')
+    button: post.querySelector('.expandContractButton'),
+    title : post.querySelector('h2').innerText
   }
 })
 
@@ -18,15 +21,18 @@ posts.forEach(post => {
         contract(post);
       }
     })
+
+    if (loadURL.includes("#" + post.title)) {
+      expand(post);
+    }
   }
 })
-
 
 function expand(post) {
   let recordedHeight = post.content.offsetHeight;
 
   let expansion = setInterval(() => {
-    post.height++;
+    post.height += lineInterval;
     post.content.style.maxHeight = post.height + "em";
     if (post.content.offsetHeight == recordedHeight) {
       clearInterval(expansion);
@@ -39,7 +45,7 @@ function expand(post) {
 
 function contract(post) {
   let contraction = setInterval(() => {
-    post.height--;
+    post.height -= lineInterval;
     post.content.style.maxHeight = post.height + "em";
     if (post.height <= startHeight) {
       clearInterval(contraction);

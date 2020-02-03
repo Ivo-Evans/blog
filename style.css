@@ -83,11 +83,20 @@ article h2 {
   max-height: 6em;
   min-height: 6em; /* this ensures no funninness when i have to contract to 6 later */
 
-  line-height: 1em; /* this is an important line because it means that we always size the box by a whole number of lines. It has a side-effect that low-hanging letters like g can be partially cut off before expansion - expansion adds an extra line's worth of space to the box, thus solving that problem. You should subtly blur out the bottom of the div, to obscure this problem*/
+  line-height: 1.5em; /* this is an important line because it means that we always size the box by a whole number of lines. It has a side-effect that low-hanging letters like g can be partially cut off before expansion - expansion adds an extra line's worth of space to the box, thus solving that problem. You should subtly blur out the bottom of the div, to obscure this problem*/
   overflow: hidden;
   position: relative;
 
 }
+
+  /*
+  On line-height:
+  - setting line-height to 1em means that the text-expander moves by 1 line each time it moves.
+  - However it has the downside that the bottom tip of long characters, like g's, extend into the line below - overflow for the last line, and highly compact for the other lines
+  - The problem could possibly be solved by increasing line-height here, and using a multiplier in the js. I believe that default lineheight is 1.5 em, so we could increment and decrement by 1.5 instead of 1. However, I had some problems getting that working
+  - There are some questions about how useful that is anyway, if we still need the line fade effect
+  - but maybe if I did get that working, the line fade would no longer be necessary.
+  */
 
 .fade {
   position: absolute;
