@@ -1,7 +1,7 @@
 const startHeight = 6; // number of lines - sync to maxHeight and minHeight ems in CSS
 const scrollSpeed = 20; // approx ms between each line being added/removed
 const lineInterval = 1.5;
-const loadURL = window.location.href;
+const loadURL = window.location.href.replace(/%20/g, " ");
 
 let posts = Array.from(document.querySelectorAll('.post')).map((post) => {
   return {
