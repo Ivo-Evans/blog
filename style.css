@@ -3,7 +3,11 @@ body {
   font-family: sans-serif;
   position: relative;
 }
- 
+
+main {
+  padding: 10% 5%;
+}
+
 footer nav {
   text-align: center;
   display: flex;
@@ -12,7 +16,6 @@ footer nav {
 }
 
 footer a {
-  color: black;
   padding: 30px;
 }
 
@@ -29,15 +32,18 @@ header h1 {
 
 header h1 a {
   text-decoration: none;
-  color: black;
 }
 
 article {
-  margin: 10% 5%;
+  margin-bottom: 5%;
 }
 
 aside {
   display: none;
+}
+
+a {
+  color: #000;
 }
 
 aside a {
@@ -52,16 +58,22 @@ aside a {
   justify-content: space-between;
 }
 
+.post-title-bar h2 {
+  flex-shrink: 1;
+}
+
 .meta-info {
   color: grey;
   font-style: italic;
   text-align: right;
   margin: 0 5%;
+  font-size: 13px;
+  flex-shrink: 3;
 }
 
 article h2 {
   margin-top: 20px;
-  font-size: 35px;
+  font-size: 25px;
   margin: 0px;
 }
 
@@ -69,7 +81,7 @@ article h2 {
   width: 100%;
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  margin: 20px 0 0 0;
 }
 
 .border-substance {
@@ -121,4 +133,9 @@ article h2 {
   main {
     margin: 0 130px;
   }
+
+  article h2 {
+    font-size: 35px;
+  }
+  
 }

@@ -21,11 +21,9 @@ CONTENT
 
 <p>could be matched by [0-9] in exactly ten places, corresponding to the digits in-range. A regular expression containing 0-9, on the other hand, represents the text 0-9 literally, and one containing \[0-9\] represents the text [0-9] literally.</p>
 
-<p>To take another example, .{2,4} represents any substring which is at best 9 characters long and at least 3. Note the full stop – it represents ‘any character’. If we use a regex containing .{2, 4} to iteratively scan the string ‘123456789’, it will match 1-4 and 5-8, but not 9. Regex is ‘greedy’: it always takes as much as it can while preserving the integrity of its matches.</p>
+<p>To take another example, .{2,4} represents any substring which is at best 4 characters long and at least 2. Note the full stop – it represents ‘any character’. If we use a regex containing .{2, 4} to iteratively scan the string ‘123456789’, it will match 1-4 and 5-8, but not 9. Regex is ‘greedy’: it always takes as much as it can while preserving the integrity of its matches.</p>
 
 <p>There’s a lot more you can do with regex. You can give it a ‘global’ flag, so that it makes as many matches as it can, rather than just one match; you can feed it alternators, so that it alternates its search between two different expressions as it goes through the string from start to finish; you can indicate the start or end of a line; you can use lookaheads and lookbehinds, to capture substrings which are near to other substrings without capturing the nearby substrings themselves. Regex is extremely flexible, and that is what makes it so much more powerful than one-to-one representation.</p>
 
-<p>Some people love to hate regex, but actually, given the choice, I am not sure I would trade it in for anything different. It’s generality can invite unintended consequences, but that is the very source of its power. I would prefer to master it than to abandon it.</p>
-
-
+<p>Some people love to hate regex, but actually, given the choice, I am not sure that I would trade it in for anything different. It’s generality can invite unintended consequences, but that is the very source of its power. I would prefer to master it than to abandon it.</p>
 CONTENT
