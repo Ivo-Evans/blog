@@ -28,9 +28,9 @@ module Compilable
     (0..total_n - 1).map do |e| 
       address = namer[e]
       if e == this_n 
-        @tab * 3 + "<h3><a class=\"current-page\"href=\"#{address}\">#{e}</a></h3>"
+        @tab * 3 + "<h3><a class=\"current-page\" href=\"#{address}\">#{e}</a></h3>"
       else
-        @tab * 3 + "<h3><a class=\"non-current-page\"href=\"#{address}\">#{e}</a></h3>"
+        @tab * 3 + "<h3><a class=\"non-current-page\" href=\"#{address}\">#{e}</a></h3>"
       end
     end
   end
