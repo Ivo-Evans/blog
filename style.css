@@ -21,17 +21,21 @@ footer a {
 
 header {
   margin: 10px;
-  font-style: italic;
-  font-size: 26px;
 }
 
-header h1 {
+header h1,h2 {
   margin: 0 5%;
   font-family: serif;
 }
 
 header h1 a {
   text-decoration: none;
+  font-style: italic;
+  font-size: 52px;
+}
+
+header h2 {
+  font-size: 26px;
 }
 
 article {
@@ -53,6 +57,20 @@ aside a {
   text-decoration: inherit;
 }
 
+.border-total {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 0 0;
+}
+
+.border-substance {
+  width: 97%;
+  height: 7px;
+  background-color: black;
+
+}
+
 .post-title-bar {
   display: flex;
   justify-content: space-between;
@@ -71,24 +89,9 @@ aside a {
   flex-shrink: 3;
 }
 
-article h2 {
-  margin-top: 20px;
+main h2 {
   font-size: 25px;
   margin: 0px;
-}
-
-.border-total {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin: 20px 0 0 0;
-}
-
-.border-substance {
-  width: 97%;
-  height: 7px;
-  background-color: black;
-
 }
 
 .post-content {  
@@ -109,6 +112,10 @@ article h2 {
   - There are some questions about how useful that is anyway, if we still need the line fade effect
   - but maybe if I did get that working, the line fade would no longer be necessary.
   */
+
+pre, code {
+  margin-left: 10%;
+}
 
 .fade {
   position: absolute;

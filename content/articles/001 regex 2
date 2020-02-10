@@ -1,0 +1,97 @@
+title: Regex 2: How regular expressions fit into JavaScript
+tags: regular expressions, regex, regexp, fundamentals
+date: 10/02/2019
+
+CONTENT
+<p>Regular expressions, as a system for representing text, are found in most programming languages. In this post, I’m going to focus on JavaScript, which happens to be my favourite programming language (although not for its implementation of regex, which currently lacks some features, like lookbehinds and interpolation).</p>
+
+<h3>1: regular expressions are values</h3>
+
+<p>In JavaScript regular expressions are a data-type called RegExp. Like most data-types, they can be constructed using literals or an object constructor:</p>
+
+<pre><code>
+‘5’ // a string literal
+String(5) // a string created by the constructor function for the string type
+</code></pre>
+
+<p>The syntax for a RegExp literal is to enclose the expression within two forward slashes:</p>
+
+<code>/(ab){3}/   // a regex matching 3 consecutive ab’s: ababab</code>
+
+<p>This forward-slash syntax is, as far as I know, almost universal across programming languages. It is also the most common syntax in JavaScript. Since RegExps are not strings, there is no need for any string syntax when creating a RegExp literal. However, this is different when using the RegExp constructor. Here, we drop the forward slashes, and feed the constructor a string as its argument, leaving it up to the function to make the regular expression for us:</p>
+
+<code>RegExp(‘(ab){3}’)</code>
+
+<h3>2: using regular expressions in functions</h3>
+
+<p>Because regular expressions are objects, they can be:</p>
+
+<ul>
+  <li>Given to functions as arguments</li>
+    <code>123”.match(/2/) // ["2", index: 1, input: "123", groups: undefined]</code>
+  <li>Returned from functions</li>
+    <code>RegExp(‘a’) // returns a regular expression</code>
+  <li>functions can be called on them</li>
+    <code>/a/.test(‘a hungry hippo’) // true</code>
+</ul>
+
+<Both>Let’s look in more detail at two functions that work with regular expressions, match() and replace(). Both of these functions are called on strings and take regular expressions as arguments.</p>
+
+
+<h3>2.1: match()</h3>
+
+<p>match() returns matches it finds. By default, match() returns an object corresponding to the first match it found.</p>
+
+<pre><code>
+let str = “stringy string”
+str.match(/[ng]/) // ["n", index: 4, input: "stringy string", groups: undefined]
+// square brackets [] mean ‘any of these characters’.
+str // “stringy string”
+</code></pre>
+
+<p>However, match really comes into its own when you give the regex the global flag. Then, match returns an array of substrings that match the regex. You give flags to regex literals by adding a letter after the second forward slash, and to regex constructor functions by providing a second argument:</p>
+
+<pre><code>
+let regExOne = /st/g
+let regExTwo = RegExp(‘[ng]’, ‘g’)
+str.match(regExOne); // [“st”, “st”]
+str.match(regExTwo); // [“n”, “g”, “n”, “g”]
+</code></pre>
+
+<h3>2.2: replace()</h3>
+
+<p>Next up is replace(), which replaces a substring with another, or multiple substrings with another if you use the global flag. replace() takes two arguments. First, it searches the string on which it was called according to its first argument, a regex. Secondly, it substitutes a match, if it finds one, using its second argument. It does not ‘mutate’ the string it is called on – strings are immutable in JavaScript – but returns a new string.</p>
+
+
+<p>When I add articles to this blog, I write them to text files, and then I run a program that I wrote and it compiles HTML for me - that way new articles always appear in the right place and get added to the archive page automatically. I used Ruby to write this program, but it could have been done in JavaScript too. It scans a text file called website-template.html, finds a line which says
+
+<p><code>&lt;!-- INSERT ARTICLES HERE --&gt;</code>,</p>
+
+<p>replaces that line with article content that it got elsewhere, and then writes the new string to a new file - a file just like the one your browser has rendered to let you read this.</p>
+
+<p>I could just use a string-for-string replacement, like</p>
+
+<code>webSite = webSite.replace('&lt;!-- INSERT ARTICLES HERE --&gt;', mainContent);</code>
+
+<p>However, this messes up the formatting a bit, because while the 'hook' is partially indented, lines I add under that will not be indented by default. Thus, I found it preferable to use a regular expression:</p>
+
+<code>webSite = webSite.replace(/^\s*&lt;!-- INSERT ARTICLES HERE --&gt;/, mainContent);</code>
+
+</p>This regular expression matches 0 or more whitespace characters from the beginning of the line to the end of &lt;!-- INSERT ARTICLES HERE --&gt;, thus letting me handle all the indentation at insertion-point.</Both> 
+
+<p>Now, importantly, this is a pretty <em>specific</em> regex. This is important for keeping your regular expressions under control. Make maximum specificity your aim. If you cast your net wide, you might end up with a lot of junk.</p>
+
+<h3>3: conclusion</h3>
+
+<p>This marks the end of my brief series on regex. I hope I've equipped you with an appreciation of the usefulness of regular expressions, as well as a fundamental understanding that will set you on a path to learn more.</p>
+
+<p>Where to go next</p>
+
+<ul>
+<li><a href="https://www.w3schools.com/jsref/jsref_obj_regexp.asp">A regular expression reference</a></li>
+<li>Sites to test regular expressions for <a href="regexr.com">JavaScript</a> and <a href="rubular.com">Ruby</a></li>
+<li><a href="http://www.zsoltnagy.eu/visualizing-regex-execution-using-finite-state-machines/">Modelling regular expressions as finite-state-machines</a></li>
+<li><a href="https://www.codewars.com/collections/regex-31">Some practice problems</a></li>
+</ul>
+
+CONTENT

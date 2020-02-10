@@ -10,24 +10,97 @@
 <body>
   <header>
     <h1><a href="./index.html">A Bit Wise</a></h1>
+    <h2>A blog about the basics</h2>
   </header>
   <div class="border-total"><div class=border-substance></div></div>
   <main>
     <article class="post">
+      <span class="post-title-bar"><h2 id="Regex 2: How regular expressions fit into JavaScript" class="post-title">Regex 2: How regular expressions fit into JavaScript</h2><p class="meta-info">10/02/2019<br>regular expressions, regex, regexp, fundamentals</p></span>
+      <div class="post-content">
+        <p>Regular expressions, as a system for representing text, are found in most programming languages. In this post, I’m going to focus on JavaScript, which happens to be my favourite programming language (although not for its implementation of regex, which currently lacks some features, like lookbehinds and interpolation).</p>
+        <h3>1: regular expressions are values</h3>
+        <p>In JavaScript regular expressions are a data-type called RegExp. Like most data-types, they can be constructed using literals or an object constructor:</p>
+        <pre><code>
+‘5’ // a string literal
+String(5) // a string created by the constructor function for the string type
+</code></pre>
+        <p>The syntax for a RegExp literal is to enclose the expression within two forward slashes:</p>
+        <code>/(ab){3}/   // a regex matching 3 consecutive ab’s: ababab</code>
+        <p>This forward-slash syntax is, as far as I know, almost universal across programming languages. It is also the most common syntax in JavaScript. Since RegExps are not strings, there is no need for any string syntax when creating a RegExp literal. However, this is different when using the RegExp constructor. Here, we drop the forward slashes, and feed the constructor a string as its argument, leaving it up to the function to make the regular expression for us:</p>
+        <code>RegExp(‘(ab){3}’)</code>
+        <h3>2: using regular expressions in functions</h3>
+        <p>Because regular expressions are objects, they can be:</p>
+        <ul>
+  <li>Given to functions as arguments</li>
+    <code>123”.match(/2/) // ["2", index: 1, input: "123", groups: undefined]</code>
+  <li>Returned from functions</li>
+    <code>RegExp(‘a’) // returns a regular expression</code>
+  <li>functions can be called on them</li>
+    <code>/a/.test(‘a hungry hippo’) // true</code>
+</ul>
+        <Both>Let’s look in more detail at two functions that work with regular expressions, match() and replace(). Both of these functions are called on strings and take regular expressions as arguments.</p>
+        
+<h3>2.1: match()</h3>
+        <p>match() returns matches it finds. By default, match() returns an object corresponding to the first match it found.</p>
+        <pre><code>
+let str = “stringy string”
+str.match(/[ng]/) // ["n", index: 4, input: "stringy string", groups: undefined]
+// square brackets [] mean ‘any of these characters’.
+str // “stringy string”
+</code></pre>
+        <p>However, match really comes into its own when you give the regex the global flag. Then, match returns an array of substrings that match the regex. You give flags to regex literals by adding a letter after the second forward slash, and to regex constructor functions by providing a second argument:</p>
+        <pre><code>
+let regExOne = /st/g
+let regExTwo = RegExp(‘[ng]’, ‘g’)
+str.match(regExOne); // [“st”, “st”]
+str.match(regExTwo); // [“n”, “g”, “n”, “g”]
+</code></pre>
+        <h3>2.2: replace()</h3>
+        <p>Next up is replace(), which replaces a substring with another, or multiple substrings with another if you use the global flag. replace() takes two arguments. First, it searches the string on which it was called according to its first argument, a regex. Secondly, it substitutes a match, if it finds one, using its second argument. It does not ‘mutate’ the string it is called on – strings are immutable in JavaScript – but returns a new string.</p>
+        
+<p>When I add articles to this blog, I write them to text files, and then I run a program that I wrote and it compiles HTML for me - that way new articles always appear in the right place and get added to the archive page automatically. I used Ruby to write this program, but it could have been done in JavaScript too. It scans a text file called website-template.html, finds a line which says
+        <p><code>&lt;!-- INSERT ARTICLES HERE --&gt;</code>,</p>
+        <p>replaces that line with article content that it got elsewhere, and then writes the new string to a new file - a file just like the one your browser has rendered to let you read this.</p>
+        <p>I could just use a string-for-string replacement, like</p>
+        <code>webSite = webSite.replace('&lt;!-- INSERT ARTICLES HERE --&gt;', mainContent);</code>
+        <p>However, this messes up the formatting a bit, because while the 'hook' is partially indented, lines I add under that will not be indented by default. Thus, I found it preferable to use a regular expression:</p>
+        <code>webSite = webSite.replace(/^\s*&lt;!-- INSERT ARTICLES HERE --&gt;/, mainContent);</code>
+        </p>This regular expression matches 0 or more whitespace characters from the beginning of the line to the end of &lt;!-- INSERT ARTICLES HERE --&gt;, thus letting me handle all the indentation at insertion-point.</Both> 
+        <p>Now, importantly, this is a pretty <em>specific</em> regex. This is important for keeping your regular expressions under control. Make maximum specificity your aim. If you cast your net wide, you might end up with a lot of junk.</p>
+        <h3>3: conclusion</h3>
+        <p>This marks the end of my brief series on regex. I hope I've equipped you with an appreciation of the usefulness of regular expressions, as well as a fundamental understanding that will set you on a path to learn more.</p>
+        <p>Where to go next</p>
+        <ul>
+<li><a href="https://www.w3schools.com/jsref/jsref_obj_regexp.asp">A regular expression reference</a></li>
+<li>Sites to test regular expressions for <a href="regexr.com">JavaScript</a> and <a href="rubular.com">Ruby</a></li>
+<li><a href="http://www.zsoltnagy.eu/visualizing-regex-execution-using-finite-state-machines/">Modelling regular expressions as finite-state-machines</a></li>
+<li><a href="https://www.codewars.com/collections/regex-31">Some practice problems</a></li>
+</ul>
+
+        <img class="fade" src="./resources/bottom-fade.png" alt="an image that adds a fade effect to the bottom layer">
+      </div>
+      <h3 class="expandContractButton">Read more +</h3>
+    </article>
+    <article class="post">
       <span class="post-title-bar"><h2 id="Regex 1: What is regex?" class="post-title">Regex 1: What is regex?</h2><p class="meta-info">06/02/2020<br>regular expressions, regex, regexp, fundamentals</p></span>
       <div class="post-content">
         <p>Regex is a system of representing text.</p>
-        <p>You could represent text many ways. The most obvious way is with one-to-one correspondence. This is what you do when you press ^F on your browser. You enter some text into the popup box, and the browser searches the page for text represented by whatever you entered. One-to-one correspondence is useful, because it is both clear and exact. However, it is also limited by its exactness: if we want to match all email addresses but not other things containing @, or all lower-case a’s, or all upper-case A’s, or all a’s irrespective of case, one-to-one correspondence isn’t going to help us. We need regular expressions.
+        <p>You could represent text many ways. The most obvious way is with one-to-one correspondence. This is what you do when you press ^F on your browser. You enter some text into the popup box, and the browser searches the page for text represented by whatever you entered. One-to-one correspondence is useful, because it is both clear and exact. However, it is also limited by its exactness: if we want to match all email addresses but not other things containing @, one-to-one correspondence isn’t going to help us. We need regular expressions.
         <p>Regular expressions trade off exact, one-to-one representation, and therefore clarity, for generality. In regex, certain characters and combinations of characters do not only represent one possibility but many possibilities. For instance, a dot (.) represents ‘any character’.</p>
-        <p>If certain characters represent many possible characters, this begets an instant question: what if you want to represent a specific character, not the more-general set of characters that it normally represents? What if you really only want to match dots? In this case, you use an escape sequence. An escape sequence is any two-digit combination in which the first combination is a backslash (\). It ‘escapes’ the normal way that code is evaluated. Thus, \. represents dots themselves. \ is an escaped backslash – it matches a single \</p>
+        <p>If certain characters represent many possible characters, this begets an instant question: what if you want to represent a specific character, not the more-general set of characters that it normally represents? What if you really only want to match dots? In this case, you use an escape sequence. An escape sequence is any two-digit combination in which the first combination is a backslash (\). It ‘escapes’ the normal way that code is evaluated. Thus, \. represents dots themselves. \\ is an escaped backslash – it matches a single \</p>
         <p>These backslash escape sequences cut in two directions: firstly, as in \. , they can make a representation more exact. Secondly, they can make a representation less exact. In regex, s represents (you guessed it) s’s. However, \s represents whitespace: spaces and tabs (note that there is nothing stoppping you from simply using a space or a tab inside a regular expression). \s makes the s character less specific, while \. makes the . character more specific.</p>
-        <p>So far so good: we’ve learnt about why regex exists, and using \ to make a character represent more or less possibilities. We’re almost there. The final thing we need to note is that in regex, discrete text-possibilities can be represented by character combinations, as well as escaped or unescaped single characters. There is no necessary relationship between the number of characters a regex represents, and the number of characters of the regex itself.</p>
-        <p>For instance, [0-9] represents any one character between 0 and 9 – ten characters. The text</p>
+        <p>So far so good: we’ve learnt about why regex exists, and using \ to make a character represent more or less possibilities. We’re almost there. The final thing we need to note is that in regex, there is no necessary relationship between the number of characters a regex represents, and the number of characters of the regex itself. For instance, a regular expression can include what are called 'zero-length assertions', like ^ or $. The care (^) represents the beginning of the line, and the dollar-sign ($) the end of the line, but neither of these are parts of the string <em>per se</em> because the string is simply a collection of characters. Zero-length assetions <em>take up space</em> in your regular-expressions, but do not represent space but, rather, position.</p>
+        <p>And on the other hand we have certain assertions which match more characters than their weight in regex. For instance, [0-9] represents any one character between 0 and 9 – ten characters. The text</p>
         	<pre>numbers0123456789</pre>
         <p>could be matched by [0-9] in exactly ten places, corresponding to the digits in-range. A regular expression containing 0-9, on the other hand, represents the text 0-9 literally, and one containing \[0-9\] represents the text [0-9] literally.</p>
         <p>To take another example, .{2,4} represents any substring which is at best 4 characters long and at least 2. Note the full stop – it represents ‘any character’. If we use a regex containing .{2, 4} to iteratively scan the string ‘123456789’, it will match 1-4 and 5-8, but not 9. Regex is ‘greedy’: it always takes as much as it can while preserving the integrity of its matches.</p>
+        </p>Putting this all together, we can do some powerful matching, like matching all but the first word on a line, without knowing the line. We can match 'evening' in</p>
+        <pre>"morning evening"</pre>
+        <p>with</p>
+        <pre> .+$</pre> 
+        <p> where + represents 'one or more of the preceding character' and . represents 'any character'. So our regex means 'The largest possible substring composed of one space, and then one or more of any character until the end of the line'.</p>
         <p>There’s a lot more you can do with regex. You can give it a ‘global’ flag, so that it makes as many matches as it can, rather than just one match; you can feed it alternators, so that it alternates its search between two different expressions as it goes through the string from start to finish; you can indicate the start or end of a line; you can use lookaheads and lookbehinds, to capture substrings which are near to other substrings without capturing the nearby substrings themselves. Regex is extremely flexible, and that is what makes it so much more powerful than one-to-one representation.</p>
-        <p>Some people love to hate regex, but actually, given the choice, I am not sure that I would trade it in for anything different. It’s generality can invite unintended consequences, but that is the very source of its power. I would prefer to master it than to abandon it.</p>
+        <p>Some people love to hate regex, but actually, given the choice, I don't think I would trade it in for anything different. It’s generality can invite unintended consequences, but that is the very source of its power.</p>
         <img class="fade" src="./resources/bottom-fade.png" alt="an image that adds a fade effect to the bottom layer">
       </div>
       <h3 class="expandContractButton">Read more +</h3>
