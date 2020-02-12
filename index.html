@@ -96,7 +96,7 @@ str.match(regExTwo); // [“n”, “g”, “n”, “g”]
         <pre>"morning evening"</pre>
         <p>with</p>
         <pre> .+$</pre> 
-        <p> where + represents 'one or more of the preceding character' and . represents 'any character'. So our regex means 'The largest possible substring composed of one space, and then one or more of any character, until the end of the line'.</p>
+        <p> where + represents 'one or more of the preceding character' and . represents 'any character'. You can't see it, but there is a space before the . too. So our regex means 'The largest possible substring composed of one space, and then one or more of any character, until the end of the line'.</p>
         <p>There’s a lot more you can do with regex. You can give it a ‘global’ flag, so that it makes as many matches as it can, rather than just one match; you can feed it alternators, so that it alternates its search between two different expressions as it goes through the string from start to finish; you can use lookaheads and lookbehinds, to capture substrings which are near to other substrings without capturing the nearby substrings themselves. Regex is extremely flexible, and that is what makes it so much more powerful than one-to-one representation.</p>
         <p>Some people love to hate regex, but actually, given the choice, I don't think I would trade it in for anything different. It’s generality - so often complained about - is the very source of its power.</p>
         <img class="fade" src="./resources/bottom-fade.png" alt="an image that adds a fade effect to the bottom layer">
