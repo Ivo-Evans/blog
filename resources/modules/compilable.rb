@@ -20,7 +20,7 @@ module Compilable
   
   def compile_archive(titles, namer)
     titles.each_with_index do |e, i|
-      titles[i] = @tab * 2 + "<p><a class=\"archive-link\"href=\"./#{namer[i / 10]}##{e}\">#{e}</a></p>"
+      titles[i] = @tab * 2 + "<p><a class=\"archive-link\"href=\"#{namer[i / 10]}##{e}\">#{e}</a></p>"
     end
   end
   
