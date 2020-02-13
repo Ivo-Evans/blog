@@ -28,7 +28,6 @@ String(5) // a string created by the constructor function for the string type
         <code>/(ab){3}/   // a regex matching 3 consecutive ab’s: ababab</code>
         <p>This forward-slash syntax is, as far as I know, almost universal across programming languages. It is also the most common syntax in JavaScript. Since RegExps are not strings, there is no need for any string syntax when creating a RegExp literal. This is different when using the RegExp constructor. Here, we drop the forward slashes, and feed the constructor a string as its argument, leaving it up to the function to make the regular expression for us:</p>
         <code>RegExp(‘(ab){3}’)</code>
-        <h3>2: using regular expressions in functions</h3>
         <p>Because regular expressions are objects, they can be:</p>
         <ul>
   <li>Given to functions as arguments</li>
@@ -40,7 +39,7 @@ String(5) // a string created by the constructor function for the string type
 </ul>
         <p>Let’s look in more detail at two functions that work with regular expressions, match() and replace(). Both of these functions are called on strings and take regular expressions as arguments.</p>
         
-<h3>2.1: match()</h3>
+<h3>2: match()</h3>
         <p>match() returns matches it finds. By default, match() returns an object corresponding to the first match it found.</p>
         <pre><code>
 let str = “stringy string”
@@ -55,7 +54,7 @@ let regExTwo = RegExp(‘[ng]’, ‘g’)
 str.match(regExOne); // [“st”, “st”]
 str.match(regExTwo); // [“n”, “g”, “n”, “g”]
 </code></pre>
-        <h3>2.2: replace()</h3>
+        <h3>3: replace()</h3>
         <p>Next up is replace(), which replaces a substring with another, or multiple substrings with another if you use the global flag. replace() takes two arguments. First, it searches the string on which it was called according to its first argument, a regex. Secondly, it substitutes a match, if it finds one, using its second argument. It does not ‘mutate’ the string it is called on – strings are immutable in JavaScript – but returns a new string.</p>
         <p>When I add articles to this blog, I write them to text files, and then I run a program that I wrote and it compiles HTML for me, ensuring that articles appear in the right place and get added to the archive page automatically. I used Ruby to write this program, but it could have been done in JavaScript too. It scans a text file called website-template.html, finds a line which says
         <p><code>&lt;!-- INSERT ARTICLES HERE --&gt;</code>,</p>
@@ -66,7 +65,7 @@ str.match(regExTwo); // [“n”, “g”, “n”, “g”]
         <code>webSite = webSite.replace(/^\s*&lt;!-- INSERT ARTICLES HERE --&gt;/, mainContent);</code>
         </p>This regular expression matches 0 or more whitespace characters from the beginning of the line to the end of &lt;!-- INSERT ARTICLES HERE --&gt;, thus letting me handle all the indentation at insertion-point.</p> 
         <p>Now, importantly, this is a pretty <em>specific</em> regex. This is important for keeping your regular expressions under control: make maximum specificity your aim. If you cast your net wide, you will inadvertently catch a lot of junk.</p>
-        <h3>3: conclusion</h3>
+        <h3>4: conclusion</h3>
         <p>This marks the end of my brief series on regex. I hope I've equipped you with an appreciation of the usefulness of regular expressions, as well as a grasp of the fundamentals.</p>
         <p>Where to go next</p>
         <ul>
