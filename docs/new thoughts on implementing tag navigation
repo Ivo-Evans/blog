@@ -1,0 +1,24 @@
+So, I'm not going to mess about with putting different html files in different directories. All I need to do is:
+
+1) make pages for each unique tag
+2) link to them in the tags in the articles
+
+1) is what I'm interested in.
+
+I think that I should extract all the articles by taking line 1 of make_article_pages out, so I have an array of tuples representing all articles. 
+
+Once I've done that I can flat_map it for the 1st index and then call uniq, to get all the unique tags that have been used. 
+
+I can pass the set of articles to make_article_pages with the argument that they should call their pages 'index' - they can pass this to @name_page as a second argument.
+
+Then I can map over unique_tags like this:
+
+tag_collected_articles = unique_tags.map do |tag| 
+  matches = []
+  articles.each { |a| matches.push(a) if a[1].includes?(tag) }
+  matches
+end
+
+Finally I can pass each of tag_collected_articles to make_article_pages, with the second argument 'tag-#{}
+
+## wait you need to store tag name along with tag articles = a hash with arrays for keys?

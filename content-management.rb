@@ -9,12 +9,12 @@ include Writable
 
 def make_website
   article_paths = Dir.entries("./content/articles/").reject { |f| f == '.' || f == ".."}.sort.reverse
-  make_main_pages(article_paths)
+  make_article_pages(article_paths)
   make_archive(article_paths)
   make_about
 end
 
-def make_main_pages(articles)
+def make_article_pages(articles)
   articles = articles.map do |article| 
     article = Readable.parse_article(article)
     Compilable.compile_article(article[0], article[1], article[2], article[3])
@@ -22,7 +22,7 @@ def make_main_pages(articles)
 
   pages = []
   articles.each_slice(10) { |s| pages.push(s)}
-  
+
   pages.each_with_index do |content, slice_number| 
     Writable.write_articles(content, slice_number, @name_page)
     
