@@ -5,7 +5,7 @@ include Readable
 include Compilable
 include Writable
 
-@name_page = lambda { |n| n == 0 ? "./index.html" : "./index-#{n}.html" }
+@name_page = lambda { |type, n| n == 0 ? "./#{type}.html" : "./#{type}-#{n}.html" }
 
 def make_website
   article_paths = Dir.entries("./content/articles/").reject { |f| f == '.' || f == ".."}.sort.reverse

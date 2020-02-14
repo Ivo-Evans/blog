@@ -20,13 +20,13 @@ module Compilable
   
   def compile_archive(titles, namer)
     titles.each_with_index do |e, i|
-      titles[i] = @tab * 2 + "<p><a class=\"archive-link\"href=\"#{namer[i / 10]}##{e}\">#{e}</a></p>"
+      titles[i] = @tab * 2 + "<p><a class=\"archive-link\"href=\"#{namer['index', i / 10]}##{e}\">#{e}</a></p>"
     end
   end
   
   def compile_pagination(this_n, total_n, namer)
     (0..total_n - 1).map do |e| 
-      address = namer[e]
+      address = namer['index', e]
       if e == this_n 
         @tab * 3 + "<h3><a class=\"current-page\" href=\"#{address}\">#{e}</a></h3>"
       else

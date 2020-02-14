@@ -21,4 +21,8 @@ end
 
 Finally I can pass each of tag_collected_articles to make_article_pages, with the second argument 'tag-#{}
 
-## wait you need to store tag name along with tag articles = a hash with arrays for keys?
+## wait you need to store tag name along with tag articles - a hash with arrays for keys?
+
+tag_collected_articles = unique_tags.each_with_object({}) do |tag, hash|
+  hash[tag] = articles.select { |a| a[1].includes?(tag)}
+end
