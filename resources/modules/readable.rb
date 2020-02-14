@@ -6,13 +6,14 @@ module Readable
     file_contents
   end
 
-  def parse_article(string)
-    string = read_article(string)
-    title = parse_title(string)
-    tags = parse_tags(string)
-    date = parse_date(string)
-    content = parse_content(string)
-    compile_article(title, tags, date, content)
+  def parse_article(filepath)
+    string = read_article("./content/articles/" + filepath)
+    [
+      parse_title(string),
+      parse_tags(string),
+      parse_date(string),
+      parse_content(string)
+    ]
   end
 
   def parse_title(string)

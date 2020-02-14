@@ -16,16 +16,13 @@ end
 
 def make_main_pages(articles)
   articles = articles.map do |article| 
-    string = Readable.read_article("./content/articles/" + article)
-    title = Readable.parse_title(string)
-    tags = Readable.parse_tags(string)
-    date = Readable.parse_date(string)
-    content = Readable.parse_content(string)
-    Compilable.compile_article(title, tags, date, content)
+    article = Readable.parse_article(article)
+    Compilable.compile_article(article[0], article[1], article[2], article[3])
   end
 
   pages = []
   articles.each_slice(10) { |s| pages.push(s)}
+  
   pages.each_with_index do |content, slice_number| 
     Writable.write_articles(content, slice_number, @name_page)
     
