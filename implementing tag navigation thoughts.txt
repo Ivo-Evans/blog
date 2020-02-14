@@ -1,7 +1,7 @@
 I could, but don't need, a sidebar. That's an advanced feature. I could also just turn each tag in the header bar into a link, and, for each tag, generate pages, like tag-fundamentals for instance. 
 
 So that separates the task into two jobs: 
-1) insert links to pages into each blog post - map the array of tags passed in into anchors before you join with ', '
+1) insert links to pages into each blog post - map the array of tags passed in to compile_article into anchors before you join with ', '
 2) create pages, for each tag, containing those articles that have that tag. 
 
 Number 2 is clearly the more ambitious job. One possibility is to separate out the Readable functionality from the Compilable functionality in the first line of make_main_pages, to do the Readable stuff in its parent method make_website, and to pass that information to both make_main_pages and to make_tag_pages
@@ -16,4 +16,6 @@ This will really multiply the number of html pages. You will need to order these
 
 The thing is, to do this, you will need to work out how to properly point 'backward' to JS, CSS and PNG files in different directories; and for each directory branch, you will need to generate html with different filepath references. You could ameliorate, if not eliminate, this problem, by putting all but index.html in /extra-pages/, and leaving them unordered except by alphabet in there. 
 
-So that means that the First task in implementing a tag pages system is to order your current pages that are not index.html into a sub-directory, without breaking anything.
+So that means that the First task in implementing a tag pages system is to order your current pages that are not index.html into a sub-directory, without breaking anything.#
+
+Here's another plan: put all the html files in the home directory, but nothing else except the readme and cm. css and js can go in resources. That way, every html file will use the same paths to external resources.
