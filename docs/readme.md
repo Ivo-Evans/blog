@@ -13,7 +13,7 @@ The blog is updated via the content management system. Therefore, to make any ch
 
 ### Adding articles
 
-Add plaintext files to ./content/articles and then run content-management. This will generate new html files representing the pages of the blog. index.html will always be the homepage. Adding an article in this way ensures that the archive is kept up to date, that the most recent article appears first on the blog, and that no more than ten articles appear per page.
+Add plaintext files to ./content/articles and then run content-management. This will generate new html files representing the pages of the blog. index.html will always be the homepage. Adding an article in this way ensures that the archive is kept up to date, that the most recent article appears first on the blog, and that no more than ten articles appear per page. It also generates and adds to tag pages. 
 
 You do not need to delete old pages before generating new ones.
 
