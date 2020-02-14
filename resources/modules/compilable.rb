@@ -24,9 +24,9 @@ module Compilable
     end
   end
   
-  def compile_pagination(this_n, total_n, namer)
+  def compile_pagination(this_n, total_n, namer, page_type)
     (0..total_n - 1).map do |e| 
-      address = namer['index', e]
+      address = namer[page_type, e]
       if e == this_n 
         @tab * 3 + "<h3><a class=\"current-page\" href=\"#{address}\">#{e}</a></h3>"
       else

@@ -11,15 +11,15 @@ module Writable
     file.close
   end
 
-  def write_articles(array_of_articles, to_file, namer)
-    to_file = namer['index', to_file]
+  def write_articles(array_of_articles, to_file, namer, page_type)
+    to_file = namer[page_type, to_file]
     new_text = array_of_articles.flatten.join("\n")
     write_to_main(to_file, new_text)
   end
 
-  def write_pagination(pagination, this_page, namer)
+  def write_pagination(pagination, this_page, namer, page_type)
     numbers = pagination.join("\n")
-    page = open("./" + namer['index', this_page], 'r+:UTF-8')
+    page = open("./" + namer[page_type, this_page], 'r+:UTF-8')
     new_content = page.read.sub(/^\s*<!-- INSERT PAGINATION HERE -->/, numbers)
     page.truncate(0)
     page.rewind
