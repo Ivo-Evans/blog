@@ -1,7 +1,8 @@
 module Compilable
   @tab = "  "
 
-  def compile_article(title, tags, date, content)  
+  def compile_article(title, tags, date, content)
+    tags = tags.map { |tag| "<a href=\"tag-#{tag}.html\">#{tag}</a>"}
     lines = [
       @tab * 2 + "<article class=\"post\">",
       @tab * 3 + "<span class=\"post-title-bar\"><h2 id=\"#{title}\" class=\"post-title\">#{title}</h2><p class=\"meta-info\">#{date}<br>#{tags.join(", ")}</p></span>",

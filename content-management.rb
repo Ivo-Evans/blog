@@ -18,9 +18,11 @@ end
 
 def make_tag_pages(articles)
   unique_tags = articles.flat_map { |a| a[1] }.uniq
+
   tag_collected_articles = unique_tags.each_with_object({}) do |tag, hash|
     hash[tag] = articles.select { |a| a[1].include?(tag)}
   end
+  
   tag_collected_articles.each { |tag, article_set| make_article_pages(article_set, "tag-#{tag}")}
 end
 
