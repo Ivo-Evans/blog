@@ -60,9 +60,9 @@ Everything in the file should be valid HTML, as you would like it to be rendered
 
 ### Making changes to the page's HTML other than adding articles
 
-content-management uses a template, found in ./resources/website-template.html, to generate html pages which it then inserts page-specific contents into.
+content-management uses a template, found in ./resources/website-template.html, to get the shared content across html pages.
 
-Therefore, If you want to make a change to the website other than adding an article, you should make it to website-template.html, then compile the website again with content-management. Make sure not to change the line that says
+Therefore, If you want to make a change to the website other than adding an article, you should make it to website-template.html, then compile the website again with cm.rb. Make sure not to change the line that says
 
 ```
         <!-- INSERT ARTICLES HERE -->
@@ -72,7 +72,7 @@ or
         <!-- INSERT PAGINATION HERE -->
 ```
 
-The CMS needs them!
+cm.rb needs them!
 
 ### Making changes to HTML markup for articles
 

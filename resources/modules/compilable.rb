@@ -16,7 +16,7 @@ module Compilable
     content.each { |element| lines.push(@tab * 4 + element) }
 
     lines + [
-      @tab * 4 + '<img class="fade" src="./resources/bottom-fade.png" alt="an image that adds a fade effect to the bottom layer">',
+      @tab * 4 + '<img class="fade" src="./resources/bottom-fade.png" alt="an image that adds a fade effect to the bottom layer of collapsed text">',
       @tab * 3 + '</div>',
       @tab * 3 + '<h3 class="expandContractButton">Read more +</h3>',
       @tab * 2 + '</article>'
