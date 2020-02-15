@@ -2,20 +2,23 @@
 
 ## About the blog and author
 
-This is a statically generated site written entirely by me. To maintain it, I wrote a Ruby program called content-management. Note that this program is made for Linux. 
+This is a statically generated site written entirely by me. To maintain it, I wrote a Ruby program called cm.rb, (where cm stands for content management). 
 
 The aim of the site is to give beginners advice on fundamental topics in programming. I myself am not an expert (hence the title, a pun on the fact that I have learnt important information, but only a 'bit' of it). However, I do not think that my relative inexperience makes me less qualified to advise beginners. Rather, I think it makes me more qualified, because those who are advanced in a field often take certain details for granted - things that a beginner just doesn't know, or has to guess at. The best teacher can be somebody who is just a little further on from the learner, and who can remember the unique challenges facing the learner. That is a role that - I hope - I will be able to fill.
 
 ## The content management system.
 
-The blog is updated via the content management system. Therefore, to make any change to the blog, you should run content-management and let it write your html for you. 
+The blog is updated via the content management system. Therefore, to make any change to the blog, you should run cm.rb and let it write your html for you. Note that this program is made for Linux and there might be encoding problems in other operating systems. 
 
+At time of writing, the content management system automates:
+- pagination (no more than 10 articles per page) and ordering articles 
+- creation of an _archive_ page linking to each article in the main flow
+- creation of pages for specific tags which are themselves paginated and ordered and represent alternate flows
+- making tags in blog posts into links to tag pages
 
 ### Adding articles
 
-Add plaintext files to ./content/articles and then run content-management. This will generate new html files representing the pages of the blog. index.html will always be the homepage. Adding an article in this way ensures that the archive is kept up to date, that the most recent article appears first on the blog, and that no more than ten articles appear per page. It also generates and adds to tag pages. 
-
-You do not need to delete old pages before generating new ones.
+Add plaintext files to ./content/articles and then run cm.rb. This will generate new html files. index.html will always be the homepage. You do not need to delete old pages before generating new ones, but if you are deleting posts rather than adding them, it might be a good idea to delete all html files before generating new ones so that the directory stays uncluttered.
 
 ### Naming article files
 
@@ -39,7 +42,7 @@ CONTENT
 CONTENT
 ```
 
-"title: ", "tag: " and "date: " must start a line and be lower case. Matching will occur from the ": " to the end of that line.
+"title: ", "tag: " and "date: " must start a line and be lower case. Matching will occur from the ": " to the end of that line. You do not need to worry about the order in which lines occur. 
 
 content matching works differently. 
 * For CONTENT markers to be matched they need to be on their own lines.
@@ -48,7 +51,7 @@ content matching works differently.
 * You should manually write the html tags inside the content markers. This gives you freedom to customise your articles.  
 * Distinct HTML lines should be separated by one empty line, as above. When compiled, these two p tags will be touching.
 * The first layer of indentation, like these p tags, should be flush with the margin. 
-* The tabbing style applied by content-management is two spaces. This can be changed by changing the value of @tab in Compilable, ./resources/modules/compilable.rb
+* The tabbing style applied by cm.rb is two spaces. This can be changed by changing the value of @tab in Compilable, ./resources/modules/compilable.rb
 
 ### Changing what appears on the 'about' page
 To change this, change the contents of the about.txt file in ./content/
@@ -69,7 +72,7 @@ or
         <!-- INSERT PAGINATION HERE -->
 ```
 
-content-management needs them!
+The CMS needs them!
 
 ### Making changes to HTML markup for articles
 

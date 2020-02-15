@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 require 'fileutils'
 
+# receives arrays of strings and writes them to files
 module Writable
   def write_to_main(new_file_name, new_text)
-    FileUtils.cp('./resources/website-template.html', new_file_name)    
-    file = open("./" + new_file_name, 'r+:UTF-8')
+    FileUtils.cp('./resources/website-template.html', new_file_name)
+    file = open('./' + new_file_name, 'r+:UTF-8')
     new_content = file.read.sub(/^\s*<!-- INSERT ARTICLES HERE -->/, new_text)
     file.truncate(0)
     file.rewind
@@ -19,7 +22,7 @@ module Writable
 
   def write_pagination(pagination, this_page, namer, page_type)
     numbers = pagination.join("\n")
-    page = open("./" + namer[page_type, this_page], 'r+:UTF-8')
+    page = open('./' + namer[page_type, this_page], 'r+:UTF-8')
     new_content = page.read.sub(/^\s*<!-- INSERT PAGINATION HERE -->/, numbers)
     page.truncate(0)
     page.rewind
@@ -27,4 +30,3 @@ module Writable
     page.close
   end
 end
-

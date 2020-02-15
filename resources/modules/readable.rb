@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# receives filepath or file contents and selects part/s of it.
 module Readable
   def read_article(filepath)
     file = open(filepath, 'r')
@@ -7,7 +10,7 @@ module Readable
   end
 
   def parse_article(filepath)
-    string = read_article("./content/articles/" + filepath)
+    string = read_article('./content/articles/' + filepath)
     [
       parse_title(string),
       parse_tags(string),
@@ -18,21 +21,21 @@ module Readable
 
   def parse_title(string)
     title = string[/(?<=^title: ).*$/]
-    title ? title : ""
+    title || ''
   end
 
   def parse_tags(string)
-    tags = tags = string[/(?<=^tags: ).*$/]
-    tags ? tags.split(', ') : ""
+    tags = string[/(?<=^tags: ).*$/]
+    tags ? tags.split(', ') : ''
   end
 
   def parse_date(string)
     date = string[/(?<=^date: ).*$/]
-    date ? date : ""
+    date || ''
   end
 
   def parse_content(string)
     content = string[/(?<=CONTENT\n)[\w\W]*(?=\nCONTENT)/]
-    content ? content.split("\n\n") : ""
+    content ? content.split("\n\n") : ''
   end
 end
