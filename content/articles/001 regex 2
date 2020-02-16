@@ -18,23 +18,29 @@ String(5) // a string created by the constructor function for the string type
 
 <code>/(ab){3}/   // a regex matching 3 consecutive ab’s: ababab</code>
 
-<p>This forward-slash syntax is, as far as I know, almost universal across programming languages. It is also the most common syntax in JavaScript. Since RegExps are not strings, there is no need for any string syntax when creating a RegExp literal. This is different when using the RegExp constructor. Here, we drop the forward slashes, and feed the constructor a string as its argument, leaving it up to the function to make the regular expression for us:</p>
+<p>This forward-slash syntax was popularised by Perl, a language which <a href="https://en.wikipedia.org/wiki/Regular_expression#History">did a lot for regular expressions<a>. It is also the most common syntax in JavaScript. Since RegExps are not strings, there is no need for any string syntax when creating a RegExp literal. This is different when using the RegExp constructor. Here, we drop the forward slashes, and feed the constructor a string as its argument, leaving it up to the function to make the regular expression for us:</p>
 
 <code>RegExp(‘(ab){3}’)</code>
 
 <p>Because regular expressions are objects, they can be:</p>
 
 <ul>
+
   <li>Given to functions as arguments</li>
+
     <code>123”.match(/2/) // ["2", index: 1, input: "123", groups: undefined]</code>
+
   <li>Returned from functions</li>
+
     <code>RegExp(‘a’) // returns a regular expression</code>
+
   <li>functions can be called on them</li>
+
     <code>/a/.test(‘a hungry hippo’) // true</code>
+
 </ul>
 
 <p>Let’s look in more detail at two functions that work with regular expressions, match() and replace(). Both of these functions are called on strings and take regular expressions as arguments.</p>
-
 
 <h3>2: match()</h3>
 

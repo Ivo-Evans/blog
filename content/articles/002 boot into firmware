@@ -7,7 +7,6 @@ CONTENT
 
 <p>To follow along you don't need any real PowerShell knowledge. Our strategy will be to define a function in your user PowerShell profile ($PROFILE), a text file which is read every time you open PowerShell. That way, the function will always be defined, and all you need to do is call it.</p> 
 
-
 <h3>1. Prepare your $PROFILE</h3>
 
 <p>This text file does not exist by default, but you might already have it. To see whether you do, enter</p>
@@ -30,7 +29,6 @@ code $PROFILE # for vscode
 atom $PROFILE 
 etc.
 </code></pre>
-
 
 <h3>2. Add a function to your $profile</h3>
 

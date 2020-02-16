@@ -6,15 +6,17 @@ This is a statically generated site written entirely by me. To maintain it, I wr
 
 The aim of the site is to give beginners advice on fundamental topics in programming. I myself am not an expert (hence the title, a pun on the fact that I have learnt important information, but only a 'bit' of it). However, I do not think that my relative inexperience makes me less qualified to advise beginners. Rather, I think it makes me more qualified, because those who are advanced in a field often take certain details for granted - things that a beginner just doesn't know, or has to guess at. The best teacher can be somebody who is just a little further on from the learner, and who can remember the unique challenges facing the learner. That is a role that - I hope - I will be able to fill.
 
-## The content management system.
+## About the content management system
 
 The blog is updated via the content management system. Therefore, to make any change to the blog, you should run cm.rb and let it write your html for you. Note that this program is made for Linux and there might be encoding problems in other operating systems. 
 
 At time of writing, the content management system automates:
-- pagination (no more than 10 articles per page) and ordering articles 
-- creation of an _archive_ page linking to each article in the main flow
+- pagination (no more than 10 articles per page) and ordering 
+- creation of an archive page linking to each article in the main flow
 - creation of pages for specific tags which are themselves paginated and ordered and represent alternate flows
 - making tags in blog posts into links to tag pages
+
+## Using the content management system
 
 ### Adding articles
 
