@@ -4,7 +4,7 @@
 module Compilable
   @tab = '  '
 
-  def compile_article(title, tags, date, content) 
+  def self.compile_article(title, tags, date, content) 
     # you could receive an array here and just map it. The tags map would then be a nested flat-map or something
     tags = tags.map { |tag| "<a href=\"tag-#{tag}.html\">#{tag}</a>" }
     lines = [
@@ -23,13 +23,13 @@ module Compilable
     ]
   end
 
-  def compile_archive(titles, namer)
+  def self.compile_archive(titles, namer)
     titles.each_with_index do |e, i|
       titles[i] = @tab * 2 + "<p><a class=\"archive-link\"href=\"#{namer['index', i / 10]}##{e}\">#{e}</a></p>"
     end
   end
 
-  def compile_pagination(this_n, total_n, namer, page_type)
+  def self.compile_pagination(this_n, total_n, namer, page_type)
     (0..total_n - 1).map do |e|
       address = namer[page_type, e]
       if e == this_n

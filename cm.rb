@@ -5,13 +5,18 @@ require './resources/modules/compilable'
 require './resources/modules/writable'
 
 # gets filepaths then uses other modules to retrieve, process and write strings to new files
-module Manageable
+class Manageable
   include Readable
   include Compilable
   include Writable
 
-  @name_page = ->(type, n) { n.zero? ? "./#{type}.html" : "./#{type}-#{n}.html" }
-  # needed both to name pages and for links in pages to other pages - so needed in both Writable and Compilable. When type is 'index' this names one of the main flow of pages. When type it "tag#{tag}" this represents a page in an alternate channel, the pages relevant to that particular tag.
+  def initialize
+    @name_page = ->(type, n) { n.zero? ? "./#{type}.html" : "./#{type}-#{n}.html" }
+      # lambda needed both to name pages and for links in pages to other pages
+      # so needed in both Writable and Compilable. When type is 'index' this 
+      # names one of the main flow of pages. When type it "tag#{tag}" this represents 
+      # a page in an alternate channel, the pages relevant to that particular tag.
+  end
 
   def make_website
     article_paths = Dir.entries('./content/articles/').reject { |f| ['.', '..'].include?(f) }.sort.reverse
@@ -50,7 +55,6 @@ module Manageable
   def make_about
     about = Readable.read_article('./content/about.txt')
     Writable.write_to_main('./about.html', about)
-    # write_about_page('about.html', about)
   end
 
   def make_archive(articles)
@@ -60,5 +64,4 @@ module Manageable
   end
 end
 
-include Manageable
-Manageable.make_website
+Manageable.new.make_website

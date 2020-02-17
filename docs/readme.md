@@ -4,27 +4,26 @@
 
 This is a statically generated site written entirely by me. To maintain it, I wrote a Ruby program called cm.rb, (where cm stands for content management). 
 
-The aim of the site is to give beginners advice on fundamental topics in programming. I myself am not an expert (hence the title, a pun on the fact that I have learnt important information, but only a 'bit' of it). However, I do not think that my relative inexperience makes me less qualified to advise beginners. Rather, I think it makes me more qualified, because those who are advanced in a field often take certain details for granted - things that a beginner just doesn't know, or has to guess at. The best teacher can be somebody who is just a little further on from the learner, and who can remember the unique challenges facing the learner. That is a role that - I hope - I will be able to fill.
+The aim of the site is to give beginners advice on fundamental topics in programming. I myself am not an expert - hence the title, a pun on the fact that I have learnt important information, but only a 'bit' of it. Even though I'm not an expert I still think I have knowledge to give - fresh knowledge, for instance, of what it is like to learn to program from scratch.
 
 ## About the content management system
 
-The blog is updated via the content management system. Therefore, to make any change to the blog, you should run cm.rb and let it write your html for you. Note that this program is made for Linux and there might be encoding problems in other operating systems. 
+The blog is updated via the content management system. Therefore, to make any change to the blog, you should run cm.rb and let it write your html for you. This program is made for Linux and there might be encoding problems in other operating systems. 
 
 At time of writing, the content management system automates:
 - pagination (no more than 10 articles per page) and ordering 
 - creation of an archive page linking to each article in the main flow
 - creation of pages for specific tags which are themselves paginated and ordered and represent alternate flows
-- making tags in blog posts into links to tag pages
 
 ## Using the content management system
 
 ### Adding articles
 
-Add plaintext files to ./content/articles and then run cm.rb. This will generate new html files. index.html will always be the homepage. You do not need to delete old pages before generating new ones, but if you are deleting posts rather than adding them, it might be a good idea to delete all html files before generating new ones so that the directory stays uncluttered.
+Add plaintext files to ./content/articles and then run cm.rb. This will generate new html files. index.html will always be the homepage. You do not need to delete old pages before generating new ones, but if you are deleting posts it might be a good idea to delete all html files before generating new ones so that the directory stays uncluttered.
 
 ### Naming article files
 
-Article files begin with a number from 000 to 999, followed by the title of the article, where 000 is the first-written article and 999 is the last-written article. This convention lets content-management sort the articles to display in reverse-chronological order. That said, you can use any article name you want and articles will still be written into html pages.
+Article files begin with a number from 000 to 999, followed by the title of the article, where 000 is the first-written article and 999 is the last-written article. This convention lets content-management sort the articles to display in reverse-chronological order, but you can use any article name you want and articles will still be written into html pages.
 
 The program is not picky about article filetypes either. .html files, .txt files, and files with no extension at all are all acceptable. It _is_ important, however, that you format their contents correctly.
 
@@ -34,7 +33,7 @@ Article files should be formatted as so
 
 ```
 title: Your Title
-tags: comma separated, tags
+tags: comma separated, tags, this list includes three tags
 date: nn/nn/nn or in fact any text you like
 
 CONTENT
@@ -44,9 +43,9 @@ CONTENT
 CONTENT
 ```
 
-"title: ", "tag: " and "date: " must start a line and be lower case. Matching will occur from the ": " to the end of that line. You do not need to worry about the order in which lines occur. 
+"title: ", "tag: " and "date: " must start a line and be lower case. Matching will occur from the ": " to the end of that line. You do not need to worry about the order in which these lines occur. 
 
-content matching works differently. 
+content matching works a little differently. 
 * For CONTENT markers to be matched they need to be on their own lines.
 * content markers must be upper-case.
 * Matching is greedy: it matches all text between the first and last valid content marker, so you may use the word CONTENT freely within the first and the last valid marker. 
