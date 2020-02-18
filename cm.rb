@@ -12,10 +12,8 @@ class Manageable
 
   def initialize
     @name_page = ->(type, n) { n.zero? ? "./#{type}.html" : "./#{type}-#{n}.html" }
-      # lambda needed both to name pages and for links in pages to other pages
-      # so needed in both Writable and Compilable. When type is 'index' this 
-      # names one of the main flow of pages. When type it "tag#{tag}" this represents 
-      # a page in an alternate channel, the pages relevant to that particular tag.
+    # Lambda necessary for filenames (Writable) and for links (Compilable)
+    # Github pages requires index.html not index-0.html
   end
 
   def make_website

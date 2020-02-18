@@ -5,7 +5,8 @@ body {
 }
 
 main {
-  padding: 10% 5%;
+  padding: 5% 5%;
+  max-width: 955px;
 }
 
 footer nav {
@@ -39,7 +40,7 @@ header h2 {
 }
 
 article {
-  margin-bottom: 5%;
+  margin-bottom: 10%;
 }
 
 aside {
