@@ -20,13 +20,29 @@ module Writable
     write_to_main(to_file, new_text)
   end
 
-  def self.write_pagination(pagination, this_page, namer, page_type)
+  def self.write_pagination(pagination, page_address)
     numbers = pagination.join("\n")
-    page = open('./' + namer[page_type, this_page], 'r+:UTF-8')
+    page = open('./' + page_address, 'r+:UTF-8')
     new_content = page.read.sub(/^\s*<!-- INSERT PAGINATION HERE -->/, numbers)
     page.truncate(0)
     page.rewind
     page.write(new_content)
     page.close
   end
+
+  def self.write_tag_sidebar(sidebar, page_address)
+    sidebar = sidebar.join("\n")
+    page = open('./' + page_address, 'r+:UTF-8')
+    new_content = page.read.sub(/^\s*<!-- INSERT TAG-NAV HERE -->/, sidebar)
+    page.truncate(0)
+    page.rewind
+    page.write(new_content)
+    page.close
+  end
 end
+
+# TODO: there should be a write_new_file method called from cm.rb but defined 
+# here. Then write_articles should be removed - all it does could be done from 
+# the wider scope, in Manageable. There should be a single method which takes
+# a filename, a search term, and replacement content, which does all this opening,
+# subbing and rewinding

@@ -63,14 +63,15 @@ Everything in the file should be valid HTML, as you would like it to be rendered
 
 content-management uses a template, found in ./resources/website-template.html, to get the shared content across html pages.
 
-Therefore, If you want to make a change to the website other than adding an article, you should make it to website-template.html, then compile the website again with cm.rb. Make sure not to change the line that says
+Therefore, If you want to make a change to the website other than adding an article, you should make it to website-template.html, then compile the website again with cm.rb. Make sure not to change the lines that say
 
 ```
         <!-- INSERT ARTICLES HERE -->
+        <!-- INSERT PAGINATION HERE -->
 ```
 or
 ```
-        <!-- INSERT PAGINATION HERE -->
+        <!-- INSERT TAG-NAV HERE -->
 ```
 
 cm.rb needs them!

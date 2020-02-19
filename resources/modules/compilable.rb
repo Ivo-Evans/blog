@@ -30,6 +30,25 @@ module Compilable
     end
   end
 
+  def self.compile_tag_sidebar(tags, namer)
+    sidebar = [
+      '<aside>',
+      @tab + '<nav>',
+      @tab * 2 + '<h3>tags</h3>',
+    ]
+
+    tags = tags.each do |tag| 
+      new_line = @tab * 2 + "<p><a href=\"#{namer["tag-#{tag}", 0]}\">#{tag}</a></p>"\
+      # provisionally, it seems that syntax highlighting is wrong here and the method is fine. 
+      sidebar.push(new_line)
+    end
+
+    sidebar + [
+      @tab + '</nav>',
+      '</aside>'
+    ]
+  end
+
   def self.compile_pagination(this_n, total_n, namer, page_type)
     (0..total_n - 1).map do |e|
       address = namer[page_type, e]
