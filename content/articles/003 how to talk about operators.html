@@ -78,7 +78,7 @@ CONTENT
 
 <h3>3. Precedence</h3>
 
-<p>A function’s precedence expresses where it stands in relation to other operators. If it has a high precedence, it is evaluated early. This means that it has first dibs on its operands. If it has low precedence, it is evaluated later. It receives only the operands that other operators didn’t want, or have, already processed.</p>
+<p>A function’s precedence expresses where it stands in relation to other operators. If it has a high precedence, it is evaluated early. This means that it has first dibs on its operands. If it has low precedence, it is evaluated later. It receives only the operands that other operators didn’t want, or have already processed.</p>
 
 <p>Look at this mathematical expression:</p>
 
@@ -104,11 +104,11 @@ CONTENT
 	2 * 4 – 1
 </code></pre>
 
-<p>which resolve to 6 and 7 respectively. The brackets introduce a difference, not because the multiplication operator is further to the left than the subtraction operator, but because multiplication has a higher precedence than subtraction (following <a href="https://www.mathsisfun.com/operation-order-pemdas.html">PEMDAS/BIDMAS</a>). The mathematical operators each take two operands, and are left-to-right associative. So we take 1 away from 4 and then multiply by 2, leaving 6</p>
+<p>which resolve to 6 and 7 respectively. The brackets introduce a difference, not because the multiplication operator is further to the left than the subtraction operator, but because multiplication has a higher precedence than subtraction (following <a href="https://www.mathsisfun.com/operation-order-pemdas.html">PEMDAS/BIDMAS</a>).</p>
 
 <p>the operator with the next highest precedence is the inequality operator. It has an arity of two, and for this example it doesn't really matter whether it is right-associative or left-associative (in general, it is left-associative, so console.log('hello') !=== console.log('world') prints hello and then world and then returns false). In this example !== receives two numbers - 6 and 7 - and finds them to be unequal. Therefore it returns true.</p>
 
 <p>Finally we have the ternary operator, the lowest-precedence operator in the equation above. It is left-associative, so it looks first to its left-hand-side, and uses that information to decide between its remaining operands. Since its left-hand-side is the value true, it chooses its second operand, "they are not equal".</p>
 
-<p>These three properties, arity, associativity and precedence, neatly divide the conceptual space for operators. With them, you can say all that you need to say, and learn precisely about the relationships between operators. As a good next step, you might want to consult a comparative table like <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence#Table">this one</a>.</p>
+<p>These three properties, arity, associativity and precedence, neatly divide the conceptual space for operators. With them, you can say all that you need to say, and learn precisely about the relationships between operators. As a next step, you might want to consult a comparative table like <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence#Table">this one</a>.</p>
 CONTENT

@@ -4,9 +4,10 @@
 module Compilable
   @tab = '  '
 
-  def self.compile_article(title, tags, date, content) 
+  def self.compile_article(title, tags, date, content, namer) 
     # you could receive an array here and just map it. The tags map would then be a nested flat-map or something
-    tags = tags.map { |tag| "<a href=\"tag-#{tag}.html\">#{tag}</a>" }
+    tags = tags.map { |tag| "<a href=\"#{namer["tag-#{tag}", 0]}\">#{tag}</a>"}
+    # tags = tags.map { |tag| "<a href=\"./tag-#{tag}.html\">#{tag}</a>" }
     lines = [
       @tab * 2 + '<article class="post">',
       @tab * 3 + "<span class=\"post-title-bar\"><h2 id=\"#{title}\" class=\"post-title\">#{title}</h2><p class=\"meta-info\">#{date}<br>#{tags.join(', ')}</p></span>",

@@ -11,7 +11,10 @@ class Manageable
   include Writable
 
   def initialize
-    @name_page = ->(type, n) { n.zero? ? "./#{type}.html" : "./#{type}-#{n}.html" }
+    @name_page = lambda { |type, n|
+      type = type.gsub(/\s+/, '-')
+      n.zero? ? "./#{type}.html" : "./#{type}-#{n}.html"
+    }
     # Lambda necessary for filenames (Writable) and for links (Compilable)
     # Github pages requires index.html not index-0.html
   end
@@ -37,7 +40,7 @@ class Manageable
   end
 
   def make_article_pages(articles, page_type)
-    articles = articles.map { |article| Compilable.compile_article(article[0], article[1], article[2], article[3]) }
+    articles = articles.map { |article| Compilable.compile_article(article[0], article[1], article[2], article[3], @name_page) }
 
     pages = []
     articles.each_slice(10) { |s| pages.push(s) }
