@@ -7,7 +7,7 @@ CONTENT
 
 <p>One thing that surprised me was that the logical connectors || and && could both return values other than true and false. Another thing that surprised me was the way that logic used what’s called short-circuit evaluation. A third thing that surprised me was that you could combine these two facts to make || and && statements into conditional, i.e. if-then, statements. But before we get into any of that, we should give a short description of || and &&.</p>
 
-<h3>1. || and && 101</h3>
+<h3>1. truth tables</h3>
 
 <p>|| is an ‘or’ operator and && is an ‘and’ operator. They each have an arity of two – they take two operands, one on each side, and return a value which represents the logical relationship between their two operands.</p>
 
@@ -127,7 +127,7 @@ isInLondon || isLearningToProgram // true
 
 <p>The reason is that every value, including any value returned from || and &&, is evaluable for its truth or falsity. We say that these values, which are not the values true or false but which can be evaluated for truth or falsity, are ‘truthy’ or ‘falsy’. Values are truthy when they are evaluated as true, and falsy when they are evaluated as false. When && or || outputs one of the statements it evaluated, we can guarantee that that statement is truthy or falsy. In the next section, we will look at how the language guarantees that || and && always output only a falsy value where appropriate and only a truthy value where appropriate.</p>
 
-<p>The truthiness and falsiness of values is written deep into JavaScript, and is not something you can change. Rather, it is something that you should learn. Luckily this is quite easy, because in JavaScript almost everything is truthy. The only falsey values are:</p>
+<p>The truthiness and falsiness of values is written deep into JavaScript, and is not something you can change. Rather, it is something that you should learn. This is quite easy, because in JavaScript almost everything is truthy. The only falsey values are:</p>
 
 <ul>
  <li>false</li>
@@ -140,7 +140,7 @@ isInLondon || isLearningToProgram // true
 
 <h3>3. Short-circuit evaluation</h3>
 
-<p>So, || and && don’t return truth values, but rather their <em>left-hand-side</em> (LHS) or <em>right-hand-side</em> (RHS) statements - two terms that will be opping up a lot from here on. How do || and && decide which side to return? Assessing the truth of a logical statement amounts to nothing more than checking the truth-value of the LHS and RHS. Programming languages, by convention, check first the left-hand-side and then the right-hand-side. Sometimes, after the first result, the conclusion is determined. For instance, in the statement:</p>
+<p>So, || and && don’t return truth values, but rather their <em>left-hand-side</em> (LHS) or <em>right-hand-side</em> (RHS) - two terms that will be cropping up a lot from here on. How do || and && decide which side to return? Assessing the truth of a logical statement amounts to nothing more than checking the truth-value of the LHS and RHS. Programming languages, by convention, check first the left-hand-side and then the right-hand-side. Sometimes, after the first result, the conclusion is determined. For instance, in the statement:</p>
 
 <code><pre>
 LHS && RHS
@@ -165,10 +165,10 @@ LHS && RHS
 <p>if LHS is false, we can return that; else, if LHS is true, we will return RHS. In</p>
 
 <code><pre>
-LHS && RHS
+LHS || RHS
 </pre></code>
 
-<p>if LHS is true, we can return that; else, if LHS is false, we will return RHS. This is short-circuit evaluation. It is a simple, elegant and – dare I say it –  a logical solution. There is no need to compute  a third value (true or false) which represents the operator’s decision; it is guaranteed that we can repurpose one of the inputs, and that we will repurpose the leftmost appropriate input.</p>
+<p>if LHS is true, we can return that; else, if LHS is false, we will return RHS. This is short-circuit evaluation. It is a simple, elegant and – dare I say it –  a logical solution. There is no need to compute  a third value (true or false) which represents the operator’s decision. It is guaranteed that we can repurpose one of the inputs, and that we will repurpose the leftmost appropriate input.</p>
 
 <p>Now, before we close off this section, we should think a little about the consequences of returning truthy and falsy values instead of true and false. Because we can rely on the explicit rules of short-circuit evaluation, we can use logic to do things like decide on our variable assignments for us:</p>
 
@@ -209,7 +209,7 @@ if (a < 10) {
 <p>The output of this code is ‘less than ten’, even though, of course, a is less than fifty. What we see here is a chain of logic that has the same effect as short-circuit evaluation. The second condition, if (a < 50), is itself dependent on the falsity of the first condition, because it is attached to the first condition’s else statement. The second condition is effectively</p>
 
 <code><pre>
-if (!(a < 10) && (a < 50)
+if (!(a < 10)) && (a < 50)
 </pre></code>
 
 <p>Because of this, after the program satisfies that first condition, (a < 10), it simply stops looking at the other conditions, which are premised on the falsity of earlier conditions. To print both conditions, we could attach them to separate if statements, rather than premising later if statements on the else statements of earlier if statements.</p>
@@ -238,7 +238,7 @@ if (!(a < 10) && (a < 50)
   }      
 </pre></code>      
 
-<p>There’s a nice kind of symmetry here: the only difference between the two functions is what the truthiness of the LHS indicates: in the or function, it indicates that evaluation can stop; in the and function it indicates that evaluation must continue.</p>
+<p>There’s a nice kind of symmetry here: the only difference between the two functions is what the truthiness of the LHS indicates. In the or function, it indicates that evaluation can stop. In the and function it indicates that evaluation must continue.</p>
 
 <p>We can implement a converse kind of functionality with || and && operators.</p>
 
