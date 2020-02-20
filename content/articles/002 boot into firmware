@@ -1,6 +1,6 @@
 title: Quickly boot into BIOS/UEFI from PowerShell
 date: 13/02/2020
-tags: PowerShell, tips, boot-order, dual-boot, windows
+tags: PowerShell, tips, boot order, dual-boot, windows
 
 CONTENT
 <p>I came up with this solution when trying to dual-boot Ubuntu and Windows 10 but having troulbe adjusting boot order. After phoning HP and finding that access to my boot order had been deliberately obfuscated to make sure people boot into the 'right' operating system, Windows 10 - thanks HP - I turned my efforts to accessing the BIOS, from which I could get to Ubuntu's bootloader relatively quickly. I wrote a Powershell function which, when executed, restarts the computer directly into the firmware settings. No more button-bashing, and a lot of time saved.</p>

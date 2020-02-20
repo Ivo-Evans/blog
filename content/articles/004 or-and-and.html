@@ -1,0 +1,318 @@
+title: || and &&
+tags: operators, fundamentals, JavaScript, logic, conditionals
+date: 20/03/2020
+
+CONTENT
+<p>Logic in programming does not map directly onto logic itself. This is fair enough. Logicians aren’t even sure, themselves, what logic is, but computers have to, you know, work, and so they have to be specific. This means that logic in programming is something that one must learn about. When I first started programming, I lacked a clear and explicit guide and I found myself confused, and so this is something that I hope to remedy.</p>
+
+<p>One thing that surprised me was that the logical connectors || and && could both return values other than true and false. Another thing that surprised me was the way that logic used what’s called short-circuit evaluation. A third thing that surprised me was that you could combine these two facts to make || and && statements into conditional, i.e. if-then, statements. But before we get into any of that, we should give a short description of || and &&.</p>
+
+<h3>1. || and && 101</h3>
+
+<p>|| is an ‘or’ operator and && is an ‘and’ operator. They each have an arity of two – they take two operands, one on each side, and return a value which represents the logical relationship between their two operands.</p>
+
+<p>We typically represent these logical relationships with truth tables. Logic is taken to be bivalent: it only has two values, true or false – there is no third value, like ‘half true’ or ‘true in the right context’:</p>
+
+<div class="parallel-code">
+<table>
+  <tr>
+    <th>true</th>
+    <th>||</th>
+    <th>true</th>
+    <th>is...</th>
+    <th>true</th>
+  </tr>
+
+  <tr>
+    <th>true</th>
+    <th>||</th>
+    <th>false</th>
+    <th>is...</th>
+    <th>true</th>
+  </tr>
+
+  <tr>
+    <th>false</th>
+    <th>||</th>
+    <th>false</th>
+    <th>is...</th>
+    <th>false</th>
+  </tr>
+
+  <tr>
+    <th>false</th>
+    <th>||</th>
+    <th>true</th>
+    <th>is...</th>
+    <th>true</th>
+  </tr>
+
+</table>
+
+<table>
+
+  <tr>
+    <th>true</th>
+    <th>&&</th>
+    <th>true</th>
+    <th>is...</th>
+    <th>true</th>
+  </tr>
+
+  <tr>
+    <th>true</th>
+    <th>&&</th>
+    <th>false</th>
+    <th>is...</th>
+    <th>false</th>
+  </tr>
+
+  <tr>
+    <th>false</th>
+    <th>&&</th>
+    <th>false</th>
+    <th>is...</th>
+    <th>false</th>
+  </tr>
+
+  <tr>
+    <th>false</th>
+    <th>&&</th>
+    <th>true</th>
+    <th>is...</th>
+    <th>false</th>
+  </tr>
+
+</table>
+</div>
+
+<p>Let’s imagine that we have three variables, isInLondon and isLearningToProgram and isAMasterPrgrommaer.</p>
+
+<code><pre>
+let isInLondon = true;
+let isLearningToProgram = true;
+let isAMasterProgrammer = false;
+</pre></code>
+
+<p>We can feed these variables to || and && for idiomatic assessments of logical relationships:</p>
+
+<code><pre>
+isInLondon && isLearningToProgram // true
+isLearningToProgram || isAMasterProgrammer // true
+isLearningToProgram && isAMasterProgrammer // false
+</pre></code>
+
+<p>Note that || is ‘nonexclusive’:</p>
+
+<code><pre>
+isInLondon || isLearningToProgram // true
+</pre></code>
+
+<p>For this reason, || and && are inverse operators – each of them returns one value in three cases, and the other in one case. We could also implement an exclusive or (XOR), if we wanted to, in which the above logical statement would come out false. However, the XOR is less important in programming and in logic in general. We'll skip over it for now.</p>
+
+<h3>2. true v.s. truthy, false v.s. falsy</h3>
+
+<p>When we’re programming, we feed more values than just true and false to the logical operators. How does this work?</p>
+
+<p>It’s not quite like when you use logic in conversation. In conversation, like when you say ‘he is at home and eating dinner’, you feed the logical assertion two statements, sub in each statement for its truth-value at time of evaluation, and you see whether the whole expression is true. If it is, then the logical statement – an assertion of a logical relationship – is true and so should return a truth value.</p>
+
+<p>In JavaScript it's a bit different. We got the first step right: when || or && is evaluated, you do evaluate the truth-values of the surrounding statements rather than the statements themselves. However, you don’t return a truth-value, you just return one of the statements that you give to the expression.</p>
+
+
+<code><pre>
+“he’s at home” && “he’s having dinner” // “he’s having dinner”
+</pre></code>
+
+<p>I found this quite strange at first. For instance, I wondered why it worked with complex logic, as when you want to use && in a conditional to make the conditional run only if two things are true.</p>
+
+<p>The reason is that every value, including any value returned from || and &&, is evaluable for its truth or falsity. We say that these values, which are not the values true or false but which can be evaluated for truth or falsity, are ‘truthy’ or ‘falsy’. Values are truthy when they are evaluated as true, and falsy when they are evaluated as false. When && or || outputs one of the statements it evaluated, we can guarantee that that statement is truthy or falsy. In the next section, we will look at how the language guarantees that || and && always output only a falsy value where appropriate and only a truthy value where appropriate.</p>
+
+<p>The truthiness and falsiness of values is written deep into JavaScript, and is not something you can change. Rather, it is something that you should learn. Luckily this is quite easy, because in JavaScript almost everything is truthy. The only falsey values are:</p>
+
+<ul>
+ <li>false</li>
+ <li>0</li>
+ <li>empty strings</li>
+ <li>undefined, null and NaN</li>
+</ul>
+
+<p>(Note, though, that there is some <a href="https://github.com/denysdovhan/wtfjs#-is-truthy-but-not-true">funny business</a> about empty arrays and null.)</p>
+
+<h3>3. Short-circuit evaluation</h3>
+
+<p>So, || and && don’t return truth values, but rather their <em>left-hand-side</em> (LHS) or <em>right-hand-side</em> (RHS) statements - two terms that will be opping up a lot from here on. How do || and && decide which side to return? Assessing the truth of a logical statement amounts to nothing more than checking the truth-value of the LHS and RHS. Programming languages, by convention, check first the left-hand-side and then the right-hand-side. Sometimes, after the first result, the conclusion is determined. For instance, in the statement:</p>
+
+<code><pre>
+LHS && RHS
+</pre></code>
+
+if LHS is falsy, then, no matter what RHS is, the and-statement, as a whole, must be false. The computer can save time by just ceasing it’s evaluation after it finds LHS to be false. Conversely, though, if it finds LHS to be true, it does need to proceed to RHS; if RHS is true, the and-statement is true, but if it is false then, even though LHS is true, the and-statement is false. Either way, though, at this point the truth of the and-statement rests entirely on the value of RHS.
+
+<p>The converse holds for || statements:</p>
+
+<code><pre>
+LHS && RHS
+</pre></code>
+
+<p>If LHS is true, then, by fiat, the or-statement is true. However, if LHS is false, we still need to check RHS. If it is true, the statement passes, but if it is false, the statement fails.</p>
+
+<p>This system of evaluation is known as short-circuit evaluation. Recall that in the last section, we said that || and && statements do not return truth values, but either the LHS or RHS. In</p>
+
+<code><pre>
+LHS && RHS
+</pre></code>
+
+<p>if LHS is false, we can return that; else, if LHS is true, we will return RHS. In</p>
+
+<code><pre>
+LHS && RHS
+</pre></code>
+
+<p>if LHS is true, we can return that; else, if LHS is false, we will return RHS. This is short-circuit evaluation. It is a simple, elegant and – dare I say it –  a logical solution. There is no need to compute  a third value (true or false) which represents the operator’s decision; it is guaranteed that we can repurpose one of the inputs, and that we will repurpose the leftmost appropriate input.</p>
+
+<p>Now, before we close off this section, we should think a little about the consequences of returning truthy and falsy values instead of true and false. Because we can rely on the explicit rules of short-circuit evaluation, we can use logic to do things like decide on our variable assignments for us:</p>
+
+<code><pre>
+let a = 1
+let b = “”
+let c = a && b
+c // “”
+</pre></code>
+
+<h3>4. || and && and conditional logic</h3>
+
+<p>So far, we’ve covered the meaning of short-circuit evaluation and truthiness and falsiness for || and &&. But these are not the only logical operations we do when programming. One other thing we do is express conditional logic, logic which expresses if-then relationships. Such conditional logic, sometimes called flow-control, lets us establish branching possibilities within our programs.</p>
+
+<p>The most common kind of conditional statements are if statements, if-else statements, and if-else if -else statements (two if-else statements stuck together). First let’s look at an if statement:</p>
+
+<code><pre>
+let a = 5;
+if (a) {
+  console.log(‘a is true’);
+}
+</pre></code>
+
+<p>Notice that in this statement, we do not need to say if (a == true). a’s truthiness is enough for the logic to execute.</p>
+
+<p>Sometimes we do want to use operators on values to generate new boolean values, as in this if-else if-else statement, where the < operator is used:</p>
+
+<code><pre>
+if (a < 10) {
+  console.log(‘less than ten’);
+} else if (a < 50) {
+  console.log(‘less than fifty’);
+} else {
+  console.log(‘wow a must be really big”);
+}
+</pre></code>
+
+<p>The output of this code is ‘less than ten’, even though, of course, a is less than fifty. What we see here is a chain of logic that has the same effect as short-circuit evaluation. The second condition, if (a < 50), is itself dependent on the falsity of the first condition, because it is attached to the first condition’s else statement. The second condition is effectively</p>
+
+<code><pre>
+if (!(a < 10) && (a < 50)
+</pre></code>
+
+<p>Because of this, after the program satisfies that first condition, (a < 10), it simply stops looking at the other conditions, which are premised on the falsity of earlier conditions. To print both conditions, we could attach them to separate if statements, rather than premising later if statements on the else statements of earlier if statements.</p>
+
+<p>So we can see that conditional logic effectively short-circuits, and we saw earlier that || and && statements short-circuit too. This similarity cuts deep: it lets us use || and && to make conditional statements, and conditional statements to make || and && statements.</p>
+
+<p>Here are || and && implemented as functions that use conditional logic:</p>
+
+<code><pre>
+  function or(leftHandSide, rightHandSide) {
+    if (leftHandSide) {
+      return leftHandSide;
+    } else {
+      return rightHandSide; 
+    }
+  }
+</pre></code>
+
+<code><pre>
+  function and(leftHandSide, rightHandSide) {
+    if (leftHandSide) {
+      return rightHandSide;
+      } else {
+      return leftHandSide;
+      }
+  }      
+</pre></code>      
+
+<p>There’s a nice kind of symmetry here: the only difference between the two functions is what the truthiness of the LHS indicates: in the or function, it indicates that evaluation can stop; in the and function it indicates that evaluation must continue.</p>
+
+<p>We can implement a converse kind of functionality with || and && operators.</p>
+
+<code><pre>
+  function ifThen(antecedent, consequent) {
+    return antecedent && consequent;
+  }
+</pre></code>
+
+<code><pre>
+  function ifNotThen(antecedent, consequent) {
+    return antecedent || consequent;
+  }  
+</pre></code>      
+
+<p>I’ve introduced two new terms here, ‘antecedent’ and ‘consequent’. These just mean ‘the bit that comes before’ and ‘the bit that comes after’ in a conditional statement. In the statement ‘if I go to Alaska, I will fulfill a lifelong ambition’, ‘I go to Alaska’ is the antecedent, and ‘I will fulfill a lifelong ambition’ is the consequent.</p>
+
+<p>The two functions above are not that practical. But using the logical operators && and || to express conditions can be practical. Let’s take a realistic example, trying to parse a string and return an array that contains any numbers inside the string. Given the string:</p>
+
+<code><pre>
+	‘1 2 ,4 &:\ 301’
+</pre></code>
+
+<p>we should return</p>
+  
+<code><pre>
+	[‘1’, ‘2’, ‘4’, ‘301’]
+</pre></code>
+
+<p>To achieve this, we will use the match() function and feed match() a regex.  Our regex will look like this:</p>
+
+<code><pre>
+	/[0-9]+/g
+</pre></code>
+
+<p>[0-9] represents any character 0..9. The plus symbol means ‘one or more of what I preceded’ - [0-9]. The g is a flag which means global, and tells match() to return more than one match.</p>
+
+<p>We’re all set up, and writing this function should be simple enough.</p>
+
+<p>However, there is a hitch. A requirement of our function is that it returns an array, even if the array is empty. But match() has an idiosyncrasy: if it finds no matches, it doesn’t return an empty array or an empty string, but returns null.</p>
+
+<p>How are we to solve the problem? Recall that null is falsy. We can use this to our advantage with some conditional logic.</p>
+
+<code><pre>
+  function findNumbers(string) {
+  let result = string.match(/[0-9]+/g);
+  if (result) {
+   return result;
+  } else {
+    return [];
+}
+</pre></code>
+
+<p>This is all right, but it’s quite long. We can shorten the same logic with the ternary operator, a quick way to write if-else statements:</p>
+
+<code><pre>
+  function findNumbers(string) {
+  let result = string.match(/[0-9]+/g);
+  return result ? result : [];
+  // if result is truthy, return result, else, return []
+}
+</pre></code>
+
+<p>This is good. However, we can do even better with the || operator:</p>
+
+<code><pre>
+  function findNumbers(string) {
+  return string.match(/[0-9]+/g) || [];
+}
+</pre></code>
+
+<p>And this is where using || for conditional logic really shines.</p>
+
+<p>Of course, you should not always use || and &&. If you want to use multiple consequents, you should opt for the full-fledged if(){} else{} structure. And even for more compact if-else conditions, rather than if-then or if-not-then, the ternary operator is generally preferable.</p>
+
+<p>However, if what you want to say is ‘if a then b, else a’, or ‘if not a then b, else a’ - in other words, if you want to choose between two operands - consider using a && b or a || b.</p>
+CONTENT
