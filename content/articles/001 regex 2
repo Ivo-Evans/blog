@@ -3,7 +3,7 @@ tags: regular expressions, fundamentals, JavaScript
 date: 10/02/2020
 
 CONTENT
-<p>Regular expressions, as a system for representing text, are found in most programming languages. In this post, I’m going to focus on JavaScript, which happens to be my favourite programming language (although not for its implementation of regex, which currently lacks some features, like lookbehinds and interpolation).</p>
+<p>Regular expressions, as a system for representing text, are found in most programming languages. In this post, I’m going to focus on JavaScript, which happens to be my favourite programming language (although, it must be said, not for its implementation of regex).</p>
 
 <h3>1: regular expressions are values</h3>
 
@@ -18,7 +18,7 @@ String(5) // a string created by the constructor function for the string type
 
 <code>/(ab){3}/   // a regex matching 3 consecutive ab’s: ababab</code>
 
-<p>This forward-slash syntax was popularised by Perl, a language which <a href="https://en.wikipedia.org/wiki/Regular_expression#History">did a lot for regular expressions<a>. It is also the most common syntax in JavaScript. Since RegExps are not strings, there is no need for any string syntax when creating a RegExp literal. This is different when using the RegExp constructor. Here, we drop the forward slashes, and feed the constructor a string as its argument, leaving it up to the function to make the regular expression for us:</p>
+<p>This forward-slash syntax was popularised by Perl, a language which <a href="https://en.wikipedia.org/wiki/Regular_expression#History">did a lot for regular expressions<a>. It is also the most common way to make regular expressions in JavaScript. Since RegExps are not strings, there is no need for any string syntax when creating a RegExp literal. This is different when using the RegExp constructor. Here, we drop the forward slashes, and feed the constructor a string as its argument, leaving it up to the function to make the regular expression for us:</p>
 
 <code>RegExp(‘(ab){3}’)</code>
 
@@ -28,7 +28,7 @@ String(5) // a string created by the constructor function for the string type
 
   <li>Given to functions as arguments</li>
 
-    <code>123”.match(/2/) // ["2", index: 1, input: "123", groups: undefined]</code>
+    <code>"123”.match(/2/) // ["2", index: 1, input: "123", groups: undefined]</code>
 
   <li>Returned from functions</li>
 
@@ -70,7 +70,7 @@ str.match(regExTwo); // [“n”, “g”, “n”, “g”]
 
 <p><code>&lt;!-- INSERT ARTICLES HERE --&gt;</code>,</p>
 
-<p><em>replaces</em> that line with article content that it got elsewhere, and then writes the new string to a new file - a file just like the one your browser has rendered to let you read this. Here's the relevant <a href="https://github.com/ievans147/blog/blob/master/resources/modules/writable.rb">Ruby method</a>, if you're curious.</p>
+<p><em>replaces</em> that line with article content that it got elsewhere, and then writes the new string to a new file - a file just like the one your browser has rendered to let you read this. (Here's the relevant <a href="https://github.com/ievans147/blog/blob/master/resources/modules/writable.rb">Ruby method</a> if you're curious.)</p>
 
 <p>I could have used string-for-string replacement, like</p>
 
@@ -86,15 +86,15 @@ str.match(regExTwo); // [“n”, “g”, “n”, “g”]
 
 <ol>
   <li>If I used regex, I could allow for a varying amount of whitespace.</li>
-  <li>The input was expectable and controllable, so this was a very <em>safe</em> regular expression.</li>
-  <li>The Ruby method I used was going to read my string as a regular expression <em>anyway</em>.</li>
+  <li>The input was expectable and controllable, so this was a very safe regular expression.</li>
+  <li>The Ruby method I used was going to read my string as a regular expression anyway.</li>
 </ol>
 
 <p>Each of these reasons tells us something wider about why and when to use regular expressions.</p>
 
-<p> A good reason to use them, as discussed in the last article, is that they allow more general matching than one-to-one correspondence. In this case this generality solved a specific problem for me: while I knew what I wanted matching lines to say, I didn't want to commit to indenting them some specific amount, because I might change the html template. I also didn't want to only select the comment itself, and not whitespace preceding it on the line, because then when I wrote the new content the first line would have more indentation than other lines. A regex which allowed me to select from the beginning of the line, to a specific match, including an arbitrary amount of whitespace, proved useful.</p>
+<p> A good reason to use them, as discussed in the last article, is that they allow more general matching than one-to-one correspondence. In this case generality solved a specific problem for me: while I knew what I wanted matching lines to say, I didn't want to commit to indenting them some specific amount, because I might change the html template. I also didn't want to only select the comment itself, and not whitespace preceding it on the line, because then when I wrote the new content the first line would have more indentation than other lines. A regex which allowed me to select from the beginning of the line, to a specific match, including an arbitrary amount of whitespace, proved useful.</p>
 
-<p>It was also a good case for a regex because it was very easy to control. If you want to use regular expressions to sift large and unpredictable data-sets, you will have to think carefully. For instance, it is generally not recommended to use regular expressions to write parsers for programming languages. For less-lofty aims, regular expressions can be useful, but you do need to be careful with them. If you cast your net too wide, you will probably catch a lot of junk. Once you get beyond syntax, for regex, the crux of the challenge is often striking the right balance between specificity and generality.</p>
+<p>It was also a good case for a regex because it was very easy to control. If you want to use regular expressions to sift large and unpredictable data-sets, you will have to think carefully. For instance, it is generally not recommended to use regular expressions to write parsers for programming languages. For less-lofty aims, regular expressions can be useful, but you do need to be careful with them. If you cast your net too wide, you might catch some junk. Once you get beyond syntax, for regex, the crux of the challenge is often striking the right balance between specificity and generality.</p>
 
 <p>Finally, a good reason to use regular expressions is their prevalence. Regular expressions are <em>everywhere</em>, and so you can count on them as a useful and transferable skill for efficient and sophisticated - but not too sophisticated - text-matching.</p>
 

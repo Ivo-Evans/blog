@@ -15,6 +15,7 @@ class Manageable
       type = type.gsub(/\s+/, '-')
       n.zero? ? "./#{type}.html" : "./#{type}-#{n}.html"
     }
+    @articles_per_page = 5
     # Lambda necessary for filenames (Writable) and for links (Compilable)
     # Github pages requires index.html not index-0.html
   end
@@ -31,7 +32,6 @@ class Manageable
   end
 
   def make_tag_pages(articles, unique_tags)
-
     tag_collected_articles = unique_tags.each_with_object({}) do |tag, hash|
       hash[tag] = articles.select { |a| a[1].include?(tag) }
     end
@@ -44,10 +44,10 @@ class Manageable
     sidebar_content = Compilable.compile_tag_sidebar(unique_tags, @name_page)
 
     pages = []
-    articles.each_slice(10) { |s| pages.push(s) }
+    articles.each_slice(@articles_per_page) { |s| pages.push(s) }
 
     pages.each_with_index do |content, slice_number|
-      page_address = @name_page[page_type, slice_number]
+      page_address = @name_page[page_type, slice_number] # This could be given to write_articles
       pagination = Compilable.compile_pagination(slice_number, pages.length, @name_page, page_type)
       
       Writable.write_articles(content, slice_number, @name_page, page_type)
@@ -56,15 +56,15 @@ class Manageable
     end
   end
 
+  def make_archive(articles)
+    titles = articles.map { |a| Readable.parse_title(Readable.read_article('./content/articles/' + a)) }
+    archive_text = Compilable.compile_archive(titles, @name_page, @articles_per_page)
+    Writable.write_to_main('./archive.html', archive_text.join("\n"))
+  end
+
   def make_about
     about = Readable.read_article('./content/about.txt')
     Writable.write_to_main('./about.html', about)
-  end
-
-  def make_archive(articles)
-    titles = articles.map { |a| Readable.parse_title(Readable.read_article('./content/articles/' + a)) }
-    archive_text = Compilable.compile_archive(titles, @name_page)
-    Writable.write_to_main('./archive.html', archive_text.join("\n"))
   end
 end
 

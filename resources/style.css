@@ -82,6 +82,7 @@ a {
   margin: 0 5%;
   font-size: 13px;
   flex-shrink: 3;
+  max-width: 33%;
 }
 
 main h2 {
@@ -130,9 +131,6 @@ pre, code {
   font-size: 22px;
 }
 
-aside {
-  display: none;
-}
 
 @media screen and (min-width: 900px) {
   header {

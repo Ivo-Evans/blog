@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="resources/style.css">
+  <title>A Bit Wise blog</title>
+</head>
+<body>
+  <header>
+    <h1><a href="./index.html">A Bit Wise</a></h1>
+    <h2>A blog about the basics</h2>
+  </header>
+  <nav>
+      <h3><a class="non-current-page" href="./tag-operators.html">0</a></h3>
+      <h3><a class="current-page" href="./tag-operators-1.html">1</a></h3>
+  </nav>
+  <div class="border-total"><div class=border-substance></div></div>
+  <main>
+    <article class="post">
+      <span class="post-title-bar"><h2 id="How to talk about operators" class="post-title">How to talk about operators</h2><p class="meta-info">17/02/2020<br><a href="./tag-operators.html">operators</a>, <a href="./tag-fundamentals.html">fundamentals</a>, <a href="./tag-JavaScript.html">JavaScript</a></p></span>
+      <div class="post-content">
+        <p>It doesn't need to be an awkward discussion. All we need is some simple <strong>vocabulary</strong></p>
+        <h3>1. Arity</h3>
+        <p>An operator’s arity is the number of arguments – also called operands – that it takes. For instance, comparison operators have an arity of two – they take two operands:</p>
+        <pre><code>
+	// true
+	5 < 10
+</code></pre>
+        <p>Here, 5 is one operand and 10 is another.</p>
+        <p>An arity of two is the most common arity in JavaScript. Some operators have an arity of 1:</p>
+        <pre><code>
+	!false
+	// true
+	typeof true
+	// boolean
+</code></pre>
+        <p>One operator has an arity of three, the ternary operator. Ternary means 'composed of three parts' and the ternary operator is used to express conditional logic:</p>
+        <pre><code>
+	condition ? true : false
+</code></pre>
+        <p>The first operand, the bit to the left of the ?, is a condition to be evaluated. If it is evaluated to true, then the second operand, the bit in between ? and :, is executed. If the first operand is evaluated to false,  the third operand, the bit after :, is executed.</p>
+        <pre><code>
+	let iAmIvo = true;
+	function amIIvo(bool) {
+	  return bool ? ‘yup’ : ‘no’;
+	}
+	amIIvo(iAmIvo); // ‘yup’
+</code></pre>
+        <h3>2. Associativity</h3>
+        <p>Next up is an operator’s associativity. This isn’t about how operators interact with each other (that’s precedence) but about how operands interact with each other and with the operator. Basically it is the direction in which operands are evaluated. It can be either right-to-left or left-to-right. When an operator is left-to-right associative, we sometimes say that it is left-associative, and when it is right-to-left associative, we sometimes say that it is right associative.</p>
+        <p>Mathematical and logical operators are left-to-right associative:</p>
+        <pre><code>
+	10 – 5 // 5
+	true || false // true
+</code></pre>
+        <p>The ternary operator is left-associative too:</p>
+        <pre><code>
+	condition ? ‘true’ : ‘false’
+</code></pre>
+        <p>Assignment, on the other hand, is right-to-left associative:</p>
+        <pre><code>
+	let a = 1;
+	let b = 2;
+	let c = a;
+	c; // 1 
+</code></pre>
+        <p>Unary operators - operators with an arity of 1 - tend to be right-associative:</p>
+        <pre><code>
+	!false
+	// true	
+	typeof Object
+	// “function”
+</code></pre>
+        <h3>3. Precedence</h3>
+        <p>A function’s precedence expresses where it stands in relation to other operators. If it has a high precedence, it is evaluated early. This means that it has first dibs on its operands. If it has low precedence, it is evaluated later. It receives only the operands that other operators didn’t want, or have already processed.</p>
+        <p>Look at this mathematical expression:</p>
+        <pre><code>
+	1 * (0 – 1) === 1 * 0 – 1
+	// true
+</code></pre>
+        <p>Since it returns true, we can tell that the logical comparison operator === has lower precedence than the numerical operators. If it had high precedence – first dibs – it would compare (0 – 1) with (1), and find them nonequal. However, in actuality it compares -1 with -1 and finds them equal.</p>
+        <h3>4. Putting it all together</h3>
+        <p>Putting it all together, we can now explain exactly why compound expressions work like they do. Let's take an example:</p>
+        <pre><code>
+	2 * (4 – 1) !== 2 * 4 – 1 ? "they’re not equal" : "they’re equal"
+</code></pre>
+        <p>The operator with the highest precedence here is the grouping operator (), followed by *, so we should start with the sums,</p>
+        <pre><code>
+	2 * (4 – 1)
+	2 * 4 – 1
+</code></pre>
+        <p>which resolve to 6 and 7 respectively. The brackets introduce a difference, not because the multiplication operator is further to the left than the subtraction operator, but because multiplication has a higher precedence than subtraction (following <a href="https://www.mathsisfun.com/operation-order-pemdas.html">PEMDAS/BIDMAS</a>).</p>
+        <p>the operator with the next highest precedence is the inequality operator. It has an arity of two, and for this example it doesn't really matter whether it is right-associative or left-associative (in general, it is left-associative, so console.log('hello') !=== console.log('world') prints hello and then world and then returns false). In this example !== receives two numbers - 6 and 7 - and finds them to be unequal. Therefore it returns true.</p>
+        <p>Finally we have the ternary operator, the lowest-precedence operator in the equation above. It is left-associative, so it looks first to its left-hand-side, and uses that information to decide between its remaining operands. Since its left-hand-side is the value true, it chooses its second operand, "they are not equal".</p>
+        <p>These three properties, arity, associativity and precedence, neatly divide the conceptual space for operators. With them, you can say all that you need to say, and learn precisely about the relationships between operators. As a next step, you might want to consult a comparative table like <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence#Table">this one</a>.</p>
+        <img class="fade" src="./resources/bottom-fade.png" alt="an image that adds a fade effect to the bottom layer of collapsed text">
+      </div>
+      <h3 class="expandContractButton">Read more +</h3>
+    </article>
+  </main>
+<aside>
+  <nav>
+    <h3>tags</h3>
+    <p><a href="./tag-operators.html">operators</a></p>
+    <p><a href="./tag-fundamentals.html">fundamentals</a></p>
+    <p><a href="./tag-JavaScript.html">JavaScript</a></p>
+    <p><a href="./tag-logic.html">logic</a></p>
+    <p><a href="./tag-conditionals.html">conditionals</a></p>
+    <p><a href="./tag-PowerShell.html">PowerShell</a></p>
+    <p><a href="./tag-tips.html">tips</a></p>
+    <p><a href="./tag-boot-order.html">boot order</a></p>
+    <p><a href="./tag-dual-boot.html">dual-boot</a></p>
+    <p><a href="./tag-windows.html">windows</a></p>
+    <p><a href="./tag-regular-expressions.html">regular expressions</a></p>
+  </nav>
+</aside>
+  <footer>
+    <nav>
+      <h3><a href="./index.html">Home</a></h3>
+      <h3><a href="./archive.html">Archives</a></h3>
+      <h3><a href="./about.html">About</a></h3>
+      <h3><a href="https://github.com/ievans147/blog" target="_blank">Source code</a></h3>
+    </nav>
+  </footer>
+  <script src="resources/text-expander.js"></script>
+</body>
+</html>

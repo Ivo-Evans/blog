@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="resources/style.css">
+  <title>A Bit Wise blog</title>
+</head>
+<body>
+  <header>
+    <h1><a href="./index.html">A Bit Wise</a></h1>
+    <h2>A blog about the basics</h2>
+  </header>
+  <nav>
+      <h3><a class="non-current-page" href="./index.html">0</a></h3>
+      <h3><a class="non-current-page" href="./index-1.html">1</a></h3>
+      <h3><a class="non-current-page" href="./index-2.html">2</a></h3>
+      <h3><a class="non-current-page" href="./index-3.html">3</a></h3>
+      <h3><a class="current-page" href="./index-4.html">4</a></h3>
+  </nav>
+  <div class="border-total"><div class=border-substance></div></div>
+  <main>
+    <article class="post">
+      <span class="post-title-bar"><h2 id="Regex 1: What is regex?" class="post-title">Regex 1: What is regex?</h2><p class="meta-info">06/02/2020<br><a href="./tag-regular-expressions.html">regular expressions</a>, <a href="./tag-fundamentals.html">fundamentals</a></p></span>
+      <div class="post-content">
+        <p>Regex, also called regular expressions and regexp, is a system of representing text.</p>
+        <p>You could represent text many ways. The most obvious way is with one-to-one correspondence. This is what you do when you press ^F on your browser. You enter some text into the popup box, and the browser searches the page for text represented by whatever you entered. One-to-one correspondence is useful, because it is both clear and exact. However, it is also limited by its exactness: if we want to match all email addresses but not other things containing @, one-to-one correspondence isn’t going to help us. We need regular expressions.
+        <p>Regular expressions trade off exact, one-to-one representation, and therefore clarity, for generality. In regex, certain characters and combinations of characters do not only represent one possibility but many possibilities. For instance, a dot (.) represents ‘any character’.</p>
+        <p>If certain characters represent many possible characters, this begets an instant question: what if you want to represent a specific character, not the more-general set of characters that it normally represents? What if you really only want to match dots? In this case, you use an escape sequence. An escape sequence is any two-digit combination in which the first combination is a backslash (\). It ‘escapes’ the normal way that code is evaluated. Thus, \. represents dots themselves. \\ is an escaped backslash – it matches a single \</p>
+        <p>These backslash escape sequences cut in two directions: firstly, as in \. , they can make a representation more exact. Secondly, they can make a representation less exact. In regex, s represents (you guessed it) s’s. However, \s represents whitespace: spaces and tabs (note that there is nothing stoppping you from simply using a space or a tab inside a regular expression). \s makes the s character less specific, while \. makes the . character more specific.</p>
+        <p>So far so good: we’ve learnt about why regex exists, and using \ to make a character represent more or less possibilities. We’re almost there. The final thing we need to note is that in regex, there is no necessary relationship between the number of characters a regex represents, and the number of characters of the regex itself. For instance, a regular expression can include what are called 'zero-length assertions', like ^ or $. The caret (^) represents the beginning of a line, and the dollar-sign ($) the end of a line. Neither the beginning nor the end of the line are parts of the string <em>per se</em> because the string is simply a collection of characters. Zero-length assertions take up space in your regular expressions, but do not represent space but, rather, position.</p>
+        <p>Zero-length assertions demonstrate that regular expressions can match less text than they take up. On the other hand, there are assertions that match more characters than their weight in regex. For instance, [0-9] represents any one character between 0 and 9 – ten characters. The text</p>
+        	<pre>numbers0123456789</pre>
+        <p>could be matched by [0-9] in exactly ten places, corresponding to the digits in-range. (A regular expression containing 0-9, on the other hand, represents the text 0-9 literally, and one containing \[0-9\] represents the text [0-9] literally.)</p>
+        <p>To take another example, .{2,4} represents any substring which is at best 4 characters long and at least 2. Note the full stop – it represents ‘any character’. If we use a regex containing .{2, 4} to iteratively scan the string ‘123456789’, it will match 1-4 and 5-8, but not 9. Regex is ‘greedy’: it always takes as much as it can while preserving the integrity of its matches.</p>
+        </p>Putting this all together, we can do some powerful matching, like matching all but the first word on a line, without knowing the line. We can match 'evening' in</p>
+        <pre>"morning evening"</pre>
+        <p>with</p>
+        <pre> .+$</pre> 
+        <p> where + represents 'one or more of the preceding character' and . represents 'any character'. You can't see it, but there is a space before the . too. So our regex means 'The largest possible substring composed of one space, and then one or more of any character, until the end of the line'.</p>
+        <p>There’s a lot more you can do with regex. You can give it a ‘global’ flag, so that it makes as many matches as it can, rather than just one match; you can feed it alternators, so that it alternates its search between two different expressions as it goes through the string from start to finish; you can use lookaheads and lookbehinds, to capture substrings which are near to other substrings without capturing the nearby substrings themselves. Regex is extremely flexible, and that is what makes it so much more powerful than one-to-one representation.</p>
+        <p>Some people love to hate regex, but actually, given the choice, I don't think I would trade it in for anything different. It’s generality - so often complained about - is the very source of its power.</p>
+        <img class="fade" src="./resources/bottom-fade.png" alt="an image that adds a fade effect to the bottom layer of collapsed text">
+      </div>
+      <h3 class="expandContractButton">Read more +</h3>
+    </article>
+  </main>
+<aside>
+  <nav>
+    <h3>tags</h3>
+    <p><a href="./tag-operators.html">operators</a></p>
+    <p><a href="./tag-fundamentals.html">fundamentals</a></p>
+    <p><a href="./tag-JavaScript.html">JavaScript</a></p>
+    <p><a href="./tag-logic.html">logic</a></p>
+    <p><a href="./tag-conditionals.html">conditionals</a></p>
+    <p><a href="./tag-PowerShell.html">PowerShell</a></p>
+    <p><a href="./tag-tips.html">tips</a></p>
+    <p><a href="./tag-boot-order.html">boot order</a></p>
+    <p><a href="./tag-dual-boot.html">dual-boot</a></p>
+    <p><a href="./tag-windows.html">windows</a></p>
+    <p><a href="./tag-regular-expressions.html">regular expressions</a></p>
+  </nav>
+</aside>
+  <footer>
+    <nav>
+      <h3><a href="./index.html">Home</a></h3>
+      <h3><a href="./archive.html">Archives</a></h3>
+      <h3><a href="./about.html">About</a></h3>
+      <h3><a href="https://github.com/ievans147/blog" target="_blank">Source code</a></h3>
+    </nav>
+  </footer>
+  <script src="resources/text-expander.js"></script>
+</body>
+</html>
