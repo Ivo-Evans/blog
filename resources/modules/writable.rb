@@ -14,10 +14,9 @@ module Writable
     file.close
   end
 
-  def self.write_articles(array_of_articles, to_file, namer, page_type)
-    to_file = namer[page_type, to_file]
+  def self.write_articles(array_of_articles, page_address)
     new_text = array_of_articles.flatten.join("\n")
-    write_to_main(to_file, new_text)
+    write_to_main(page_address, new_text)
   end
 
   def self.write_pagination(pagination, page_address)

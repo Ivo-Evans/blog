@@ -15,9 +15,9 @@ class Manageable
       type = type.gsub(/\s+/, '-')
       n.zero? ? "./#{type}.html" : "./#{type}-#{n}.html"
     }
-    @articles_per_page = 5
     # Lambda necessary for filenames (Writable) and for links (Compilable)
     # Github pages requires index.html not index-0.html
+    @articles_per_page = 5
   end
 
   def make_website
@@ -47,10 +47,10 @@ class Manageable
     articles.each_slice(@articles_per_page) { |s| pages.push(s) }
 
     pages.each_with_index do |content, slice_number|
-      page_address = @name_page[page_type, slice_number] # This could be given to write_articles
+      page_address = @name_page[page_type, slice_number] 
       pagination = Compilable.compile_pagination(slice_number, pages.length, @name_page, page_type)
       
-      Writable.write_articles(content, slice_number, @name_page, page_type)
+      Writable.write_articles(content, page_address)
       Writable.write_pagination(pagination, page_address)
       Writable.write_tag_sidebar(sidebar_content, page_address)
     end
