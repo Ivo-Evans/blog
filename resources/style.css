@@ -116,6 +116,12 @@ main h2 {
 
 pre, code {
   margin-left: 10%;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
 }
 
 .fade {
