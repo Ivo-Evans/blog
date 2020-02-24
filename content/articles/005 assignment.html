@@ -1,0 +1,159 @@
+title: = the assignment operator
+tags: operators, JavaScript, evaluation strategy, call by sharing, call by value, call by reference, data types
+date: 24/03/2019
+
+CONTENT
+<p>When I started to program I didn’t really think about the question of what the references of my variables ‘were’ - they were just what I saw when I called functions like console.log(). Well, it’s not quite so simple, and understanding how variables refer will pay dividends.</p>
+
+<h3>A question</h3>
+
+<p>Here’s a question: when you define two variables with the same value, like</p>
+
+<pre><code>
+let one = 1
+let uno = 1
+</code></pre>
+
+<p>are you creating</p>
+
+<pre><code>
+a: two values
+b: two variables that point to the same value?
+</code></pre>
+
+<h3>An answer</h3>
+
+<p>I had originally assumed the former – two variables with the same value point to different objects - but in fact the answer is the latter. I thought that the assignment operator was a kind of copy operator, which took the value on the right, created a new instance of it, and assigned it to the binding on the left.</p>
+
+<p>I think that there are two reasons for this. The first is that assignment is right-associative. Syntactically, the right-hand side comes first, and is assigned to the left-hand-side. This is why code like this works:</p>
+
+<pre><code>
+let one = 1;
+let two = 2;
+one = two;
+one; // 2
+</code></pre>
+
+<p>Despite this syntactic relationship, there is a deeper logical relationship. Logically, the left-hand side comes first, and is assigned to the right-hand side. The right-hand side is ‘real’ and the left-hand side is just a pointer. To see an example, we’ll have to address the second source of my confusion, a failure to appreciate the difference between primitive and reference data-types in JavaScript.</p>
+
+<p>In JavaScript every value is of either a primitive or a reference type. Primitive values are basic and ‘immutable’ - they cannot be changed. They include:</p>
+
+<ul>
+  <li>Number</li>
+  <li>String</li>
+  <li>Boolean</li>
+  <li>null and undefined</li>
+</ul>
+
+<p>Reference types, on the other hand, can include primitives, and they are mutable. They include:</p>
+
+<ul>
+  <li>Object</li>
+  <li>Array</li>
+  <li>Function</li>
+</ul>
+
+<p>What assignment does is it takes the characters on the left and turns them into a portal, as it were, to whatever values are on the right. If you update the value on the right, as in:</p>
+
+<pre><code>
+let a = 1;
+a++;
+</code></pre>
+
+<p>You are actually assigning a new, primitive value to a – in this case, the value is 2. It’s just the same for reference types:</p>
+
+<pre><code>
+let b = [1];
+b = [2];
+</code></pre>
+
+<p>In this case, we are assigning a completely new array to b. The difference between reference types and primitives becomes relevant when you use reference types to create an insulating layer between the variable and some value.</p>
+
+<pre><code>
+let a = [1];
+let b = a;
+a[0] += 999;
+b; // [1000]
+</code></pre>
+
+<p>On the third line, the assignment operator is still moving the pointer to a different reference. However, now, the pointer is index 0 of the array which is itself pointed to by the bindings a and b. Because this array is never replaced, changes inside the array are reflected in both variables.</p>
+
+<p>On the third line, the assignment operator is still moving the pointer to a different reference. However, now, the pointer is index 0 of the array which is itself pointed to by the bindings a and b. Because this array is never replaced, changes inside the array are reflected in both variables.</p>
+
+<h3>Assignment without the assignment operator: function parameters</h3>
+
+<p>Finally, we should note that functions parameters and arguments work like variables declared with let or var and the assignment operator.</p>
+
+<p>So first off, what is a function parameter or argument? An argument is the value you give to the function when you call it, and a parameter is the name that the function uses, internally, to represent the argument.</p>
+
+<pre><code>
+function myFunction(myParam) {
+  return myParam;
+}
+let myArgument = 5;
+myFunction(myArgument)
+</code></pre>
+
+<p>Parameters and arguments are often conflated, but they are not the same thing. They are not even almost the same thing. The relationship between parameter and argument is the same as the relationship between a let variable and its reference.</p>
+
+<p>If parameter is to argument as variable is to reference, the rules we discussed above apply here too:</p>
+
+<pre><code>
+let a = [1];
+function sideEffector(param) {
+  param[0] *= 1000;
+return “something irrelevant”; 
+}
+</code></pre>
+
+<pre><code>
+sideEffector(a);
+// “something irrelevant”
+a;
+//[1000]
+</code></pre>
+
+<p>So beware!</p>
+
+<h3>A caveat</h3>
+
+<p>If we’re being nerdy about this – and to be fair, we are all nerds here – what I’ve said above is not completely true.</p>
+
+<p>In practice, we can behave as if assignment always adds a pointer to a value in memory. However, it handles this memory differently for primitives and for reference types. For reference types, it simply points the variable name to the value, and multiple variables can point to the same memory location. They can also do so independently of each other, so that, if one gets given a new address, the other won’t inherit it:</p>
+
+<pre><code>
+let a = [1]
+let b = a
+a = [2]
+b // [1]
+</code></pre>
+
+<p>For primitives, assignment copies the primitive in question to a new memory location. This is because JavaScript is what’s known as a ‘pass by sharing’ language. That means that when you pass a value to a function or to the assignment operator, a duplicate of the value is created, but in the case of reference types, the value passed is the memory address. If you assign 10 to two different variables, there really will be two immutable 10 values in memory.</p>
+
+<p>This caveat has no practical impact on the model developed above. For instance, it has no impact on the equality operators == and === because they use different rules for primitives and for reference types. For reference types, == and === check the location in memory:</p>
+
+<pre><code>
+let a = []
+let b = a
+let c = []
+a === b // true
+a ===c // false
+</code></pre>
+
+<p>For primitives, == and === check equivalence</p>
+
+<pre><code>
+let x = 10
+let y = 10 // these two tens are in different places in memory, but because primitives typically take up very little memory, it doesn't matter
+x === y // true
+</code></pre>
+
+<p>Further reading:</p>
+
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Evaluation_strategy#Call_by_sharing">call by sharing on Wikipedia</a> (if you dare)</li>
+  <li><a href="https://www.ecma-international.org/ecma-262/10.0/index.html#sec-assignment-operators">The ECMA spec on the assignment operator</a> (If you're a really big boi)</li>
+  <li>This <b><a href="http://dmitrysoshnikov.com/ecmascript/chapter-8-evaluation-strategy/#call-by-sharing">blog post</a></b> is better than most - there's a lot of misinformation out there on this topic.</li>
+</ul>
+
+CONTENT

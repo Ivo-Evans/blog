@@ -131,7 +131,6 @@ pre, code {
   font-size: 22px;
 }
 
-
 @media screen and (min-width: 900px) {
   header {
     margin: 0 130px;
@@ -154,7 +153,7 @@ pre, code {
     top: 195px;
   }
 
-  aside p, h3 {
+  aside p, aside h3 {
     margin: 0;
   }
 
