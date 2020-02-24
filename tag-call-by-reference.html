@@ -39,7 +39,7 @@
       <span class="post-title-bar"><h2 id="= the assignment operator" class="post-title">= the assignment operator</h2><p class="meta-info">24/03/2019<br><a href="./tag-operators.html">operators</a>, <a href="./tag-JavaScript.html">JavaScript</a>, <a href="./tag-evaluation-strategy.html">evaluation strategy</a>, <a href="./tag-call-by-sharing.html">call by sharing</a>, <a href="./tag-call-by-value.html">call by value</a>, <a href="./tag-call-by-reference.html">call by reference</a>, <a href="./tag-data-types.html">data types</a></p></span>
       <div class="post-content">
         <p>When I started to program I didn’t really think about the question of what the references of my variables ‘were’ - they were just what I saw when I called functions like console.log(). Well, it’s not quite so simple, and understanding how variables refer will pay dividends.</p>
-        <h3>A question</h3>
+        <h3>1. A question</h3>
         <p>Here’s a question: when you define two variables with the same value, like</p>
         <pre><code>
 let one = 1
@@ -50,7 +50,7 @@ let uno = 1
 a: two values
 b: two variables that point to the same value?
 </code></pre>
-        <h3>An answer</h3>
+        <h3>2. An answer</h3>
         <p>I had originally assumed the former – two variables with the same value point to different objects - but in fact the answer is the latter. I thought that the assignment operator was a kind of copy operator, which took the value on the right, created a new instance of it, and assigned it to the binding on the left.</p>
         <p>I think that there are two reasons for this. The first is that assignment is right-associative. Syntactically, the right-hand side comes first, and is assigned to the left-hand-side. This is why code like this works:</p>
         <pre><code>
@@ -92,7 +92,7 @@ b; // [1000]
 </code></pre>
         <p>On the third line, the assignment operator is still moving the pointer to a different reference. However, now, the pointer is index 0 of the array which is itself pointed to by the bindings a and b. Because this array is never replaced, changes inside the array are reflected in both variables.</p>
         <p>On the third line, the assignment operator is still moving the pointer to a different reference. However, now, the pointer is index 0 of the array which is itself pointed to by the bindings a and b. Because this array is never replaced, changes inside the array are reflected in both variables.</p>
-        <h3>Assignment without the assignment operator: function parameters</h3>
+        <h3>3. Assignment without the assignment operator: function parameters</h3>
         <p>Finally, we should note that functions parameters and arguments work like variables declared with let or var and the assignment operator.</p>
         <p>So first off, what is a function parameter or argument? An argument is the value you give to the function when you call it, and a parameter is the name that the function uses, internally, to represent the argument.</p>
         <pre><code>
@@ -118,7 +118,7 @@ a;
 //[1000]
 </code></pre>
         <p>So beware!</p>
-        <h3>A caveat</h3>
+        <h3>4. A caveat</h3>
         <p>If we’re being nerdy about this – and to be fair, we are all nerds here – what I’ve said above is not completely true.</p>
         <p>In practice, we can behave as if assignment always adds a pointer to a value in memory. However, it handles this memory differently for primitives and for reference types. For reference types, it simply points the variable name to the value, and multiple variables can point to the same memory location. They can also do so independently of each other, so that, if one gets given a new address, the other won’t inherit it:</p>
         <pre><code>

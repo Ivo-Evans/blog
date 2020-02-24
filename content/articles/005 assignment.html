@@ -5,7 +5,7 @@ date: 24/03/2019
 CONTENT
 <p>When I started to program I didn’t really think about the question of what the references of my variables ‘were’ - they were just what I saw when I called functions like console.log(). Well, it’s not quite so simple, and understanding how variables refer will pay dividends.</p>
 
-<h3>A question</h3>
+<h3>1. A question</h3>
 
 <p>Here’s a question: when you define two variables with the same value, like</p>
 
@@ -21,7 +21,7 @@ a: two values
 b: two variables that point to the same value?
 </code></pre>
 
-<h3>An answer</h3>
+<h3>2. An answer</h3>
 
 <p>I had originally assumed the former – two variables with the same value point to different objects - but in fact the answer is the latter. I thought that the assignment operator was a kind of copy operator, which took the value on the right, created a new instance of it, and assigned it to the binding on the left.</p>
 
@@ -80,7 +80,7 @@ b; // [1000]
 
 <p>On the third line, the assignment operator is still moving the pointer to a different reference. However, now, the pointer is index 0 of the array which is itself pointed to by the bindings a and b. Because this array is never replaced, changes inside the array are reflected in both variables.</p>
 
-<h3>Assignment without the assignment operator: function parameters</h3>
+<h3>3. Assignment without the assignment operator: function parameters</h3>
 
 <p>Finally, we should note that functions parameters and arguments work like variables declared with let or var and the assignment operator.</p>
 
@@ -115,7 +115,7 @@ a;
 
 <p>So beware!</p>
 
-<h3>A caveat</h3>
+<h3>4. A caveat</h3>
 
 <p>If we’re being nerdy about this – and to be fair, we are all nerds here – what I’ve said above is not completely true.</p>
 
