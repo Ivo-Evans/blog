@@ -4,3 +4,10 @@
 - Extensions to save your life: z for bash, zsh and PowerShell
 - console.log like a pro
 - Extensions to save your life: Turbo Console Log
+
+
+TODO: maybe the final example in how to talk about operators should be simpler:
+
+  a > b && a > c || !a && !c ? 'something' : 'something else';
+
+The nice thing about this is that someone might be tempted to use unnecessary parentheses here. 

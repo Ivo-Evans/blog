@@ -7,7 +7,7 @@ CONTENT
 
 <h3>1. A question</h3>
 
-<p>Here’s a question: when you define two variables with the same value, like</p>
+<p>When you define two variables with the same value, like</p>
 
 <pre><code>
 let one = 1
@@ -23,9 +23,9 @@ b: two variables that point to the same value?
 
 <h3>2. An answer</h3>
 
-<p>I had originally assumed the former – two variables with the same value point to different objects - but in fact the answer is the latter. I thought that the assignment operator was a kind of copy operator, which took the value on the right, created a new instance of it, and assigned it to the binding on the left.</p>
+<p>I had originally assumed the former – two variables with the same value point to different objects - but in fact the answer is closer to the latter. I thought that the assignment operator was a kind of copy operator, which took the value on the right, created a new instance of it, and assigned it to the binding on the left. I didn't know the words at the time, but I thought that JavaScript was a <em>pass-by-value</em> language.</p>
 
-<p>I think that there are two reasons for this. The first is that assignment is right-associative. Syntactically, the right-hand side comes first, and is assigned to the left-hand-side. This is why code like this works:</p>
+<p>I think that there are two reasons I thought this. The first is that assignment is right-associative. Syntactically, the right-hand side comes first, and is assigned to the left-hand-side. This is why code like this works:</p>
 
 <pre><code>
 let one = 1;
@@ -53,7 +53,7 @@ one; // 2
   <li>Function</li>
 </ul>
 
-<p>What assignment does is it takes the characters on the left and turns them into a portal, as it were, to whatever values are on the right. If you update the value on the right, as in:</p>
+<p>What assignment does is take the characters on its left-hand-side and turn them into a portal, as it were, to whatever value is on the right-hand-side. If you update the value on the right, as in:</p>
 
 <pre><code>
 let a = 1;
@@ -78,8 +78,6 @@ b; // [1000]
 
 <p>On the third line, the assignment operator is still moving the pointer to a different reference. However, now, the pointer is index 0 of the array which is itself pointed to by the bindings a and b. Because this array is never replaced, changes inside the array are reflected in both variables.</p>
 
-<p>On the third line, the assignment operator is still moving the pointer to a different reference. However, now, the pointer is index 0 of the array which is itself pointed to by the bindings a and b. Because this array is never replaced, changes inside the array are reflected in both variables.</p>
-
 <h3>3. Assignment without the assignment operator: function parameters</h3>
 
 <p>Finally, we should note that functions parameters and arguments work like variables declared with let or var and the assignment operator.</p>
@@ -94,7 +92,7 @@ let myArgument = 5;
 myFunction(myArgument)
 </code></pre>
 
-<p>Parameters and arguments are often conflated, but they are not the same thing. They are not even almost the same thing. The relationship between parameter and argument is the same as the relationship between a let variable and its reference.</p>
+<p>Parameters and arguments are often conflated, but they are not the same thing. The relationship between parameter and argument is the same as the relationship between a let variable and its reference.</p>
 
 <p>If parameter is to argument as variable is to reference, the rules we discussed above apply here too:</p>
 
