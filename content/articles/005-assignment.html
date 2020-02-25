@@ -5,7 +5,7 @@ tags: operators, JavaScript, evaluation strategy, call by sharing, call by value
 CONTENT
 <p>When I started to program I didn’t really think about the question of what the references of my variables ‘were’ - they were just what I saw when I called functions like console.log(). Well, it’s not quite so simple, and understanding how variables refer will pay dividends.</p>
 
-<h2 class="centered_text">Question 1.0</h2>
+<h3>Question 1.0</h3>
 
 <p>When we assign the same value to two variables, as in</p>
 
@@ -23,7 +23,7 @@ let d = [];
 
 are we assigning two names that point to the same value, or are we creating two identical values?
 
-<h2 class="centered_text">Answer 1.0</h2>
+<h3>Answer 1.0</h3>
 
 <p>We are creating two identical, but different values</p>
 
@@ -38,8 +38,7 @@ c === d; // false
 
 <p>Let's ask another question.</p>
 
-<h2 class="centered_text">Question 2.0</h2>
-<h2 class="centered_text">Answer 2.0</h2>
+<h3>Question 2.0</h3>
 
 <p>When you assign one variable to another, as in</p>
 
@@ -57,7 +56,7 @@ let h = g;
 
 <p>are you assigning two names that point to the same value, or are you assigning two names to different values?</p>
 
-<h2 class="centered_text">Answer 2.0</h2>
+<h3>Answer 2.0</h3>
 
 <p>The answer to this question is this:</p>
 
@@ -65,7 +64,7 @@ let h = g;
 
 <p>Let's dig deeper</p>
 
-<h2 class="centered_text">Data-types: a primer</h2>
+<h3>Data-types: a primer</h3>
 
 <p>In JavaScript every value is of either a primitive or a reference type. Primitive values are basic and ‘immutable’ - they cannot be changed. They include:</p>
 
@@ -84,7 +83,7 @@ let h = g;
   <li>Function</li>
 </ul>
 
-<h2 class="centered_text">Mutating the assigned value</h2>
+<h3>Mutating the assigned value</h3>
 
 <p>Now we are ready to see why we can afford to see the assignment operator as an operator which points a name to a pre-existing value, rather than something which saves new values to new memory locations. Let's set up our example:</p>
 
@@ -147,7 +146,7 @@ referenceChild; // 200
 
 <p>On the other hand, when it comes to primitives there’s no need for this level of comparison. The only thing we could want to compare primitives for is their equivalence, and so, for primitives, this is what the equality operators test.</p>
 
-<h2 class="centered_text">Assignment without the assignment operator: function parameters</h2>
+<h3>Assignment without the assignment operator: function parameters</h3>
 
 <p>We are almost done. Next, we should note that functions parameters and arguments work like variables declared with let or var and the assignment operator.</p>
 
@@ -182,7 +181,7 @@ a;
 
 <p>So beware!</p>
 
-<h2 class="centered_text">So what's the other 1%?</h2>
+<h3>So what's the other 1%?</h3>
 
 <p>I said we could understand 99% of cases by thinking of the assignment operator as an operator which points names to values, rather than creating values for assignment, even though this isn’t always how it actually works. So what’s the other 1%?</p>
 
@@ -194,15 +193,13 @@ let y = 10;
 // there are two different, immutable 10 values in memory
 </pre></code>
 
-<p>This typically isn’t a problem, because encoding 10 in memory is not very costly. If you have a very large piece of data, it is normal for it to be very large because it is a reference type composed of many smaller primitives. But if you have a very large primitive, it would be good to know that JavaScript uses a call-by-value evaluation strategy for primitives, but a call-by-sharing strategy in general.</p>
+<p>This typically isn’t a problem, because encoding 10 in memory is not very costly. If you have a very large piece of data, it will often be very large <em>because</em> it is a reference type composed of many smaller primitives. But if you have a very large primitive, it would be good to know that JavaScript uses a call-by-value evaluation strategy for primitives, but a call-by-sharing strategy in general.</p>
 
 <p>An evaluation strategy is a strategy for handling how function arguments are treated when they are passed into functions, and how values are treated when they are assigned to variables. A lot of false information has been published about this topic because, while the two most well-known strategies are call-by-value and call-by-reference, JavaScript, Ruby, Python and other languages actually use a lesser-known compromise strategy called call-by-sharing or call-by-object-sharing.</p>
 
-<p>In call-by-value, when you pass a value to a function, it is replicated. This ensures that all functions are ‘pure’ – they do not modify outside values, only take one value and return another. Call-by-value is great for debugging and code cleanliness; however, it is computationally costly, because you have to constantly reproduce values. This is fine for simple operations, but if you’re trying to sequence the human genome call-by-value just won’t cut it.</p>
+<p>In call-by-value, when you pass a value to a function, it is replicated. This ensures that all functions are ‘pure’ – they do not modify outside values, only take one value and return another. Call-by-value is great for debugging and code cleanliness; however, it is computationally costly, because you have to constantly reproduce values. This is fine for simple operations, but if you’re trying to sequence the human genome, call-by-value won’t cut it.</p>
 
 <p>Call-by-reference represents an alternative approach. In call by reference, what is passed is the reference of the value. So if you give a function a variable as an argument, and then you reassign the variable inside the function, this will mutate the variable itself. Note that I’m talking about reassignment, not mutation.</p>
-
-<div class="block-level-images">
 
   <figure>
     
@@ -220,7 +217,7 @@ variableTwo = variableOne
 
   <figure>
     
-    <img src="./resources/content-images/evaluation-strategies/call-by-reference" alt="call by reference">
+    <img src="./resources/content-images/evaluation-strategies/call-by-reference.PNG" alt="call by reference">
 
     <figcaption>
       The pseudocode to get you here:
@@ -231,8 +228,6 @@ variableTwo = variableOne
     </figcaption>
 
   </figure>
-
-</div>
 
 <p>Call-by-sharing limits call-by-reference slightly. In call-by-sharing, when you assign a variable to another, as in</p>
 
@@ -250,8 +245,6 @@ let d = c;
 
 <p>the value 10 has been saved to two different locations in memory.</p>
 
-<div class="block-level-images">
-
   <figure>
     
     <img src="./resources/content-images/evaluation-strategies/call-by-sharing-reference.PNG" alt="call by sharing for reference values">
@@ -259,8 +252,8 @@ let d = c;
     <figcaption>
       In call by sharing, values <em>share</em> access to the object.
       <code><pre>
-        variableOne = [0, '2']
-        variableTwo = variableOne
+variableOne = [0, '2']
+variableTwo = variableOne
       </pre></code>
     </figcaption>
 
@@ -271,17 +264,16 @@ let d = c;
     <img src="./resources/content-images/evaluation-strategies/call-by-sharing-primitive.PNG" alt="call by sharing for primitive values">
 
     <figcaption>
-      These values would be <a href="https://en.wikipedia.org/wiki/Object_type_(object-oriented_programming)">boxed</a>.
+      These values would be <a href="https://en.wikipedia.org/wiki/Object_type_(object-oriented_programming)">boxed</a> and that's why they're separate.
       <code><pre>
-        variableOne = "1010"
-        variableTwo = variableOne;
+variableOne = "1010"
+variableTwo = variableOne;
       </pre></code>
     </figcaption>
 
   </figure>
-  
-</div>
 
+<p>That's it! I hope I helped. Even if you only read parts of this article, it should still be useful.</p>
 
 <p>Further reading:</p>
 

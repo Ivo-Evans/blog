@@ -99,16 +99,12 @@ main h2 {
   position: relative;
 }
 
-.centered-text {
-  text-align: center;
-}
-
 .block-level-images {
   display: flex;
   flex-wrap: wrap;
 }
 
-.block-level-images figure img {
+figure img {
   max-width: 100%;
 }
 
@@ -163,6 +159,10 @@ pre, code {
 
   article h2 {
     font-size: 35px;
+  }
+
+  article h3 {
+    margin-top: 40px;
   }
   
   aside {
