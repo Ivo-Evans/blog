@@ -99,6 +99,19 @@ main h2 {
   position: relative;
 }
 
+.centered-text {
+  text-align: center;
+}
+
+.block-level-images {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.block-level-images figure img {
+  max-width: 100%;
+}
+
 .parallel-code {
   display: flex;
   flex-wrap: wrap;

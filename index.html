@@ -52,7 +52,7 @@ b: two variables that point to the same value?
 </code></pre>
         <h3>2. An answer</h3>
         <p>I had originally assumed the former – two variables with the same value point to different objects - but in fact the answer is closer to the latter. I thought that the assignment operator was a kind of copy operator, which took the value on the right, created a new instance of it, and assigned it to the binding on the left. I didn't know the words at the time, but I thought that JavaScript was a <em>pass-by-value</em> language.</p>
-        <p>I think that there are two reasons I thought this. The first is that assignment is right-associative. Syntactically, the right-hand side comes first, and is assigned to the left-hand-side. This is why code like this works:</p>
+        <blockquote>I think that there are two reasons I thought this. The first is that assignment is right-associative. Syntactically, the right-hand side comes first, and is assigned to the left-hand-side. This is why code like this works:</blockquote>
         <pre><code>
 let one = 1;
 let two = 2;
@@ -574,7 +574,7 @@ str.match(regExTwo); // [“n”, “g”, “n”, “g”]
         <code>webSite = webSite.replace('&lt;!-- INSERT ARTICLES HERE --&gt;', mainContent);</code>
         <p>However, I opted for a regular expression:</p>
         <code>webSite = webSite.replace(/^\s*&lt;!-- INSERT ARTICLES HERE --&gt;/, mainContent);</code>
-        </p>This regular expression matches 0 or more whitespace characters from the beginning of the line to the end of &lt;!-- INSERT ARTICLES HERE --&gt.</p> 
+        </p>This regular expression matches 0 or more whitespace characters from the beginning of the line to the end of &lt;!-- INSERT ARTICLES HERE --&gt.</blockquote> 
         <p>I used regex for three reasons:</p>
         <ol>
   <li>If I used regex, I could allow for a varying amount of whitespace.</li>

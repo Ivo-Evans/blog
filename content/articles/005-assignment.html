@@ -1,0 +1,299 @@
+title: Assignment and value identity
+date: 25/02/20
+tags: operators, JavaScript, evaluation strategy, call by sharing, call by value, call by reference, data types
+
+CONTENT
+<p>When I started to program I didn’t really think about the question of what the references of my variables ‘were’ - they were just what I saw when I called functions like console.log(). Well, it’s not quite so simple, and understanding how variables refer will pay dividends.</p>
+
+<h2 class="centered_text">Question 1.0</h2>
+
+<p>When we assign the same value to two variables, as in</p>
+
+<code><pre>
+let a = 1;
+let b = 1;
+</pre></code>
+
+<p>or</p>
+
+<code><pre>
+let c = [];
+let d = [];
+</pre></code>
+
+are we assigning two names that point to the same value, or are we creating two identical values?
+
+<h2 class="centered_text">Answer 1.0</h2>
+
+<p>We are creating two identical, but different values</p>
+
+<p>It can be hard to realise this, because, as JavaScript programmers, our comparison operators can sometimes feel unreliable and confusing. For instance</p>
+
+<code><pre>
+a === b; // true
+c === d; // false
+</pre></code>
+
+<p>When I first encountered this result, I found it bewildering and aggravating. But I hope that, by the end of the article, I will have convinced you that you would not want the equality operators to behave any other way. This is <b>not</b> part of the byzantine system of type conversion for which JavaScript is so infamous.</p>
+
+<p>Let's ask another question.</p>
+
+<h2 class="centered_text">Question 2.0</h2>
+<h2 class="centered_text">Answer 2.0</h2>
+
+<p>When you assign one variable to another, as in</p>
+
+<code><pre>
+let e = 1;
+let f = e;
+</pre></code>
+
+<p>or</p>
+
+<code><pre>
+let g = [];
+let h = g;
+</pre></code>
+
+<p>are you assigning two names that point to the same value, or are you assigning two names to different values?</p>
+
+<h2 class="centered_text">Answer 2.0</h2>
+
+<p>The answer to this question is this:</p>
+
+<blockquote>It depends on the data type, but, because of the mutable/immutable distinction between data types, you can understand 99% of cases by thinking about assignment operators as adding names to values rather than creating values.</blockquote>
+
+<p>Let's dig deeper</p>
+
+<h2 class="centered_text">Data-types: a primer</h2>
+
+<p>In JavaScript every value is of either a primitive or a reference type. Primitive values are basic and ‘immutable’ - they cannot be changed. They include:</p>
+
+<ul>
+  <li>Number</li>
+  <li>String</li>
+  <li>Boolean</li>
+  <li>null and undefined</li>
+</ul>
+
+<p>Reference types, on the other hand, can include primitives, and they are mutable. They include:</p>
+
+<ul>
+  <li>Object</li>
+  <li>Array</li>
+  <li>Function</li>
+</ul>
+
+<h2 class="centered_text">Mutating the assigned value</h2>
+
+<p>Now we are ready to see why we can afford to see the assignment operator as an operator which points a name to a pre-existing value, rather than something which saves new values to new memory locations. Let's set up our example:</p>
+
+<code><pre>
+let primitiveParent = 1;
+let primitiveChild = primitiveParent;
+let referenceParent = []
+let referenceChild = referenceParent;
+</pre></code>
+
+<p>Since primitives are immutable, there is no way that we could update primitiveParent without simply reassigning its value. The 1 referred to by primitiveParent is at a specific place in memory, and it is read-only, so we cannot edit that place ourselves. If we want to change the value of the variable which points to that part of your computer’s memory, we will have to simply reassign:</p>
+
+<code><pre>
+primitiveParent = 2;
+primitiveParent; // 2
+primitiveChild; // 1
+</pre></code>
+
+<p>Note that everything I say in this article is equally true for other kinds of assignment operator, like ++, the postfix increment. We could also have done</p>
+
+<code><pre>
+primitiveParent++;
+primitiveParent; // 2
+primitiveChild; // 1
+</pre></code>
+
+<p>Here, we assign a new value to primitiveParent.</p>
+
+<p>Reference types are superficially similar. Just like with primitives, if we call the assignment operator on the reference type itself, we will simply assign a new value to the variable, discarding the old one:</p>
+
+<code><pre>
+referenceParent = [1];
+referenceParent; // [1];
+referenceChild; // []
+</pre></code>
+
+<p>But the difference is that reference types can me modified by means other than calling assignment on them. For instance, we can use the square-bracket lookup to modify an array at a specific index:</p>
+
+<code><pre>
+referenceChild = referenceParent; // both are [1] at this point
+referenceParent[0] = 200;
+referenceParent; // 200
+referenceChild; // 200
+</pre></code>
+
+<p>What’s really important to note, here, is that we haven’t used the assignment operator on referenceParent at all. First, we used another operator, the square bracket lookup, and then we called an assignment operator on the square bracket lookup’s return value.</p>
+
+<p>Assignment always causes it’s left-hand-side to point at a <em>new</em> value. It is just that, sometimes, that value is <em>mutable</em>, and it can be changed by other means, while sometimes it is immutable.</p>
+
+<p>Earlier I promised you that I would shed light on the strange behaviour of == and ===</p>
+
+<code><pre>
+1 === 1; // true
+[] === []; // false
+</pre></code>
+
+<p>Well, now is the time to make my pitch.</p>
+
+<p>Because reference values are mutable, when we compare them, we are interested in what they <em>really</em> are; we want to have some way of tracking their histories beyond their superficial properties. For instance, recently I made a JavaScript game in which you are a cowboy with two revolvers. Each revolver had an object containing various kinds of information, but at many points in the game, the two revolvers could plausibly look alike. I wanted to be a able to call functions to do things like reloading and know which revolver had been passed into the function. I could use the equality operators to check which revolver object  I actually had. In this case I could have just added another property to each gun to indicate which gun it was, but we can imagine situations when that isn't practical, like when comparing two arrays which are unpredictably mutated during the execution of the program.</p>
+
+<p>On the other hand, when it comes to primitives there’s no need for this level of comparison. The only thing we could want to compare primitives for is their equivalence, and so, for primitives, this is what the equality operators test.</p>
+
+<h2 class="centered_text">Assignment without the assignment operator: function parameters</h2>
+
+<p>We are almost done. Next, we should note that functions parameters and arguments work like variables declared with let or var and the assignment operator.</p>
+
+<p>A function <em>argument</em> is the value you give to the function when you call it, and a <em>parameter</em> is the name that the function uses, internally, to represent the argument.</p>
+
+<pre><code>
+function myFunction(myParam) {
+  return myParam;
+}
+let myArgument = 5;
+myFunction(myArgument)
+</code></pre>
+
+<p>Parameters and arguments are often conflated, but they are not the same thing. The relationship between parameter and argument is the same as the relationship between a let variable and its reference.</p>
+
+<p>If parameter is to argument as variable is to reference, the rules we discussed above apply here too:</p>
+
+<pre><code>
+let a = [1];
+function sideEffector(param) {
+  param[0] *= 1000;
+return “something irrelevant”; 
+}
+</code></pre>
+
+<pre><code>
+sideEffector(a);
+// “something irrelevant”
+a;
+//[1000]
+</code></pre>
+
+<p>So beware!</p>
+
+<h2 class="centered_text">So what's the other 1%?</h2>
+
+<p>I said we could understand 99% of cases by thinking of the assignment operator as an operator which points names to values, rather than creating values for assignment, even though this isn’t always how it actually works. So what’s the other 1%?</p>
+
+<p>Basically, for primitives, assignment does actually copy a new primitive value to a new location in memory:</p>
+
+<code><pre>
+let x = 10;
+let y = 10;
+// there are two different, immutable 10 values in memory
+</pre></code>
+
+<p>This typically isn’t a problem, because encoding 10 in memory is not very costly. If you have a very large piece of data, it is normal for it to be very large because it is a reference type composed of many smaller primitives. But if you have a very large primitive, it would be good to know that JavaScript uses a call-by-value evaluation strategy for primitives, but a call-by-sharing strategy in general.</p>
+
+<p>An evaluation strategy is a strategy for handling how function arguments are treated when they are passed into functions, and how values are treated when they are assigned to variables. A lot of false information has been published about this topic because, while the two most well-known strategies are call-by-value and call-by-reference, JavaScript, Ruby, Python and other languages actually use a lesser-known compromise strategy called call-by-sharing or call-by-object-sharing.</p>
+
+<p>In call-by-value, when you pass a value to a function, it is replicated. This ensures that all functions are ‘pure’ – they do not modify outside values, only take one value and return another. Call-by-value is great for debugging and code cleanliness; however, it is computationally costly, because you have to constantly reproduce values. This is fine for simple operations, but if you’re trying to sequence the human genome call-by-value just won’t cut it.</p>
+
+<p>Call-by-reference represents an alternative approach. In call by reference, what is passed is the reference of the value. So if you give a function a variable as an argument, and then you reassign the variable inside the function, this will mutate the variable itself. Note that I’m talking about reassignment, not mutation.</p>
+
+<div class="block-level-images">
+
+  <figure>
+    
+    <img src="./resources/content-images/evaluation-strategies/call-by-value.PNG" alt="call by value">
+
+    <figcaption>
+      The pseudocode to get you here:
+      <code><pre>
+variableOne = [0, '2']
+variableTwo = variableOne
+      </pre></code>
+    </figcaption>
+
+  </figure>
+
+  <figure>
+    
+    <img src="./resources/content-images/evaluation-strategies/call-by-reference" alt="call by reference">
+
+    <figcaption>
+      The pseudocode to get you here:
+      <code><pre>
+variableOne = [0, '2']
+variableTwo = variableOne
+      </pre></code>
+    </figcaption>
+
+  </figure>
+
+</div>
+
+<p>Call-by-sharing limits call-by-reference slightly. In call-by-sharing, when you assign a variable to another, as in</p>
+
+<code><pre>
+let a = [1];
+let b = a;
+</pre></code>
+
+<p>you are assigning the address saved to a to b. Therefore, if you reassign – again, note that I’m saying reassign, not mutate – a, b will still point to the array that a originally pointed to. In call-by-reference, by contrast, b would be tightly bound to a. Call-by-sharing also incorporates, as we saw at the opening of this section, a call-by-value strategy for primitives. In the code</p>
+
+<code><pre>
+let c = 10;
+let d = c;
+</pre></code>
+
+<p>the value 10 has been saved to two different locations in memory.</p>
+
+<div class="block-level-images">
+
+  <figure>
+    
+    <img src="./resources/content-images/evaluation-strategies/call-by-sharing-reference.PNG" alt="call by sharing for reference values">
+
+    <figcaption>
+      In call by sharing, values <em>share</em> access to the object.
+      <code><pre>
+        variableOne = [0, '2']
+        variableTwo = variableOne
+      </pre></code>
+    </figcaption>
+
+  </figure>
+
+  <figure>
+    
+    <img src="./resources/content-images/evaluation-strategies/call-by-sharing-primitive.PNG" alt="call by sharing for primitive values">
+
+    <figcaption>
+      These values would be <a href="https://en.wikipedia.org/wiki/Object_type_(object-oriented_programming)">boxed</a>.
+      <code><pre>
+        variableOne = "1010"
+        variableTwo = variableOne;
+      </pre></code>
+    </figcaption>
+
+  </figure>
+  
+</div>
+
+
+<p>Further reading:</p>
+
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Evaluation_strategy#Call_by_sharing">call by sharing on Wikipedia</a></li>
+  <li><a href="https://www.ecma-international.org/ecma-262/10.0/index.html#sec-assignment-operators">The ECMA spec on the assignment operator</a></li>
+  <li>This <b><a href="http://dmitrysoshnikov.com/ecmascript/chapter-8-evaluation-strategy/">blog post</a></b> is better than most.</li>
+</ul>
+CONTENT
+
+TODOs: 
+  add CSS classes:
+    centered-text
+    block-level-images
+    block-level-images figure img (max-width 10)
