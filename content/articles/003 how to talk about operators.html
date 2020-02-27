@@ -94,21 +94,27 @@ CONTENT
 <p>Putting it all together, we can now explain exactly why compound expressions work like they do. Let's take an example:</p>
 
 <pre><code>
-	2 * (4 – 1) !== 2 * 4 – 1 ? "they’re not equal" : "they’re equal"
+a > b && a > c || !(a || c) ? 'something' : 'something else';
 </code></pre>
 
-<p>The operator with the highest precedence here is the grouping operator (), followed by *, so we should start with the sums,</p>
+<p>There's some relatively thorny logic here that could do with some unpicking. We can use the terms we just learned to uncover the secrets of the expression. As we go along, I'll tell you the relative values of operators, but there's also a link to a comparison table at the end of this article.</p>
 
-<pre><code>
-	2 * (4 – 1)
-	2 * 4 – 1
-</code></pre>
+<p>The operator with the highest precedence here is the grouping operator, aka the parentheses (), so we evaluate these first. Inside we find a || c, so we evaluate that.</p>
 
-<p>which resolve to 6 and 7 respectively. The brackets introduce a difference, not because the multiplication operator is further to the left than the subtraction operator, but because multiplication has a higher precedence than subtraction (following <a href="https://www.mathsisfun.com/operation-order-pemdas.html">PEMDAS/BIDMAS</a>).</p>
+<p>The operator with the next highest precedence is the logical not operator !, so we flip whatever we got from the parentheses</p>
 
-<p>the operator with the next highest precedence is the inequality operator. It has an arity of two, and for this example it doesn't really matter whether it is right-associative or left-associative (in general, it is left-associative, so console.log('hello') !=== console.log('world') prints hello and then world and then returns false). In this example !== receives two numbers - 6 and 7 - and finds them to be unequal. Therefore it returns true.</p>
+<p>This is actually an application of De Morgan's law, which states, basically, that</p>
 
-<p>Finally we have the ternary operator, the lowest-precedence operator in the equation above. It is left-associative, so it looks first to its left-hand-side, and uses that information to decide between its remaining operands. Since its left-hand-side is the value true, it chooses its second operand, "they are not equal".</p>
+<code><pre>
+!(a || b) == !a && !b;
+!(a && b) == !a || !b;
+</pre></code>
 
-<p>These three properties, arity, associativity and precedence, neatly divide the conceptual space for operators. With them, you can say all that you need to say, and learn precisely about the relationships between operators. As a next step, you might want to consult a comparative table like <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence#Table">this one</a>.</p>
+<p>The operator with the next highest precedence is the greater-than operator >. There are two of those, so we evaluate first the left-hand one and then the right-hand one. Each of them will return a truth value.</p>
+
+<p>The next highest precedence is &&; the last operation returned two truth values on either side of it, so we feed those to && to receive a boolean.</p>
+
+<p>next we have ||, which is lower than &&. After evakuating that, we are finally ready to evaluate the ternary operator ? :, which is the operator with the lowest precedence in this operation, and return a result.</p>
+
+<p>I hope you can see, from this example, that the properties of arity, associativity and precedence neatly divide the conceptual space for operator interaction. With them, as well as an understanding of the valid inputs to and outputs from an operator, you can learn precisely about the relationships between operators. As a next step, you might want to consult a comparative table like <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence#Table">this one</a>.</p>
 CONTENT

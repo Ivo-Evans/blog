@@ -16,14 +16,17 @@
 <aside>
   <nav>
     <h3>tags</h3>
+    <p><a href="./tag-fundamentals.html">fundamentals</a></p>
     <p><a href="./tag-operators.html">operators</a></p>
     <p><a href="./tag-JavaScript.html">JavaScript</a></p>
+    <p><a href="./tag-autoboxing.html">autoboxing</a></p>
+    <p><a href="./tag-objects.html">objects</a></p>
+    <p><a href="./tag-prototypes.html">prototypes</a></p>
     <p><a href="./tag-evaluation-strategy.html">evaluation strategy</a></p>
     <p><a href="./tag-call-by-sharing.html">call by sharing</a></p>
     <p><a href="./tag-call-by-value.html">call by value</a></p>
     <p><a href="./tag-call-by-reference.html">call by reference</a></p>
     <p><a href="./tag-data-types.html">data types</a></p>
-    <p><a href="./tag-fundamentals.html">fundamentals</a></p>
     <p><a href="./tag-logic.html">logic</a></p>
     <p><a href="./tag-conditionals.html">conditionals</a></p>
     <p><a href="./tag-PowerShell.html">PowerShell</a></p>
@@ -36,10 +39,82 @@
 </aside>
   <main>
     <article class="post">
-      <span class="post-title-bar"><h2 id="Assignment and value identity" class="post-title">Assignment and value identity</h2><p class="meta-info">25/02/20<br><a href="./tag-operators.html">operators</a>, <a href="./tag-JavaScript.html">JavaScript</a>, <a href="./tag-evaluation-strategy.html">evaluation strategy</a>, <a href="./tag-call-by-sharing.html">call by sharing</a>, <a href="./tag-call-by-value.html">call by value</a>, <a href="./tag-call-by-reference.html">call by reference</a>, <a href="./tag-data-types.html">data types</a></p></span>
+      <span class="post-title-bar"><h2 id="The . (dot access) operator" class="post-title">The . (dot access) operator</h2><p class="meta-info">27/02/2020<br><a href="./tag-fundamentals.html">fundamentals</a>, <a href="./tag-operators.html">operators</a>, <a href="./tag-JavaScript.html">JavaScript</a>, <a href="./tag-autoboxing.html">autoboxing</a>, <a href="./tag-objects.html">objects</a>, <a href="./tag-prototypes.html">prototypes</a></p></span>
+      <div class="post-content">
+        <p>This is one we see all over the place, when calling functions or getting properties of objects, but often without really understanding it. It’s pretty simple, but we’ll first have to do a primer on data-types.</p>
+        <h3>1. Primitives and reference types</h3>
+        <p>In JavaScript there are a number of primitive types, and one (yes – one) reference type. Primitives include:</p>
+        <ul>
+  <li>numbers</li>
+  <li>strings</li>
+  <li>boolean</li>
+  <li>undefined</li>
+  <li>null</li>
+  <li>symbols</li>
+</ul>
+        <p>All other values – arrays, objects, functions, RegExps etc., are reference types.</p>
+        <p>Amongst the reference types, one type is king: the object.</p>
+        <p>An object is a collection of key-value pairs, where the key is a symbol and the value can be anything.</p>
+        <p>When constructed using a literal, you use curly-braces, colons and commas:</p>
+        <code><pre>
+let theKing = {
+  firstName: ‘Elvis’,
+  objectivelyBestSong: ‘Blue Moon’
+}
+</pre></code>
+        <p>The object is king among the reference types because all the other reference types are technically kinds of objects. For instance, an array is an object that uses numbers for its keys.</p>
+        <p>You can look up the properties of an object in two ways:</p>
+        <code><pre>
+theKing.firstName // ‘Elvis’
+theKing[‘objectivelyBestSong’] // ‘Blue Moon’
+</pre></code>
+        <p>If you write one of your own objects, like our theKing object, you can use either syntax, where the latter takes strings, and so can be programmatically specified. However, for other objects, you cannot always use both forms. For instance, you cannot use the dot notation to look up an array item by index, because numbers are not valid <a href="https://developer.mozilla.org/en-US/docs/Glossary/identifier">identifiers</a>.</p>
+        <code><pre>
+[1, 2, 3][2]; // 3
+</pre></code>
+        <h3>2. The dot operator always indicates object-property lookup</h3>
+        <p>Whenever you see the dot operator, it is being used to look up the properties of an object. Thus, when you see</p>
+        <code><pre>
+[1, 2, 3, 4].length // 4
+</pre></code>
+        <p>you are accessing the length property of the array.</p>
+        <p>This is exactly the same with function – or really, we should say <em>method</em> – calls:</p>
+        <code><pre>
+3.toString() // ‘3’
+[1, 2, 3].map(x => x * 2) // [2, 4, 6]
+</pre></code>
+        <h3>3. If objects are different to primitives and only objects have properties, how can we look up the properties of primitives?</h3>
+        <p>This is a good question. Above, we called the function toString() on a number. But a number is a primitive, not a reference type, so how could it have key-value pairs? Similarly, in the documentation (by which I mean MDN pages – if this article is at your level, I don't recommend reading <a href="https://www.ecma-international.org/ecma-262/7.0/">the official ECMA spec"</a>) we often find methods like</p>
+        <code><pre>
+Number.toString()
+</pre></code>
+        <p>‘Number’ is a <a href="https://css-tricks.com/understanding-javascript-constructors/">constructor function</a>. Functions are a kind of reference value. Whenever we see a function with this syntax in the documentation, we can call it on specific values that would be created by the constructor function, like 3 could be constructed by Number('3'). It is <em>through</em> the Number function that 3 gets access to the toString() function. If we take a look at the Number function by just typing Number into our browser dev tools, we can see that one of its properties is prototype: Number, one this property's properties is prototype: Object, and that one of <em>this</em> property's properties is function: toString(). So how is it that we can access the properties of the Number constructor function as properties of specific numbers, like 3, which are not supposed to have properties because numbers are primitives?</p>
+        <p>The answer is that JavaScript does some sleight of hand, to make things work, called <strong>autoboxing.</strong></p>
+        <p>Autoboxing is exactly what it sounds like, and its pretty simple: when you try to use a primitive like an object, the JavaScript engine temporarily wraps the primitive in an object and then accesses the properties of that object. After it's done, it marks the object as ready for garbage collection.</p>
+        <p>Because of autoboxing, when you try to reassign the value of a primitive that has a prototype, JavaScript does not throw an error but just seems to ignore you, while when you try to reassign the value of a primitive that does not have a prototype, JavaScript throws an error:</p>
+        <code><pre>
+let str = “string”;
+let na = null;
+str[6] = “s”;
+str; // “string”
+str.lastIndex = str.length - 1;
+str.lastIndex; // undefined
+na.newProperty = “impossible”
+// Uncaught TypeError: Cannot set property 'newProp' of null
+  	at &lt;anonymous&gt;: 
+</pre></code>
+        <p>The reason for the difference between null and “string” is that the string is autoboxed. When you assign properties to it, you are assigning properties to its temporary wrapper object. However, because that wrapper object is temporary, those properties are not saved. null, on the other hand, is not wrapped, so there is nothing to access with the dot operator, and the JavaScript engine throws an error.</p> 
+        <p>So that’s it – the dot access operator is <em>always</em> looking at the property of an object – but what counts as an object sometimes shifts in order to accommodate convenient dot access.</p>
+
+        <img class="fade" src="./resources/bottom-fade.png" alt="an image that adds a fade effect to the bottom layer of collapsed text">
+      </div>
+      <h3 class="expandContractButton">Read more +</h3>
+    </article>
+    <article class="post">
+      <span class="post-title-bar"><h2 id="Assignment and value identity" class="post-title">Assignment and value identity</h2><p class="meta-info">25/02/2020<br><a href="./tag-operators.html">operators</a>, <a href="./tag-JavaScript.html">JavaScript</a>, <a href="./tag-evaluation-strategy.html">evaluation strategy</a>, <a href="./tag-call-by-sharing.html">call by sharing</a>, <a href="./tag-call-by-value.html">call by value</a>, <a href="./tag-call-by-reference.html">call by reference</a>, <a href="./tag-data-types.html">data types</a></p></span>
       <div class="post-content">
         <p>When I started to program I didn’t really think about the question of what the references of my variables ‘were’ - they were just what I saw when I called functions like console.log(). Well, it’s not quite so simple, and understanding how variables refer will pay dividends.</p>
-        <h3 class="centered_text">Question 1.0</h3>
+        <h3>Question 1.0</h3>
         <p>When we assign the same value to two variables, as in</p>
         <code><pre>
 let a = 1;
@@ -51,7 +126,7 @@ let c = [];
 let d = [];
 </pre></code>
         are we assigning two names that point to the same value, or are we creating two identical values?
-        <h3 class="centered_text">Answer 1.0</h3>
+        <h3>Answer 1.0</h3>
         <p>We are creating two identical, but different values</p>
         <p>It can be hard to realise this, because, as JavaScript programmers, our comparison operators can sometimes feel unreliable and confusing. For instance</p>
         <code><pre>
@@ -60,7 +135,7 @@ c === d; // false
 </pre></code>
         <p>When I first encountered this result, I found it bewildering and aggravating. But I hope that, by the end of the article, I will have convinced you that you would not want the equality operators to behave any other way. This is <b>not</b> part of the byzantine system of type conversion for which JavaScript is so infamous.</p>
         <p>Let's ask another question.</p>
-        <h3 class="centered_text">Question 2.0</h3>
+        <h3>Question 2.0</h3>
         <p>When you assign one variable to another, as in</p>
         <code><pre>
 let e = 1;
@@ -72,11 +147,11 @@ let g = [];
 let h = g;
 </pre></code>
         <p>are you assigning two names that point to the same value, or are you assigning two names to different values?</p>
-        <h3 class="centered_text">Answer 2.0</h3>
+        <h3>Answer 2.0</h3>
         <p>The answer to this question is this:</p>
         <blockquote>It depends on the data type, but, because of the mutable/immutable distinction between data types, you can understand 99% of cases by thinking about assignment operators as adding names to values rather than creating values.</blockquote>
         <p>Let's dig deeper</p>
-        <h3 class="centered_text">Data-types: a primer</h3>
+        <h3>Data-types: a primer</h3>
         <p>In JavaScript every value is of either a primitive or a reference type. Primitive values are basic and ‘immutable’ - they cannot be changed. They include:</p>
         <ul>
   <li>Number</li>
@@ -90,7 +165,7 @@ let h = g;
   <li>Array</li>
   <li>Function</li>
 </ul>
-        <h3 class="centered_text">Mutating the assigned value</h3>
+        <h3>Mutating the assigned value</h3>
         <p>Now we are ready to see why we can afford to see the assignment operator as an operator which points a name to a pre-existing value, rather than something which saves new values to new memory locations. Let's set up our example:</p>
         <code><pre>
 let primitiveParent = 1;
@@ -134,7 +209,7 @@ referenceChild; // 200
         <p>Well, now is the time to make my pitch.</p>
         <p>Because reference values are mutable, when we compare them, we are interested in what they <em>really</em> are; we want to have some way of tracking their histories beyond their superficial properties. For instance, recently I made a JavaScript game in which you are a cowboy with two revolvers. Each revolver had an object containing various kinds of information, but at many points in the game, the two revolvers could plausibly look alike. I wanted to be a able to call functions to do things like reloading and know which revolver had been passed into the function. I could use the equality operators to check which revolver object  I actually had. In this case I could have just added another property to each gun to indicate which gun it was, but we can imagine situations when that isn't practical, like when comparing two arrays which are unpredictably mutated during the execution of the program.</p>
         <p>On the other hand, when it comes to primitives there’s no need for this level of comparison. The only thing we could want to compare primitives for is their equivalence, and so, for primitives, this is what the equality operators test.</p>
-        <h3 class="centered_text">Assignment without the assignment operator: function parameters</h3>
+        <h3>Assignment without the assignment operator: function parameters</h3>
         <p>We are almost done. Next, we should note that functions parameters and arguments work like variables declared with let or var and the assignment operator.</p>
         <p>A function <em>argument</em> is the value you give to the function when you call it, and a <em>parameter</em> is the name that the function uses, internally, to represent the argument.</p>
         <pre><code>
@@ -160,7 +235,7 @@ a;
 //[1000]
 </code></pre>
         <p>So beware!</p>
-        <h3 class="centered_text">So what's the other 1%?</h3>
+        <h3>What's the other 1%?</h3>
         <p>I said we could understand 99% of cases by thinking of the assignment operator as an operator which points names to values, rather than creating values for assignment, even though this isn’t always how it actually works. So what’s the other 1%?</p>
         <p>Basically, for primitives, assignment does actually copy a new primitive value to a new location in memory:</p>
         <code><pre>
@@ -168,11 +243,10 @@ let x = 10;
 let y = 10;
 // there are two different, immutable 10 values in memory
 </pre></code>
-        <p>This typically isn’t a problem, because encoding 10 in memory is not very costly. If you have a very large piece of data, it is normal for it to be very large because it is a reference type composed of many smaller primitives. But if you have a very large primitive, it would be good to know that JavaScript uses a call-by-value evaluation strategy for primitives, but a call-by-sharing strategy in general.</p>
+        <p>This typically isn’t a problem, because encoding 10 in memory is not very costly. If you have a very large piece of data, it will often be very large <em>because</em> it is a reference type composed of many smaller primitives. But if you have a very large primitive, it would be good to know that JavaScript uses a call-by-value evaluation strategy for primitives, but a call-by-sharing strategy in general.</p>
         <p>An evaluation strategy is a strategy for handling how function arguments are treated when they are passed into functions, and how values are treated when they are assigned to variables. A lot of false information has been published about this topic because, while the two most well-known strategies are call-by-value and call-by-reference, JavaScript, Ruby, Python and other languages actually use a lesser-known compromise strategy called call-by-sharing or call-by-object-sharing.</p>
-        <p>In call-by-value, when you pass a value to a function, it is replicated. This ensures that all functions are ‘pure’ – they do not modify outside values, only take one value and return another. Call-by-value is great for debugging and code cleanliness; however, it is computationally costly, because you have to constantly reproduce values. This is fine for simple operations, but if you’re trying to sequence the human genome call-by-value just won’t cut it.</p>
-        <p>Call-by-reference represents an alternative approach. In call by reference, what is passed is the reference of the value. So if you give a function a variable as an argument, and then you reassign the variable inside the function, this will mutate the variable itself. Note that I’m talking about reassignment, not mutation.</p>
-        <!-- <div class="block-level-images"> -->
+        <p>In call-by-value, when you pass a value to a function, it is replicated. This ensures that all functions are ‘pure’ – they do not modify outside values, only take one value and return another. Call-by-value is great for debugging and code cleanliness; however, it is computationally costly, because you have to constantly reproduce values. This is fine for simple operations, but if you’re trying to sequence the human genome, call-by-value won’t cut it.</p>
+        <p>Call-by-reference represents an alternative approach. In call by reference, what is passed is the reference of the value. So if you give a function a variable as an argument, and then you reassign the variable inside the function, this will mutate the variable itself. Note that I’m talking about reassignment, not mutation. Call-by-reference has its own problems though when you have a convoluted chain of references to a single value: it is easy to introduce bugs by mutating it accidentally. As far as I know, no serious language implements call-by-reference by default.</p>
           <figure>
     
     <img src="./resources/content-images/evaluation-strategies/call-by-value.PNG" alt="call by value">
@@ -195,7 +269,6 @@ variableTwo = variableOne
       </pre></code>
     </figcaption>
           </figure>
-        <!-- </div> -->
         <p>Call-by-sharing limits call-by-reference slightly. In call-by-sharing, when you assign a variable to another, as in</p>
         <code><pre>
 let a = [1];
@@ -207,15 +280,14 @@ let c = 10;
 let d = c;
 </pre></code>
         <p>the value 10 has been saved to two different locations in memory.</p>
-        <!-- <div class="block-level-images"> -->
           <figure>
     
     <img src="./resources/content-images/evaluation-strategies/call-by-sharing-reference.PNG" alt="call by sharing for reference values">
             <figcaption>
       In call by sharing, values <em>share</em> access to the object.
       <code><pre>
-        variableOne = [0, '2']
-        variableTwo = variableOne
+variableOne = [0, '2']
+variableTwo = variableOne
       </pre></code>
     </figcaption>
           </figure>
@@ -223,17 +295,15 @@ let d = c;
     
     <img src="./resources/content-images/evaluation-strategies/call-by-sharing-primitive.PNG" alt="call by sharing for primitive values">
             <figcaption>
-      These values would be <a href="https://en.wikipedia.org/wiki/Object_type_(object-oriented_programming)">boxed</a>.
+      These values would be <a href="https://en.wikipedia.org/wiki/Object_type_(object-oriented_programming)">boxed</a> and that's why they're separate.
       <code><pre>
-        variableOne = "1010"
-        variableTwo = variableOne;
+variableOne = "1010"
+variableTwo = variableOne;
       </pre></code>
     </figcaption>
           </figure>
-  
-<!-- </div> -->
-        
-<p>Further reading:</p>
+        <p>That's it! I hope I helped. Even if you only read parts of this article, it should still be useful.</p>
+        <p>Further reading:</p>
         <ul>
   <li><a href="https://en.wikipedia.org/wiki/Evaluation_strategy#Call_by_sharing">call by sharing on Wikipedia</a></li>
   <li><a href="https://www.ecma-international.org/ecma-262/10.0/index.html#sec-assignment-operators">The ECMA spec on the assignment operator</a></li>
@@ -555,17 +625,20 @@ if (!(a < 10)) && (a < 50)
         <h3>4. Putting it all together</h3>
         <p>Putting it all together, we can now explain exactly why compound expressions work like they do. Let's take an example:</p>
         <pre><code>
-	2 * (4 – 1) !== 2 * 4 – 1 ? "they’re not equal" : "they’re equal"
+a > b && a > c || !(a || c) ? 'something' : 'something else';
 </code></pre>
-        <p>The operator with the highest precedence here is the grouping operator (), followed by *, so we should start with the sums,</p>
-        <pre><code>
-	2 * (4 – 1)
-	2 * 4 – 1
-</code></pre>
-        <p>which resolve to 6 and 7 respectively. The brackets introduce a difference, not because the multiplication operator is further to the left than the subtraction operator, but because multiplication has a higher precedence than subtraction (following <a href="https://www.mathsisfun.com/operation-order-pemdas.html">PEMDAS/BIDMAS</a>).</p>
-        <p>the operator with the next highest precedence is the inequality operator. It has an arity of two, and for this example it doesn't really matter whether it is right-associative or left-associative (in general, it is left-associative, so console.log('hello') !=== console.log('world') prints hello and then world and then returns false). In this example !== receives two numbers - 6 and 7 - and finds them to be unequal. Therefore it returns true.</p>
-        <p>Finally we have the ternary operator, the lowest-precedence operator in the equation above. It is left-associative, so it looks first to its left-hand-side, and uses that information to decide between its remaining operands. Since its left-hand-side is the value true, it chooses its second operand, "they are not equal".</p>
-        <p>These three properties, arity, associativity and precedence, neatly divide the conceptual space for operators. With them, you can say all that you need to say, and learn precisely about the relationships between operators. As a next step, you might want to consult a comparative table like <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence#Table">this one</a>.</p>
+        <p>There's some relatively thorny logic here that could do with some unpicking. We can use the terms we just learned to uncover the secrets of the expression. As we go along, I'll tell you the relative values of operators, but there's also a link to a comparison table at the end of this article.</p>
+        <p>The operator with the highest precedence here is the grouping operator, aka the parentheses (), so we evaluate these first. Inside we find a || c, so we evaluate that.</p>
+        <p>The operator with the next highest precedence is the logical not operator !, so we flip whatever we got from the parentheses</p>
+        <p>This is actually an application of De Morgan's law, which states, basically, that</p>
+        <code><pre>
+!(a || b) == !a && !b;
+!(a && b) == !a || !b;
+</pre></code>
+        <p>The operator with the next highest precedence is the greater-than operator >. There are two of those, so we evaluate first the left-hand one and then the right-hand one. Each of them will return a truth value.</p>
+        <p>The next highest precedence is &&; the last operation returned two truth values on either side of it, so we feed those to && to receive a boolean.</p>
+        <p>next we have ||, which is lower than &&. After evakuating that, we are finally ready to evaluate the ternary operator ? :, which is the operator with the lowest precedence in this operation, and return a result.</p>
+        <p>I hope you can see, from this example, that the properties of arity, associativity and precedence neatly divide the conceptual space for operator interaction. With them, as well as an understanding of the valid inputs to and outputs from an operator, you can learn precisely about the relationships between operators. As a next step, you might want to consult a comparative table like <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence#Table">this one</a>.</p>
         <img class="fade" src="./resources/bottom-fade.png" alt="an image that adds a fade effect to the bottom layer of collapsed text">
       </div>
       <h3 class="expandContractButton">Read more +</h3>

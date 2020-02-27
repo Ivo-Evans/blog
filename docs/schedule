@@ -1,13 +1,15 @@
 
 - what even are variables anyway?
-- the dot access operator
 - Extensions to save your life: z for bash, zsh and PowerShell
 - console.log like a pro
 - Extensions to save your life: Turbo Console Log
+- Principles of clean code
+- Arrays _ OR _ creating ranges in JavaScript
 
 
-TODO: maybe the final example in how to talk about operators should be simpler:
-
-  a > b && a > c || !a && !c ? 'something' : 'something else';
-
-The nice thing about this is that someone might be tempted to use unnecessary parentheses here. 
+TODOs:
+If you are on a tag stream, highlight that tag in yellow in the tag sidebar
+Typographically, it is ideal to have ~70 characters per line. You have ~135. Redesign it by both making the central portion narrower, and enlarging all text
+Focus on text smoothing (anti-aliasing?) for the titles in particular - it looks good on windows chrome, but not everywhere
+Add borders between articles
+Add an archives sidebar

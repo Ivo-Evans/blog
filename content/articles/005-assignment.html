@@ -1,5 +1,5 @@
 title: Assignment and value identity
-date: 25/02/20
+date: 25/02/2020
 tags: operators, JavaScript, evaluation strategy, call by sharing, call by value, call by reference, data types
 
 CONTENT
@@ -181,7 +181,7 @@ a;
 
 <p>So beware!</p>
 
-<h3>So what's the other 1%?</h3>
+<h3>What's the other 1%?</h3>
 
 <p>I said we could understand 99% of cases by thinking of the assignment operator as an operator which points names to values, rather than creating values for assignment, even though this isn’t always how it actually works. So what’s the other 1%?</p>
 
@@ -199,7 +199,7 @@ let y = 10;
 
 <p>In call-by-value, when you pass a value to a function, it is replicated. This ensures that all functions are ‘pure’ – they do not modify outside values, only take one value and return another. Call-by-value is great for debugging and code cleanliness; however, it is computationally costly, because you have to constantly reproduce values. This is fine for simple operations, but if you’re trying to sequence the human genome, call-by-value won’t cut it.</p>
 
-<p>Call-by-reference represents an alternative approach. In call by reference, what is passed is the reference of the value. So if you give a function a variable as an argument, and then you reassign the variable inside the function, this will mutate the variable itself. Note that I’m talking about reassignment, not mutation.</p>
+<p>Call-by-reference represents an alternative approach. In call by reference, what is passed is the reference of the value. So if you give a function a variable as an argument, and then you reassign the variable inside the function, this will mutate the variable itself. Note that I’m talking about reassignment, not mutation. Call-by-reference has its own problems though when you have a convoluted chain of references to a single value: it is easy to introduce bugs by mutating it accidentally. As far as I know, no serious language implements call-by-reference by default.</p>
 
   <figure>
     
@@ -283,9 +283,3 @@ variableTwo = variableOne;
   <li>This <b><a href="http://dmitrysoshnikov.com/ecmascript/chapter-8-evaluation-strategy/">blog post</a></b> is better than most.</li>
 </ul>
 CONTENT
-
-TODOs: 
-  add CSS classes:
-    centered-text
-    block-level-images
-    block-level-images figure img (max-width 10)
