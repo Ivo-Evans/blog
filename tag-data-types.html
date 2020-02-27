@@ -128,15 +128,18 @@ referenceParent; // 200
 referenceChild; // 200
 </pre></code>
         <p>What’s really important to note, here, is that we haven’t used the assignment operator on referenceParent at all. First, we used another operator, the square bracket lookup, and then we called an assignment operator on the square bracket lookup’s return value.</p>
-        <p>Assignment always causes it’s left-hand-side to point at a <em>new</em> value. It is just that, sometimes, that value is <em>mutable</em>, and it can be changed by other means, while sometimes it is immutable.</p>
+        <p>Assignment always causes its left-hand-side to point at a <em>new</em> value. It is just that, sometimes, that value is <em>mutable</em>, and it can be changed by other means, while sometimes it is immutable.</p>
+        <h3>Tracking mutable values</h3>
         <p>Earlier I promised you that I would shed light on the strange behaviour of == and ===</p>
         <code><pre>
 1 === 1; // true
 [] === []; // false
 </pre></code>
         <p>Well, now is the time to make my pitch.</p>
-        <p>Because reference values are mutable, when we compare them, we are interested in what they <em>really</em> are; we want to have some way of tracking their histories beyond their superficial properties. For instance, recently I made a JavaScript game in which you are a cowboy with two revolvers. Each revolver had an object containing various kinds of information, but at many points in the game, the two revolvers could plausibly look alike. I wanted to be a able to call functions to do things like reloading and know which revolver had been passed into the function. I could use the equality operators to check which revolver object  I actually had. In this case I could have just added another property to each gun to indicate which gun it was, but we can imagine situations when that isn't practical, like when comparing two arrays which are unpredictably mutated during the execution of the program.</p>
-        <p>On the other hand, when it comes to primitives there’s no need for this level of comparison. The only thing we could want to compare primitives for is their equivalence, and so, for primitives, this is what the equality operators test.</p>
+        <p>Because reference values are mutable, when we compare them, we are interested in what they <em>really</em> are; we want to have some way of tracking their histories beyond their superficial properties. Recently I made a JavaScript game in which you are a cowboy with two revolvers. Each revolver had an object containing various kinds of information, but at many points in the game, the two revolvers could plausibly look alike. I wanted to be a able to call functions to do things like reloading and know which revolver had been passed into the function. I could use the equality operators to check which revolver object  I actually had.</p>
+        <p>In this case I could have just added another property to each gun to indicate which gun it was, but we can imagine situations when that isn't practical, like when comparing two arrays which are unpredictably mutated during the execution of the program.</p>
+        <p>On the other hand, when it comes to primitives there’s no need for this level of comparison. The only thing we will realistically want to compare primitives for is their equivalence, and so, for primitives, this is what the equality operators test.</p>
+        <p>That said, I would definitely appreciate an equivalence operator for reference types. <a href="https://lodash.com/docs/#isEqual">Lodash</a> has a function for this, if you want to go that route.</p>
         <h3>Assignment without the assignment operator: function parameters</h3>
         <p>We are almost done. Next, we should note that functions parameters and arguments work like variables declared with let or var and the assignment operator.</p>
         <p>A function <em>argument</em> is the value you give to the function when you call it, and a <em>parameter</em> is the name that the function uses, internally, to represent the argument.</p>

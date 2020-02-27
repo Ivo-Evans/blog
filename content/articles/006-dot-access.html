@@ -67,13 +67,13 @@ theKing[‘objectivelyBestSong’] // ‘Blue Moon’
 
 <h3>3. If objects are different to primitives and only objects have properties, how can we look up the properties of primitives?</h3>
 
-<p>This is a good question. Above, we called the function toString() on a number. But a number is a primitive, not a reference type, so how could it have key-value pairs? Similarly, in the documentation (by which I mean MDN pages – if this article is at your level, I don't recommend reading <a href="https://www.ecma-international.org/ecma-262/7.0/">the official ECMA spec"</a>) we often find methods like</p>
+<p>This is a good question. Above, we called the function toString() on a number. But a number is a primitive, not a reference type, so how could it have key-value pairs? Similarly, in the documentation (by which I mean MDN pages – if this article is at your level, I don't recommend reading <a href="https://www.ecma-international.org/ecma-262/7.0/">the official ECMA spec</a>) we often find methods like</p>
 
 <code><pre>
 Number.toString()
 </pre></code>
 
-<p>‘Number’ is a <a href="https://css-tricks.com/understanding-javascript-constructors/">constructor function</a>. Functions are a kind of reference value. Whenever we see a function with this syntax in the documentation, we can call it on specific values that would be created by the constructor function, like 3 could be constructed by Number('3'). It is <em>through</em> the Number function that 3 gets access to the toString() function. If we take a look at the Number function by just typing Number into our browser dev tools, we can see that one of its properties is prototype: Number, one this property's properties is prototype: Object, and that one of <em>this</em> property's properties is function: toString(). So how is it that we can access the properties of the Number constructor function as properties of specific numbers, like 3, which are not supposed to have properties because numbers are primitives?</p>
+<p>‘Number’ is a <a href="https://css-tricks.com/understanding-javascript-constructors/">constructor function</a>. Functions are a kind of reference value. Whenever we see a function with this syntax in the documentation, we can call it on specific values that would be created by the constructor function, like 3 could be constructed by Number('3'). It is <em>through</em> the Number function that 3 gets access to the toString() function. If we take a look at the Number function by just typing Number into our browser dev tools and hitting enter, we can see that one of its properties is prototype: Number, one this property's properties is prototype: Object, and that one of <em>this</em> property's properties is function: toString(). So how is it that we can access the properties of the Number constructor function as properties of specific numbers, like 3, which are not supposed to have properties because numbers are primitives?</p>
 
 <p>The answer is that JavaScript does some sleight of hand, to make things work, called <strong>autoboxing.</strong></p>
 
@@ -93,7 +93,7 @@ na.newProperty = “impossible”
   	at &lt;anonymous&gt;: 
 </pre></code>
 
-<p>The reason for the difference between null and “string” is that the string is autoboxed. When you assign properties to it, you are assigning properties to its temporary wrapper object. However, because that wrapper object is temporary, those properties are not saved. null, on the other hand, is not wrapped, so there is nothing to access with the dot operator, and the JavaScript engine throws an error.</p> 
+<p>The string, unlike null, is autoboxed. When you assign properties to it, you are assigning properties to its temporary wrapper object. However, because that wrapper object is temporary, those properties are not saved. null is not wrapped at all, so there is nothing to access with the dot operator and the JavaScript engine throws an error.</p> 
 
 <p>So that’s it – the dot access operator is <em>always</em> looking at the property of an object – but what counts as an object sometimes shifts in order to accommodate convenient dot access.</p>
 
