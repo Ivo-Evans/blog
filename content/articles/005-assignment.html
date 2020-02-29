@@ -3,7 +3,7 @@ date: 25/02/2020
 tags: operators, JavaScript, evaluation strategy, call by sharing, call by value, call by reference, data types
 
 CONTENT
-<p>When I started to program I didn’t really think about the question of what the references of my variables ‘were’ - they were just what I saw when I called functions like console.log(). Well, it’s not quite so simple, and understanding how variables refer will pay dividends.</p>
+<p>When I started to program I didn’t really think about what the references of my variables ‘were’ - they were just what I saw when I called functions like console.log(). Well, it’s not quite so simple, and understanding how variables refer will pay dividends.</p>
 
 <h3>Question 1.0</h3>
 
@@ -34,7 +34,7 @@ a === b; // true
 c === d; // false
 </pre></code>
 
-<p>When I first encountered this result, I found it bewildering and aggravating. But I hope that, by the end of the article, I will have convinced you that you would not want the equality operators to behave any other way. This is <b>not</b> part of the byzantine system of type conversion for which JavaScript is so infamous.</p>
+<p>When I first encountered this result, I found it bewildering and aggravating. But I hope that, by the end of the article, I will have convinced you that you would not want the equality operators to behave any other way. This is not part of the byzantine system of type conversion for which JavaScript is so infamous.</p>
 
 <p>Let's ask another question.</p>
 
@@ -75,7 +75,7 @@ let h = g;
   <li>null and undefined</li>
 </ul>
 
-<p>Reference types, on the other hand, can include primitives, and they are mutable. They include:</p>
+<p>Reference types, on the other hand, can <em>include</em> primitives, and they are mutable. They include:</p>
 
 <ul>
   <li>Object</li>
@@ -144,11 +144,11 @@ referenceChild; // 200
 
 <p>Well, now is the time to make my pitch.</p>
 
-<p>Because reference values are mutable, when we compare them, we are interested in what they <em>really</em> are; we want to have some way of tracking their histories beyond their superficial properties. Recently I made a JavaScript game in which you are a cowboy with two revolvers. Each revolver had an object containing various kinds of information, but at many points in the game, the two revolvers could plausibly look alike. I wanted to be able to call functions to do things like reloading and know which revolver had been passed into the function. I could use the equality operators to check which revolver object I actually had.</p>
+<p>Because reference values are mutable, when we compare them, we are interested in what they really are; we want to have some way of tracking their histories beyond their superficial properties. Recently I made a JavaScript game in which you are a cowboy with two revolvers. Each revolver had an object containing various kinds of information, but at many points in the game, the two revolvers could plausibly look alike. I wanted to be able to call functions to do things like reloading and know which revolver had been passed into the function. I could use the equality operators to check which revolver object I actually had.</p>
 
 <p>In this case I could, it's true, have just added another property to each gun to indicate which gun it was. But we can imagine situations when that isn't practical, like when comparing two arrays which are unpredictably mutated during the execution of the program.</p>
 
-<p>On the other hand, when it comes to primitives there’s no need for this level of comparison. The only thing we will realistically want to compare primitives for is their equivalence, and so, for primitives, this is what the equality operators test.</p>
+<p>When it comes to primitives there’s no need for this level of comparison. Because they are immutable, the only thing we will realistically want to compare primitives for is their equivalence, and so, for primitives, this is what the equality operators test. An operator which returned false for two equivalent numbers in different places in memory would <em>always</em> return false, because when you use a literal or assign a number to a variable, a new number is created in memory.</p>
 
 <p>That said, I would definitely appreciate an equivalence operator for reference types. <a href="https://lodash.com/docs/#isEqual">Lodash</a> has a function for this, if you want to go that route.</p>
 
@@ -185,7 +185,7 @@ a;
 //[1000]
 </code></pre>
 
-<p>So beware!</p>
+<p>What you see above is an anti-pattern: coding like this will lead to problems. So beware!</p>
 
 <h3>What's the other 1%?</h3>
 

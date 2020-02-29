@@ -4,52 +4,8 @@ body {
   position: relative;
 }
 
-main {
-  padding: 5% 5%;
-  max-width: 955px;
-}
-
-footer nav {
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
-
-footer a {
-  padding: 30px;
-}
-
 header {
-  margin: 10px;
-}
-
-header h1,h2 {
-  margin: 0 5%;
-  font-family: serif;
-}
-
-header h1 a {
-  text-decoration: none;
-  font-style: italic;
-  font-size: 52px;
-}
-
-header h2 {
-  font-size: 26px;
-}
-
-article {
-  margin-bottom: 10%;
-}
-
-aside {
-  display: none;
-}
-
-a {
-  color: #000;
+  margin: 0 20px;
 }
 
 .border-total {
@@ -66,13 +22,47 @@ a {
 
 }
 
+header h1,h2 {
+  font-family: serif;
+  margin: 0;
+}
+
+header h1 a {
+  text-decoration: none;
+  font-style: italic;
+  font-size: 52px;
+}
+
+header h2 {
+  font-size: 26px;
+}
+
+main h2 {
+  font-size: 25px;
+  margin: 0px;
+}
+
+
+main {
+  padding: 10% 5%;
+  max-width: 955px;
+}
+
+article {
+  margin-bottom: 10%;
+}
+
+aside {
+  display: none;
+}
+
+a {
+  color: #000;
+}
+
 .post-title-bar {
   display: flex;
   justify-content: space-between;
-}
-
-.post-title-bar h2 {
-  flex-shrink: 1;
 }
 
 .meta-info {
@@ -81,13 +71,7 @@ a {
   text-align: right;
   margin: 0 5%;
   font-size: 13px;
-  flex-shrink: 3;
   max-width: 33%;
-}
-
-main h2 {
-  font-size: 25px;
-  margin: 0px;
 }
 
 .post-content {  
@@ -97,11 +81,26 @@ main h2 {
   line-height: 1.5em; /* this is an important line because it means that we always size the box by a whole number of lines. It has a side-effect that low-hanging letters like g can be partially cut off before expansion - expansion adds an extra line's worth of space to the box, thus solving that problem. You should subtly blur out the bottom of the div, to obscure this problem*/
   overflow: hidden;
   position: relative;
+  padding-bottom: 1.5em; /* this is for the space of the bottom fade for expanded posts */
+    /*
+  On line-height:
+  - setting line-height to 1em means that the text-expander moves by 1 line each time it moves.
+  - However it has the downside that the bottom tip of long characters, like g's, extend into the line below - overflow for the last line, and highly compact for the other lines
+  - The problem could possibly be solved by increasing line-height here, and using a multiplier in the js. I believe that default lineheight is 1.5 em, so we could increment and decrement by 1.5 instead of 1. However, I had some problems getting that working
+  - There are some questions about how useful that is anyway, if we still need the line fade effect
+  - but maybe if I did get that working, the line fade would no longer be necessary.
+  */
 }
 
-.block-level-images {
-  display: flex;
-  flex-wrap: wrap;
+
+pre, code {
+  margin-left: 10%;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
 }
 
 figure img {
@@ -114,30 +113,11 @@ figure img {
   justify-content: space-around;
 }
 
-  /*
-  On line-height:
-  - setting line-height to 1em means that the text-expander moves by 1 line each time it moves.
-  - However it has the downside that the bottom tip of long characters, like g's, extend into the line below - overflow for the last line, and highly compact for the other lines
-  - The problem could possibly be solved by increasing line-height here, and using a multiplier in the js. I believe that default lineheight is 1.5 em, so we could increment and decrement by 1.5 instead of 1. However, I had some problems getting that working
-  - There are some questions about how useful that is anyway, if we still need the line fade effect
-  - but maybe if I did get that working, the line fade would no longer be necessary.
-  */
-
-pre, code {
-  margin-left: 10%;
-  overflow-x: auto;
-  white-space: pre-wrap;
-  white-space: -moz-pre-wrap;
-  white-space: -pre-wrap;
-  white-space: -o-pre-wrap;
-  word-wrap: break-word;
-}
-
 .fade {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 1em;
+  height: 3em;
 }
 
 .expandContractButton {
@@ -146,15 +126,31 @@ pre, code {
   font-size: 22px;
 }
 
+
+footer nav {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+footer a {
+  padding: 30px;
+}
+
+
 @media screen and (min-width: 900px) {
   header {
-    margin: 0 130px;
+    margin: 0 auto;
+    width: 700px;
     /* margin-left: 130px;
     margin-right: 130px; */
   }
 
   main {
-    margin: 0 130px;
+    margin: 0 auto;
+    width: 700px
   }
 
   article h2 {

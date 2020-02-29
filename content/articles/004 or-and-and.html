@@ -131,7 +131,7 @@ isInLondon || isLearningToProgram // true
 
 <p>JavaScript has moved on from using single transistors to represent truth values. In JavaScript, there are various kinds of value, and they can <em>all</em> be used in logical operations, even though they are not true or false <em>per se</em>. But what we can learn from the foundations of computing is that computational notions of true and false are not really about truth or falsity - the degree to which a representation is accurate - at all. The creators of programming languages have to make more or less arbitrary decisions about what values should behave like they're true, and what values should behave like they're false. The values which behave like they're true, whether or not they are the value true themselves, are called <em>truthy</em> values. The values that behave like they're false, whether or not they are the value false themselves, are called <em>falsy</em> values.</p>
   
-<p>A truthy or falsy value can, at any time, do the job of true and false when used in logic, either as the input to or output from a logical operation because they are temporarily coerced by the operator into Booleans.</p>
+<p>A truthy or falsy value can, at any time, do the job of true and false when used in logic, either as the input to or output from a logical operation, because they are temporarily coerced by the operator into Booleans.</p>
 
 <p>So how can we tell what values are truthy, and what falsy? It's pretty easy. Almost every value is truthy, and there are only seven falsy values:</p>
 
@@ -145,19 +145,19 @@ isInLondon || isLearningToProgram // true
 <p>(Note, though, that there is some <a href="https://github.com/denysdovhan/wtfjs#-is-truthy-but-not-true">funny business</a> about empty arrays and null.)</p>
 
 
-<p>Now we can see how the computer realised that I'm a whale dressed as a human, and that I'm not a master programmer: In the first line of code above, || receives two truthy strings, and outputs a truthy string; in the third line of code above, || receives a truthy and falsy string, and outputs a truthy string. It's okay to output strings, rather than true or false, because the output of the system is just as truthy/falsy as the input. Consulting our truth tables from earlier, we can see that the operations have logically valid output.</p>
+<p>Now we can see how the computer realised that I'm a whale dressed as a human, and that I'm not a master programmer: In the first line of code above, || receives two truthy strings, and outputs a truthy string; in the third line of code above, || receives a truthy and falsy string, and outputs a truthy string. It's okay to output strings, rather than true or false, because the output of the operation is just as truthy/falsy as the input. Consulting our truth tables from earlier, then, we can see that the operations have logically valid output.</p>
 
 <h3>3. Short-circuit evaluation</h3>
 
 <p>So, || and && don’t return truth values, but rather their left-hand-side (LHS) or right-hand-side (RHS) - two terms that will be cropping up a lot from here on. How do || and && decide which side to return, when they could return either of two?</p> 
 
-<p>Assessing the truth of a logical statement amounts to nothing more than checking the truth-value of the LHS and RHS. Programming languages, by convention, check first the left-hand-side and then the right-hand-side. Sometimes, after the first result, the conclusion is determined. For instance, in the statement:</p>
+<p>Programming languages, by convention, check first the LHS and then the RHS. Sometimes, after the first result, the conclusion is determined. For instance, in the statement:</p>
 
 <code><pre>
 LHS && RHS
 </pre></code>
 
-<p>if LHS is falsy, then, no matter what RHS is, the and-statement, as a whole, must be false. The computer can save time by just ceasing it’s evaluation after it finds LHS to be false. If it finds LHS to be true, it needs to proceed to RHS; if RHS is true, the and-statement is true, and if it is false then, even though LHS is true, the and-statement is false. Either way, though, if LHS is true the truth of the and-statement rests entirely on the value of RHS.</p>
+<p>if LHS is falsy, then, no matter what RHS is, the and-statement, as a whole, must be false. The computer can save time by just ceasing it’s evaluation after it finds LHS to be false. If it finds LHS to be true, it needs to proceed to RHS; if RHS is true, the and-statement is true, and if it is false then, even though LHS is true, the and-statement is false. Either way, though, if LHS is true the truth of the and-statement rests entirely on RHS.</p>
 
 <p>The converse holds for || statements:</p>
 
