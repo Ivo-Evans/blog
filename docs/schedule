@@ -13,3 +13,7 @@ Typographically, it is ideal to have ~70 characters per line. You have ~135. Red
 Focus on text smoothing (anti-aliasing?) for the titles in particular - it looks good on windows chrome, but not everywhere
 Add borders between articles
 Add an archives sidebar
+
+Your text expander effect could be achieved entirely in CSS - see this articles
+https://www.sitepoint.com/atoz-css-screencast-general-sibling/
+Note - where the author sets a max-height absolutely for the expanded container, you could just set max-height: none
