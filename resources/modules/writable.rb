@@ -5,7 +5,7 @@ require 'fileutils'
 # receives arrays of strings and writes them to files
 module Writable
   def self.write_to_main(new_file_name, new_text)
-    FileUtils.cp('./resources/website-template.html', new_file_name)
+    FileUtils.cp('./resources/templates/website.html', new_file_name)
     file = open('./' + new_file_name, 'r+:UTF-8')
     new_content = file.read.sub(/^\s*<!-- INSERT ARTICLES HERE -->/, new_text)
     file.truncate(0)

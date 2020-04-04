@@ -11,12 +11,12 @@ module Readable
 
   def self.parse_article(filepath)
     string = read_article('./content/articles/' + filepath)
-    [
-      parse_title(string),
-      parse_tags(string),
-      parse_date(string),
-      parse_content(string)
-    ]
+    {
+      title: parse_title(string),
+      tags: parse_tags(string),
+      date: parse_date(string),
+      content: parse_content(string)
+    }
   end
 
   def self.parse_title(string)
