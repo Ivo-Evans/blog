@@ -18,6 +18,7 @@ class Manageable
     # Lambda necessary for filenames (Writable) and for links (Compilable)
     # Github pages requires index.html not index-0.html
     @articles_per_page = 5
+    @article_format = Readable.read_article('./resources/templates/article.html')
   end
 
   def make_website
