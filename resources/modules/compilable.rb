@@ -4,24 +4,14 @@
 module Compilable
   @tab = '  '
 
-  def self.compile_article(title, tags, date, content, namer) 
-    # you could receive an array here and just map it. The tags map would then be a nested flat-map or something
+  def self.compile_article(title, tags, date, content, namer, format)
     tags = tags.map { |tag| "<a href=\"#{namer["tag-#{tag}", 0]}\">#{tag}</a>"}
-    # tags = tags.map { |tag| "<a href=\"./tag-#{tag}.html\">#{tag}</a>" }
-    lines = [
-      @tab * 2 + '<article class="post">',
-      @tab * 3 + "<span class=\"post-title-bar\"><h2 id=\"#{title}\" class=\"post-title\">#{title}</h2><p class=\"meta-info\">#{date}<br>#{tags.join(', ')}</p></span>",
-      @tab * 3 + '<div class="post-content">'
-    ]
 
-    content.each { |element| lines.push(@tab * 4 + element) }
-
-    lines + [
-      @tab * 4 + '<img class="fade" src="./resources/bottom-fade.png" alt="an image that adds a fade effect to the bottom layer of collapsed text">',
-      @tab * 3 + '</div>',
-      @tab * 3 + '<h3 class="expandContractButton">Read more +</h3>',
-      @tab * 2 + '</article>'
-    ]
+    format
+      .gsub(/<!-- title -->/, title)
+      .sub(/<!-- tags -->/, tags.join(", "))
+      .sub(/<!-- date -->/, date)
+      .sub(/<!-- content -->/, content.join("\n"))
   end
 
   def self.compile_archive(titles, namer, articles_per_page)

@@ -41,7 +41,7 @@ class Manageable
   end
 
   def make_article_pages(articles, page_type, unique_tags)
-    articles = articles.map { |article| Compilable.compile_article(article[0], article[1], article[2], article[3], @name_page) }
+    articles = articles.map { |article| Compilable.compile_article(article[0], article[1], article[2], article[3], @name_page, @article_format) }
     sidebar_content = Compilable.compile_tag_sidebar(unique_tags, @name_page)
 
     pages = []
