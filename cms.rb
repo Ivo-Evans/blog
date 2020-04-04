@@ -25,7 +25,7 @@ class Manageable
     article_paths = Dir.entries('./content/articles/').reject { |f| ['.', '..'].include?(f) }.sort.reverse
     articles = article_paths.map { |a| Readable.parse_article(a) }
     # returns tuples like [title, [tag1, tag2], date, [content_line1, content_line2]]
-    unique_tags = articles.flat_map { |a| a[1] }.uniq
+    unique_tags = articles.flat_map { |a| a[:tags] }.uniq
     make_article_pages(articles, 'index', unique_tags)
     make_tag_pages(articles, unique_tags)
     make_archive(article_paths)
@@ -34,14 +34,14 @@ class Manageable
 
   def make_tag_pages(articles, unique_tags)
     tag_collected_articles = unique_tags.each_with_object({}) do |tag, hash|
-      hash[tag] = articles.select { |a| a[1].include?(tag) }
+      hash[tag] = articles.select { |a| a[:tags].include?(tag) }
     end
 
     tag_collected_articles.each { |tag, article_set| make_article_pages(article_set, "tag-#{tag}", unique_tags) }
   end
 
   def make_article_pages(articles, page_type, unique_tags)
-    articles = articles.map { |article| Compilable.compile_article(article[0], article[1], article[2], article[3], @name_page, @article_format) }
+    articles = articles.map { |article| Compilable.compile_article(article, @name_page, @article_format) }
     sidebar_content = Compilable.compile_tag_sidebar(unique_tags, @name_page)
 
     pages = []

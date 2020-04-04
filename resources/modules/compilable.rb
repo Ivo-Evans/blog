@@ -4,14 +4,14 @@
 module Compilable
   @tab = '  '
 
-  def self.compile_article(title, tags, date, content, namer, format)
-    tags = tags.map { |tag| "<a href=\"#{namer["tag-#{tag}", 0]}\">#{tag}</a>"}
+  def self.compile_article(article, namer, format)
+    tags = article[:tags].map { |tag| "<a href=\"#{namer["tag-#{tag}", 0]}\">#{tag}</a>"}
 
     format
-      .gsub(/<!-- title -->/, title)
+      .gsub(/<!-- title -->/, article[:title])
       .sub(/<!-- tags -->/, tags.join(", "))
-      .sub(/<!-- date -->/, date)
-      .sub(/<!-- content -->/, content.join("\n"))
+      .sub(/<!-- date -->/, article[:date])
+      .sub(/<!-- content -->/, article[:content].join("\n"))
   end
 
   def self.compile_archive(titles, namer, articles_per_page)
